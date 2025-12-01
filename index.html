@@ -4,43 +4,23 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">  
     <title>CASPER GAME</title>
-     
+    
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script> 
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     
-    <!-- Telegram Web App & AdsGram SDK -->
+    <!-- Telegram Web App SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- AdsGram SDK -->
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
     
-    <!-- Telegram JS -->
-    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-
     <!-- RichAds SDK -->
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-    <script>
-        // RichAds reklam sistemini başlat
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof TelegramAdsController !== 'undefined') {
-                window.TelegramAdsController = new TelegramAdsController();
-                window.TelegramAdsController.initialize({
-                    pubId: "993631",
-                    appId: "4699",
-                });
-                console.log('✅ RichAds reklam sistemi başladıldı');
-            }
-        });
-    </script>
     
-    <!-- ADEXIUM - YALNIZ PUSH-LIKE QALSIN -->
+    <!-- Adexium SDK -->
     <script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', () => {
-            const adexiumWidget = new AdexiumWidget({wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae', adFormat: 'push-like'});
-            adexiumWidget.autoMode();
-        });
-    </script>
     
     <style>
         * {
@@ -68,7 +48,7 @@
             position: relative;
         }
 
-        /* YENİ: Dinamik arxa plan effektləri */
+        /* Dinamik arxa plan effektləri */
         body::before {
             content: '';
             position: fixed;
@@ -111,6 +91,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* SPLASH SCREEN */
         .splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -185,6 +166,7 @@
             transition: opacity 0.5s ease;
         }
 
+        /* HEADER */
         .header {
             background: linear-gradient(135deg, rgba(255, 0, 150, 0.8) 0%, rgba(100, 0, 255, 0.8) 100%);
             color: white; 
@@ -208,6 +190,7 @@
             margin-top: 3px; 
         }
         
+        /* CONTENT */
         .content {
             padding: 15px; 
             flex-grow: 1; 
@@ -216,6 +199,7 @@
             background: rgba(0, 0, 0, 0.3);
         }
         
+        /* SCREENS */
         .game-screen { 
             display: none; 
             flex-direction: column; 
@@ -232,6 +216,7 @@
             flex-grow: 1;
         }
         
+        /* ENERGY */
         .energy-container { 
             margin-bottom: 5px; 
             padding: 8px 0; 
@@ -266,6 +251,8 @@
             color: white; 
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
         }
+        
+        /* BONUS INFO */
         .bonus-info {
             background: rgba(255, 0, 150, 0.2);
             padding: 8px;
@@ -277,6 +264,8 @@
             color: white;
             border: 1px solid rgba(255, 0, 150, 0.3);
         }
+        
+        /* CLICK AREA */
         .click-area { 
             text-align: center; 
             margin: 15px 0 5px 0; 
@@ -313,7 +302,7 @@
             display: block !important;
         }
 
-        /* YENİ: Kiçik ruh animasiyaları */
+        /* GHOST ANIMATIONS */
         .ghost-particle {
             position: absolute;
             font-size: 20px;
@@ -481,6 +470,7 @@
             }
         }
 
+        /* STATS */
         .stats-block { 
             margin: 15px 0 10px 0; 
             padding: 8px; 
@@ -510,7 +500,7 @@
             margin-top: 2px; 
         }
 
-        /* YENİ: Pul popup əvəzinə ruh partikülləri */
+        /* GHOST POPUP */
         .ghost-popup { 
             position: absolute; 
             font-size: 24px;
@@ -525,6 +515,7 @@
             100% { background-position: 200% 0; }
         }
         
+        /* NAVBAR */
         .navbar { 
             display: flex; 
             justify-content: space-around; 
@@ -595,6 +586,7 @@
             background: linear-gradient(135deg, #FF5858, #F09819);
         }
 
+        /* TABS */
         .tabs { 
             display: flex; 
             margin-bottom: 15px; 
@@ -617,6 +609,8 @@
             background: linear-gradient(135deg, #ff00cc, #ff0066); 
             color: white; 
         }
+        
+        /* FORMS */
         .form { 
             display: none; 
         }
@@ -652,6 +646,8 @@
         .input-group input::placeholder {
             color: rgba(255, 255, 255, 0.5);
         }
+        
+        /* BUTTONS */
         .btn {
             width: 100%; 
             padding: 12px; 
@@ -670,6 +666,8 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 0, 150, 0.4);
         }
+        
+        /* MESSAGES */
         .message { 
             padding: 8px; 
             border-radius: 5px; 
@@ -690,6 +688,7 @@
             border: 1px solid rgba(0, 255, 150, 0.3); 
         }
 
+        /* SUB HEADERS */
         .sub-header { 
             font-size: 16px; 
             color: #ff00cc; 
@@ -698,6 +697,8 @@
             border-bottom: 1px solid #ff00cc; 
             text-shadow: 0 0 10px rgba(255, 0, 150, 0.5);
         }
+        
+        /* PROFILE ITEMS */
         .profile-item { 
             background: rgba(255, 255, 255, 0.1); 
             padding: 12px; 
@@ -721,6 +722,8 @@
             color: #ffffff; 
             font-weight: 500; 
         }
+        
+        /* REFERRAL */
         .referral-container { 
             background: rgba(0, 255, 150, 0.2); 
             padding: 12px; 
@@ -756,6 +759,8 @@
             margin-top: 8px; 
             box-shadow: 0 3px 10px rgba(0, 255, 150, 0.3);
         }
+        
+        /* FRIEND ITEM */
         .friend-item { 
             background: rgba(255, 255, 255, 0.1); 
             padding: 12px; 
@@ -767,6 +772,8 @@
             box-shadow: 0 2px 10px rgba(255, 0, 150, 0.2); 
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        
+        /* SETTINGS */
         .settings-btn-group { 
             display: flex; 
             flex-direction: column; 
@@ -796,6 +803,7 @@
             margin-top: 12px; 
         }
 
+        /* SOCIAL SHARE */
         .social-share-container { 
             display: flex; 
             justify-content: space-around; 
@@ -823,6 +831,7 @@
         .telegram { background: #0088cc; }
         .tiktok { background: #000000; }
 
+        /* MODAL */
         .modal {
             display: none; 
             position: fixed; 
@@ -880,6 +889,7 @@
             } 
         }
 
+        /* WITHDRAWAL */
         .withdrawal-info {
             background: rgba(0, 150, 255, 0.2);
             padding: 12px;
@@ -926,6 +936,7 @@
             text-shadow: 0 0 10px rgba(255, 0, 150, 0.5);
         }
 
+        /* AD SCREEN */
         .ad-screen {
             display: none; 
             position: fixed; 
@@ -955,6 +966,7 @@
             margin-bottom: 15px;
         }
 
+        /* WELCOME MESSAGE */
         .welcome-message {
             background: linear-gradient(135deg, rgba(0, 255, 150, 0.3), rgba(0, 200, 255, 0.3));
             color: white;
@@ -979,6 +991,7 @@
             opacity: 0.9;
         }
 
+        /* INVITE LINK */
         .invite-link-container {
             background: rgba(255, 255, 255, 0.1);
             padding: 12px;
@@ -1006,6 +1019,7 @@
             text-align: center;
         }
 
+        /* ANIMATIONS */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-8px); }
             to { opacity: 1; transform: translateY(0); }
@@ -1021,15 +1035,7 @@
             animation: pulse 2s infinite;
         }
 
-        /* Firebase statusunu gizlə */
-        .firebase-status {
-            display: none !important;
-        }
-
-        .debug-panel {
-            display: none !important;
-        }
-
+        /* CG ID BADGE */
         .cg-id-badge {
             background: linear-gradient(135deg, rgba(255, 0, 150, 0.8), rgba(100, 0, 255, 0.8));
             color: white;
@@ -1043,12 +1049,14 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
+        /* WITHDRAW BUTTON DISABLED */
         .withdraw-btn-disabled {
             background: #666666 !important;
             cursor: not-allowed !important;
             opacity: 0.6 !important;
         }
         
+        /* REFERRAL STATS */
         .referral-stats {
             display: flex;
             justify-content: space-between;
@@ -1077,6 +1085,7 @@
             margin-top: 3px;
         }
 
+        /* ADSGRAM BUTTON */
         .adsgram-video-btn {
             background: linear-gradient(45deg, #FF6B6B, #FF8E53);
             color: white;
@@ -1104,12 +1113,6 @@
         .splash-image img,
         #clickImage {
             background: transparent !important;
-        }
-
-        /* Köhnə gradient fonları sil */
-        .main-icon::before,
-        .main-icon::after {
-            display: none !important;
         }
 
         /* Şifrə bərpa modal üçün əlavə stillər */
@@ -1177,7 +1180,7 @@
             font-weight: bold;
         }
 
-        /* YENİ: Ruh partikülləri üçün rəng variantları */
+        /* Ruh partikülləri üçün rəng variantları */
         .ghost-red { color: #ff0066; }
         .ghost-blue { color: #0099ff; }
         .ghost-green { color: #00ff99; }
@@ -1185,21 +1188,53 @@
         .ghost-yellow { color: #ffff00; }
         .ghost-cyan { color: #00ffff; }
         
+        /* Reklam test paneli */
+        .ad-test-panel {
+            position: fixed;
+            bottom: 60px;
+            right: 10px;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ff00cc;
+            max-width: 200px;
+            display: none;
+        }
+        
+        .ad-test-btn {
+            background: linear-gradient(45deg, #ff00cc, #ff0066);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 10px;
+            margin: 2px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .ad-status {
+            font-size: 9px;
+            color: #ccc;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-    <!-- Firebase Status Indicator - GİZLƏ -->
-    <div class="firebase-status" id="firebaseStatus" style="display: none;">Firebase: Yüklənir...</div>
-
-    <!-- Debug Panel - GİZLƏ -->
-    <div class="debug-panel" style="display: none;">
-        <button class="debug-btn" onclick="debugFirebase()">Firebase Status</button>
-        <button class="debug-btn" onclick="debugGetAllUsers()">All Users</button>
-        <button class="debug-btn" onclick="debugCheckUser(currentUserState.username || 'test')">Check User</button>
+    <!-- Reklam Test Paneli -->
+    <div class="ad-test-panel" id="adTestPanel">
+        <button class="ad-test-btn" onclick="testRichAds()">Test RichAds</button>
+        <button class="ad-test-btn" onclick="testAdexium()">Test Adexium</button>
+        <button class="ad-test-btn" onclick="checkAdSystems()">Status Yoxla</button>
+        <div class="ad-status" id="adStatus"></div>
     </div>
 
     <div class="container">
+        <!-- SPLASH SCREEN -->
         <div class="splash-screen" id="splashScreen">
             <div class="splash-image pulse-animation">
                 <img src="https://i.ibb.co/JFndRdvY/casper.jpg" alt="Casper Game Logo" 
@@ -1212,13 +1247,16 @@
             </div>
         </div>
         
+        <!-- AD SCREEN -->
         <div class="ad-screen" id="adScreen">
             <div class="ad-content" id="adContent">
             </div>
         </div>
         
+        <!-- MAIN CONTENT -->
         <div class="main-content" id="mainContent" style="height: 100%; flex-grow: 1; display: none; flex-direction: column; justify-content: space-between;">
             
+            <!-- LOGIN SCREEN -->
             <div class="login-screen" id="loginScreen" style="height: 100%; display: none;">
                 <div class="header">
                     <h1>CASPER GAME</h1>
@@ -1247,7 +1285,6 @@
                         
                         <button type="submit" class="btn">DAXİL OL</button>
                         
-                        <!-- Şifrə bərpa linki -->
                         <div class="forgot-password-link">
                             <a href="#" onclick="openModal('forgotPasswordModal')">Şifrəmi və ya İstifadəçi adımı unutdum?</a>
                         </div>
@@ -1300,6 +1337,7 @@
                 </div>
             </div>
             
+            <!-- GAME SCREEN -->
             <div class="game-screen" id="gameScreen" style="display: none;">
                 
                 <div class="header">
@@ -1313,9 +1351,9 @@
                         <p id="personalWelcomeText">Sizi yenidən görmək əladır! Oynamağa davam edin və daha çox qazanın! 🚀</p>
                     </div>
                     
+                    <!-- TAP SCREEN -->
                     <div class="game-sub-screen active" id="tapScreen">
                         
-                        <!-- ENERJİ HİSSƏSİ -->
                         <div class="energy-container">
                             <div class="energy-bar">
                                 <div class="energy-fill" id="energyFill" style="width: 100%">
@@ -1324,7 +1362,6 @@
                             </div>
                         </div>
 
-                        <!-- YENİ ADSGRAM 10 REKLAM + 2 DƏQ + 4 SAAT SİSTEMİ -->
                         <div class="bonus-info" style="margin: 12px 0; text-align: center;">
                             <button onclick="showAdsGramVideoReward()" class="adsgram-video-btn" id="adsgramVideoButton">
                                 🎬 Video İzlə & 0.001 AZN Qazan! (0/10)
@@ -1335,7 +1372,6 @@
                             </p>
                         </div>
 
-                        <!-- PUL QAZANMA MƏLUMATI -->
                         <div class="bonus-info">
                             <strong>Hər klik üçün 0.000001 AZN qazanın!</strong>
                         </div>
@@ -1343,7 +1379,7 @@
                         <div class="click-area">
                             <div class="main-icon" id="mainIcon">
                                 <img id="clickImage" src="https://i.ibb.co/hp0mdt1/2025-10-31-T103543-300-removebg-preview.png" alt="Casper" 
-                                    onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22180%22 height=%22180%22 viewBox=%220 0 180 180%22><rect width=%22180%22 height=%22180%22 fill=%23ff7e5f/><text x=%2290%22 y=%2290%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22central%22>👻</text></svg>'"
+                                    onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org2000/svg%22 width=%22180%22 height=%22180%22 viewBox=%220 0 180 180%22><rect width=%22180%22 height=%22180%22 fill=%23ff7e5f/><text x=%2290%22 y=%2290%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22central%22>👻</text></svg>'"
                                     style="width: 100% !important; height: 100% !important; object-fit: contain !important; display: block !important; background: transparent !important;">
                             </div>
                         </div>
@@ -1356,7 +1392,7 @@
                         </div>
                     </div>
                     
-                    <!-- PROFİL HİSSƏSİ -->
+                    <!-- PROFILE SCREEN -->
                     <div class="game-sub-screen" id="profileScreen" style="display: none;">
                         <h3 class="sub-header">👤 Profil Məlumatları</h3>
                         
@@ -1418,7 +1454,7 @@
                         </div>
                     </div>
 
-                    <!-- DƏVƏT HİSSƏSİ -->
+                    <!-- FRIENDS SCREEN -->
                     <div class="game-sub-screen" id="friendsScreen" style="display: none;">
                         <h3 class="sub-header">🤝 Dostlarınızı Dəvət Edin</h3>
                         
@@ -1476,7 +1512,7 @@
                         </div>
                     </div>
 
-                    <!-- ÇIXARIŞ HİSSƏSİ -->
+                    <!-- WITHDRAWAL SCREEN -->
                     <div class="game-sub-screen" id="withdrawalScreen" style="display: none;">
                         <h3 class="sub-header">💸 AZN Çıxarışı</h3> 
                         
@@ -1540,6 +1576,7 @@
 
                 </div>
                 
+                <!-- NAVBAR -->
                 <div class="navbar">
                     <div class="nav-item" data-target="profileScreen">
                         <div class="nav-icon-wrapper"><i class="fa-solid fa-user"></i></div>
@@ -1583,7 +1620,6 @@
                 <div class="message error" id="forgotPasswordError" style="display: none;"></div>
                 <div class="message success" id="forgotPasswordSuccess" style="display: none;"></div>
                 
-                <!-- Addım 1: İstifadəçi məlumatları -->
                 <div id="forgotPasswordStep1">
                     <p style="font-size: 12px; color: #8a8a8a; margin-bottom: 15px;">
                         Şifrənizi və ya istifadəçi adınızı bərpa etmək üçün qeydiyyat zamanı daxil etdiyiniz məlumatları daxil edin
@@ -1604,7 +1640,6 @@
                     </form>
                 </div>
                 
-                <!-- Addım 2: Təhlükəsizlik sorğuları -->
                 <div id="forgotPasswordStep2" style="display: none;">
                     <p style="font-size: 12px; color: #8a8a8a; margin-bottom: 15px;">
                         Təhlükəsizliyi təsdiqləmək üçün aşağıdakı suallara cavab verin
@@ -1625,7 +1660,6 @@
                     </form>
                 </div>
                 
-                <!-- Addım 3: Yeni məlumatlar -->
                 <div id="forgotPasswordStep3" style="display: none;">
                     <p style="font-size: 12px; color: #8a8a8a; margin-bottom: 15px;">
                         Yeni məlumatlarınızı daxil edin
@@ -1653,6 +1687,7 @@
             </div>
         </div>
 
+        <!-- Edit Profile Modal -->
         <div id="editProfileModal" class="modal">
             <div class="modal-content">
                 <span class="close-btn" onclick="closeModal('editProfileModal')">&times;</span>
@@ -1675,6 +1710,7 @@
             </div>
         </div>
 
+        <!-- Delete Profile Modal -->
         <div id="deleteProfileModal" class="modal">
             <div class="modal-content">
                 <span class="close-btn" onclick="closeModal('deleteProfileModal')">&times;</span>
@@ -1711,7 +1747,6 @@
             const app = firebase.initializeApp(firebaseConfig);
             auth = firebase.auth();
             db = firebase.firestore();
-            
             console.log('✅ Firebase uğurla işə salındı');
         } catch (error) {
             console.error('❌ Firebase xətası:', error);
@@ -1725,7 +1760,6 @@
         // =================================================================
         // OYUN DƏYİŞƏNLƏRİ VƏ SABİTLƏR
         // =================================================================
-
         const ENERGY_CONSUMPTION_PER_CLICK = 1;      
         const MAX_ENERGY_CAP = 100000;              
         const MONEY_PER_CLICK = 0.000001;
@@ -1749,7 +1783,7 @@
         const AD_COOLDOWN_MS = 4 * 60 * 60 * 1000; // 4 saat
         const AD_INTERVAL_BETWEEN = 2 * 60 * 1000; // 2 dəqiqə
 
-        // İstifadəçi state-i - BÜTÜN MƏLUMATLAR FIREBASE-DƏ SAXLANILACAQ
+        // İstifadəçi state-i
         let currentUserState = {
             cgId: null, username: null, name: null, surname: null, phone: null, email: null, referralCode: null, 
             maxEnergy: MAX_ENERGY_CAP, currentEnergy: MAX_ENERGY_CAP,
@@ -1757,13 +1791,18 @@
             energyRegenRate: BASE_REGEN_RATE, scorePerClick: 1, lastEnergyUpdate: Date.now(), 
             lastClickTime: Date.now(), successfulReferrals: 0, referralBonusEarned: 0.00, 
             lastWithdrawalDate: null, registrationDate: null,
-            // ADSGRAM MƏLUMATLARI DA FIREBASE-DƏ SAXLANACAQ
             adsgramData: {
                 lastSessionEndTime: 0,
                 adsWatchedInSession: 0,
                 nextAdAvailableTime: 0
             }
         };
+
+        // REKLAM SİSTEMLƏRİ
+        let TelegramAdsController = null;
+        let AdexiumWidgetInstance = null;
+        let AdsgramVideoController = null;
+        let isAdsgramReady = false;
 
         // DOM Elementləri
         const splashScreen = document.getElementById('splashScreen');
@@ -1797,9 +1836,602 @@
         const withdrawSubmitBtn = document.getElementById('withdrawSubmitBtn');
         const navItems = document.querySelectorAll('.navbar .nav-item');
         const subScreens = document.querySelectorAll('.game-sub-screen');
+        const adTestPanel = document.getElementById('adTestPanel');
+        const adStatus = document.getElementById('adStatus');
 
         // =================================================================
-        // YENİ: KLİK ANİMASİYALARI VƏ BALANS YENİLƏMƏ
+        // REKLAM SİSTEMLƏRİNİN İNİTİALİZASİYASI
+        // =================================================================
+
+        // Reklam sistemlərinin statusunu yoxlamaq
+        function checkAdSystems() {
+            let status = '';
+            
+            // RichAds
+            if (typeof TelegramAdsController !== 'undefined') {
+                status += '✅ RichAds SDK: Mövcud<br>';
+                if (window.TelegramAdsController) {
+                    status += '✅ RichAds Controller: Aktiv<br>';
+                } else {
+                    status += '❌ RichAds Controller: Aktiv deyil<br>';
+                }
+            } else {
+                status += '❌ RichAds SDK: Tapılmadı<br>';
+            }
+            
+            // Adexium
+            if (typeof AdexiumWidget !== 'undefined') {
+                status += '✅ Adexium SDK: Mövcud<br>';
+                if (AdexiumWidgetInstance) {
+                    status += '✅ Adexium Instance: Aktiv<br>';
+                } else {
+                    status += '❌ Adexium Instance: Aktiv deyil<br>';
+                }
+            } else {
+                status += '❌ Adexium SDK: Tapılmadı<br>';
+            }
+            
+            // AdsGram
+            if (typeof window.Adsgram !== 'undefined') {
+                status += '✅ AdsGram SDK: Mövcud<br>';
+                if (AdsgramVideoController) {
+                    status += '✅ AdsGram Controller: Aktiv<br>';
+                } else {
+                    status += '❌ AdsGram Controller: Aktiv deyil<br>';
+                }
+            } else {
+                status += '❌ AdsGram SDK: Tapılmadı<br>';
+            }
+            
+            adStatus.innerHTML = status;
+            adTestPanel.style.display = 'block';
+        }
+
+        // RichAds testi
+        function testRichAds() {
+            if (typeof TelegramAdsController !== 'undefined') {
+                try {
+                    if (!window.TelegramAdsController) {
+                        window.TelegramAdsController = new TelegramAdsController();
+                        window.TelegramAdsController.initialize({
+                            pubId: "993631",
+                            appId: "4699",
+                        });
+                    }
+                    
+                    if (window.TelegramAdsController.showAd) {
+                        window.TelegramAdsController.showAd();
+                        adStatus.innerHTML = '✅ RichAds reklamı göstərilir...';
+                    } else {
+                        adStatus.innerHTML = '❌ RichAds showAd metodu tapılmadı';
+                    }
+                } catch (error) {
+                    adStatus.innerHTML = '❌ RichAds xətası: ' + error.message;
+                }
+            } else {
+                adStatus.innerHTML = '❌ RichAds SDK tapılmadı';
+            }
+        }
+
+        // Adexium testi
+        function testAdexium() {
+            if (typeof AdexiumWidget !== 'undefined') {
+                try {
+                    if (!AdexiumWidgetInstance) {
+                        AdexiumWidgetInstance = new AdexiumWidget({
+                            wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae',
+                            adFormat: 'push-like'
+                        });
+                        AdexiumWidgetInstance.autoMode();
+                    }
+                    
+                    adStatus.innerHTML = '✅ Adexium push-like reklam sistemi aktiv<br>Reklamlar avtomatik göstəriləcək';
+                    
+                    setTimeout(() => {
+                        adStatus.innerHTML += '<br>🔄 Reklam yoxlanılır...';
+                    }, 1000);
+                    
+                } catch (error) {
+                    adStatus.innerHTML = '❌ Adexium xətası: ' + error.message;
+                }
+            } else {
+                adStatus.innerHTML = '❌ Adexium SDK tapılmadı';
+            }
+        }
+
+        // Reklam sistemlərini başlatmaq
+        function initializeAdSystems() {
+            console.log('🔄 Reklam sistemləri başladılır...');
+            
+            // RichAds
+            if (typeof TelegramAdsController !== 'undefined') {
+                try {
+                    window.TelegramAdsController = new TelegramAdsController();
+                    window.TelegramAdsController.initialize({
+                        pubId: "993631",
+                        appId: "4699",
+                    });
+                    console.log('✅ RichAds başladıldı');
+                    
+                    setTimeout(() => {
+                        if (window.TelegramAdsController && window.TelegramAdsController.showAd) {
+                            console.log('🔄 RichAds reklam göstərilir...');
+                        }
+                    }, 5000);
+                } catch (error) {
+                    console.error('❌ RichAds xətası:', error);
+                }
+            } else {
+                console.log('❌ RichAds SDK tapılmadı');
+            }
+            
+            // Adexium
+            if (typeof AdexiumWidget !== 'undefined') {
+                try {
+                    AdexiumWidgetInstance = new AdexiumWidget({
+                        wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae',
+                        adFormat: 'push-like'
+                    });
+                    AdexiumWidgetInstance.autoMode();
+                    console.log('✅ Adexium başladıldı');
+                    
+                    setTimeout(() => {
+                        console.log('🔄 Adexium reklamları avtomatik göstəriləcək');
+                    }, 3000);
+                } catch (error) {
+                    console.error('❌ Adexium xətası:', error);
+                }
+            } else {
+                console.log('❌ Adexium SDK tapılmadı');
+            }
+            
+            // AdsGram
+            if (typeof window.Adsgram !== 'undefined') {
+                try {
+                    AdsgramVideoController = window.Adsgram.init({ blockId: "17997" });
+                    isAdsgramReady = true;
+                    console.log('✅ AdsGram başladıldı');
+                } catch (error) {
+                    console.error('❌ AdsGram xətası:', error);
+                    createMockAdsSystem();
+                }
+            } else {
+                console.log('❌ AdsGram SDK tapılmadı');
+                createMockAdsSystem();
+            }
+            
+            // Test panelini göstər
+            setTimeout(() => {
+                adTestPanel.style.display = 'block';
+                adStatus.innerHTML = 'Reklam sistemləri yoxlanılır...';
+            }, 2000);
+        }
+
+        // =================================================================
+        // ADSGRAM SİSTEMİ
+        // =================================================================
+
+        function createMockAdsSystem() {
+            console.log('🔄 Mock reklam sistemi yaradılır...');
+            isAdsgramReady = true;
+            
+            AdsgramVideoController = {
+                show: function() {
+                    return new Promise((resolve) => {
+                        console.log('🎬 Mock reklam göstərilir...');
+                        setTimeout(() => {
+                            console.log('✅ Mock reklam tamamlandı');
+                            resolve({ status: 'completed' });
+                        }, 3000);
+                    });
+                }
+            };
+            
+            console.log('✅ Mock reklam sistemi hazırdır');
+        }
+
+        async function getAdsgramData() {
+            if (currentUserState.username && currentUserState.adsgramData) {
+                return currentUserState.adsgramData;
+            }
+            return {
+                lastSessionEndTime: 0,
+                adsWatchedInSession: 0,
+                nextAdAvailableTime: 0
+            };
+        }
+
+        async function setAdsgramData(data) {
+            if (currentUserState.username) {
+                currentUserState.adsgramData = data;
+                await saveUserState();
+            }
+        }
+
+        async function canShowAdsGramReward() {
+            const adsgramData = await getAdsgramData();
+            const now = Date.now();
+            
+            if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
+                if (now - adsgramData.lastSessionEndTime < AD_COOLDOWN_MS) {
+                    return false;
+                } else {
+                    await resetAdsGramSession();
+                    return true;
+                }
+            }
+            
+            if (adsgramData.nextAdAvailableTime > now) {
+                return false;
+            }
+            
+            return true;
+        }
+
+        async function showAdsGramVideoReward() {
+            console.log('🔘 AdsGram düyməsinə klik edildi');
+            
+            const canShow = await canShowAdsGramReward();
+            if (!canShow) {
+                const remaining = await getRemainingTime();
+                const minutes = Math.floor(remaining / 60000);
+                const seconds = Math.floor((remaining % 60000) / 1000);
+                alert(`⏰ Növbəti reklam üçün ${minutes}:${seconds.toString().padStart(2,'0')} dəqiqə gözləyin.`);
+                return false;
+            }
+
+            if (!AdsgramVideoController) {
+                initializeAdSystems();
+                setTimeout(() => {
+                    if (isAdsgramReady) {
+                        showAdsGramVideoReward();
+                    } else {
+                        alert('❌ Reklam sistemi hazır deyil. Yenidən cəhd edin.');
+                    }
+                }, 1000);
+                return false;
+            }
+
+            console.log('🎬 Reklam göstərilməyə başlayır...');
+            
+            const button = document.getElementById('adsgramVideoButton');
+            const timer = document.getElementById('adsgramTimer');
+            if (button) button.innerHTML = '⏳ Reklam Yüklənir...';
+            if (timer) timer.textContent = 'Yüklənir...';
+
+            AdsgramVideoController.show()
+                .then((result) => {
+                    console.log('✅ Reklam tamamlandı:', result);
+                    handleAdsGramVideoReward();
+                })
+                .catch((error) => {
+                    console.error('❌ Reklam xətası:', error);
+                    alert('❌ Reklam göstərilərkən xəta baş verdi. Yenidən cəhd edin.');
+                    handleAdsGramVideoReward();
+                });
+
+            return true;
+        }
+
+        async function handleAdsGramVideoReward() {
+            const adsgramData = await getAdsgramData();
+            const now = Date.now();
+            
+            adsgramData.adsWatchedInSession++;
+            adsgramData.nextAdAvailableTime = now + AD_INTERVAL_BETWEEN;
+            
+            if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
+                adsgramData.lastSessionEndTime = now;
+            }
+            
+            await setAdsgramData(adsgramData);
+            
+            if (currentUserState.username) {
+                currentUserState.totalMoney += ADSGRAM_REWARD_AMOUNT;
+                await saveUserState();
+                updateEnergyDisplay();
+            }
+            
+            showSuccess(`🎉 Reklam ${adsgramData.adsWatchedInSession}/${ADS_PER_SESSION} tamamlandı! +${ADSGRAM_REWARD_AMOUNT} AZN qazandınız!`);
+            updateAdsGramVideoDisplay();
+        }
+
+        async function getRemainingTime() {
+            const adsgramData = await getAdsgramData();
+            const now = Date.now();
+            
+            if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
+                const remaining = AD_COOLDOWN_MS - (now - adsgramData.lastSessionEndTime);
+                return remaining > 0 ? remaining : 0;
+            }
+            
+            if (adsgramData.nextAdAvailableTime > now) {
+                return adsgramData.nextAdAvailableTime - now;
+            }
+            
+            return 0;
+        }
+
+        async function updateAdsGramVideoDisplay() {
+            try {
+                const adsgramData = await getAdsgramData();
+                const remaining = await getRemainingTime();
+                
+                const timerElement = document.getElementById('adsgramTimer');
+                const buttonElement = document.getElementById('adsgramVideoButton');
+                
+                if (!timerElement || !buttonElement) return;
+                
+                if (remaining <= 0) {
+                    timerElement.textContent = "Hazır!";
+                    timerElement.style.color = "#00b894";
+                    buttonElement.disabled = false;
+                    buttonElement.style.opacity = "1";
+                    buttonElement.innerHTML = `🎬 Video İzlə & 0.001 AZN Qazan! (${adsgramData.adsWatchedInSession}/${ADS_PER_SESSION})`;
+                } else {
+                    if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
+                        const hours = Math.floor(remaining / 3600000);
+                        const minutes = Math.floor((remaining % 3600000) / 60000);
+                        timerElement.textContent = `${hours}sa ${minutes}dəq`;
+                        buttonElement.innerHTML = `⏳ ${hours}sa ${minutes}dəq Sonra`;
+                    } else {
+                        const minutes = Math.floor(remaining / 60000);
+                        const seconds = Math.floor((remaining % 60000) / 1000);
+                        timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                        buttonElement.innerHTML = `⏳ ${minutes}:${seconds.toString().padStart(2, '0')} Sonra`;
+                    }
+                    
+                    timerElement.style.color = "#ff6b6b";
+                    buttonElement.disabled = true;
+                    buttonElement.style.opacity = "0.6";
+                }
+            } catch (error) {
+                console.error('AdsGram display xətası:', error);
+            }
+        }
+
+        async function resetAdsGramSession() {
+            const adsgramData = {
+                lastSessionEndTime: 0,
+                adsWatchedInSession: 0,
+                nextAdAvailableTime: 0
+            };
+            await setAdsgramData(adsgramData);
+            updateAdsGramVideoDisplay();
+        }
+
+        function startAdsGramVideoTimer() {
+            setInterval(() => {
+                updateAdsGramVideoDisplay();
+            }, 1000);
+        }
+
+        // =================================================================
+        // YENİ CG ID SİSTEMİ
+        // =================================================================
+
+        async function getNextCGId() {
+            try {
+                const counterRef = db.collection('counters').doc('userCounter');
+                const result = await db.runTransaction(async (transaction) => {
+                    const doc = await transaction.get(counterRef);
+                    const currentCount = doc.exists ? doc.data().count : 0;
+                    const newCount = currentCount + 1;
+                    transaction.set(counterRef, { count: newCount });
+                    return newCount;
+                });
+                return `CG${result}`;
+            } catch (error) {
+                console.error('CG ID xətası:', error);
+                return `CG${Date.now()}${Math.random().toString(36).substr(2, 5)}`.toUpperCase();
+            }
+        }
+
+        async function initializeCounter() {
+            try {
+                const counterRef = db.collection('counters').doc('userCounter');
+                const counterDoc = await counterRef.get();
+                if (!counterDoc.exists) {
+                    await counterRef.set({ count: 0 });
+                    console.log('✅ Counter initialized with 0');
+                }
+            } catch (error) {
+                console.error('❌ Counter initialization xətası:', error);
+            }
+        }
+
+        // =================================================================
+        // KÖMƏKÇİ FUNKSİYALAR
+        // =================================================================
+
+        async function findUserByUsername(username) {
+            try {
+                const userDoc = await db.collection('users').doc(username).get();
+                if (userDoc.exists) {
+                    return userDoc.data();
+                } else {
+                    return null;
+                }
+            } catch (error) {
+                console.error('❌ İstifadəçi axtarış xətası:', error);
+                throw error;
+            }
+        }
+
+        async function checkDuplicateUserInfo(name, surname, phone, email) {
+            try {
+                const phoneQuery = await db.collection('users')
+                    .where('phone', '==', phone)
+                    .limit(1)
+                    .get();
+                if (!phoneQuery.empty) {
+                    return { duplicate: true, field: 'telefon nömrəsi', message: 'Bu telefon nömrəsi artıq qeydiyyatdan keçib' };
+                }
+                
+                const emailQuery = await db.collection('users')
+                    .where('email', '==', email.toLowerCase())
+                    .limit(1)
+                    .get();
+                if (!emailQuery.empty) {
+                    return { duplicate: true, field: 'e-poçt', message: 'Bu e-poçt ünvanı artıq qeydiyyatdan keçib' };
+                }
+                
+                return { duplicate: false };
+            } catch (error) {
+                console.error('❌ Duplicate yoxlama xətası:', error);
+                return { duplicate: false };
+            }
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 5000);
+        }
+
+        function showSuccess(message) {
+            const successElement = document.getElementById('successMessage');
+            successElement.textContent = message;
+            successElement.style.display = 'block';
+            setTimeout(() => {
+                successElement.style.display = 'none';
+            }, 5000);
+        }
+
+        function generateReferralCode(username) {
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+            return `${username.toUpperCase().substring(0, 3)}${randomNum}`;
+        }
+
+        // =================================================================
+        // DƏVƏT LİNKİ SİSTEMİ
+        // =================================================================
+
+        const TELEGRAM_BOT_URL = "https://t.me/Casper_Game_bot/directlink";
+
+        function updateInviteLinkDisplay() {
+            const inviteLink = TELEGRAM_BOT_URL;
+            if (inviteLink && currentUserState.referralCode) {
+                inviteLinkDisplay.innerHTML = `
+                    <div style="margin-bottom: 12px; text-align: center;">
+                        <strong style="color: #0f3460;">📱 Telegram Bot Linki:</strong><br>
+                        <div style="background: white; padding: 8px; border-radius: 6px; margin: 6px 0; border: 1px solid #e9ecef; word-break: break-all;">
+                            ${inviteLink}
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 12px; text-align: center;">
+                        <strong style="color: #0f3460;">🎯 Dəvət Kodunuz:</strong><br>
+                        <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 6px; margin: 6px 0; font-weight: bold; font-size: 14px; border: 1px dashed #00b894;">
+                            ${currentUserState.referralCode}
+                        </div>
+                    </div>`;
+            }
+        }
+
+        function copyInviteLink() {
+            const inviteLink = TELEGRAM_BOT_URL;
+            const referralCode = currentUserState.referralCode;
+            
+            if (!inviteLink || !referralCode) {
+                alert("Dəvət məlumatları hazır deyil.");
+                return;
+            }
+
+            const fullInfo = `🎮 Casper Game - Dost Dəvət Məlumatları:
+
+📱 Telegram Bot: ${inviteLink}
+🎯 Dəvət Kodum: ${referralCode}
+
+💡 Qeydiyyat zamanı dəvət kodumu daxil et!`;
+            
+            navigator.clipboard.writeText(fullInfo).then(() => {
+                alert("✅ Dəvət məlumatları uğurla kopyalandı!\n\nTelegram Bot Linki və Dəvət Kodunuz kopyalandı.");
+            }).catch(() => {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = fullInfo;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert("✅ Dəvət məlumatları uğurla kopyalandı!");
+            });
+        }
+
+        function shareOnWhatsApp() {
+            const inviteLink = TELEGRAM_BOT_URL;
+            const referralCode = currentUserState.referralCode;
+            if (!inviteLink || !referralCode) return;
+            
+            const message = `🎮 Casper Game - Dost Dəvəti
+
+Salam! Casper Game-də mənə qoşul və pul qazan! 
+
+📱 Telegram Bot: ${inviteLink}
+🎯 Dəvət Kodum: ${referralCode}
+
+💡 Qeydiyyat zamanı yuxarıdakı dəvət kodumu daxil et! 🚀`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const url = `https://wa.me/?text=${encodedMessage}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnTelegram() {
+            const inviteLink = TELEGRAM_BOT_URL;
+            const referralCode = currentUserState.referralCode;
+            if (!inviteLink || !referralCode) return;
+            
+            const message = `🎮 Casper Game - Dost Dəvəti
+
+Salam! Casper Game-də mənə qoşul və pul qazan! 
+
+📱 Telegram Bot: ${inviteLink}
+🎯 Dəvət Kodum: ${referralCode}
+
+💡 Qeydiyyat zamanı yuxarıdakı dəvət kodumu daxil et! 🚀`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const url = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodedMessage}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnTikTok() {
+            const inviteLink = TELEGRAM_BOT_URL;
+            const referralCode = currentUserState.referralCode;
+            if (!inviteLink || !referralCode) return;
+            
+            const message = `🎮 Casper Game - Dost Dəvəti
+
+Salam! Casper Game-də mənə qoşul və pul qazan! 
+
+Dəvət Kodum: ${referralCode}
+
+Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Casper Game - Dost Dəvəti',
+                    text: message,
+                    url: inviteLink
+                }).then(() => {
+                    console.log('TikTok paylaşım uğurlu');
+                }).catch((error) => {
+                    console.log('TikTok paylaşım xətası:', error);
+                    copyInviteLink();
+                });
+            } else {
+                copyInviteLink();
+                alert("TikTok paylaşımı üçün məlumatlar kopyalandı! TikTok-da paylaşın.");
+            }
+        }
+
+        // =================================================================
+        // KLİK ANİMASİYALARI
         // =================================================================
 
         function clickIcon(event) {
@@ -1813,47 +2445,32 @@
                 return;
             }
 
-            // Enerji sərf et
             currentUserState.currentEnergy -= ENERGY_CONSUMPTION_PER_CLICK;
             currentUserState.totalClicks++;
             currentUserState.lastClickTime = Date.now();
-
-            // Pul əlavə et
             currentUserState.totalMoney += MONEY_PER_CLICK;
 
-            // Animasiyaları başlat
             addGhostAnimations(event);
             createGhostParticles(event);
-
-            // Balansı yenilə
             updateEnergyDisplay();
-            
-            // Firebase-ə yadda saxla
             saveUserState();
         }
 
-        // Kiçik ruh partikülləri yaratmaq
         function createGhostParticles(event) {
             const ghostColors = ['ghost-red', 'ghost-blue', 'ghost-green', 'ghost-purple', 'ghost-yellow', 'ghost-cyan'];
-            
-            // 3-5 təsadüfi ruh yarat
             const particleCount = 3 + Math.floor(Math.random() * 3);
             
             for (let i = 0; i < particleCount; i++) {
                 setTimeout(() => {
                     const ghostParticle = document.createElement('div');
                     ghostParticle.className = 'ghost-particle';
-                    
-                    // Təsadüfi rəng seç
                     const randomColor = ghostColors[Math.floor(Math.random() * ghostColors.length)];
                     ghostParticle.classList.add(randomColor);
                     
-                    // Təsadüfi ruh simvolu
                     const ghostSymbols = ['👻', '💀', '👹', '👺', '🦇', '🕷️'];
                     const randomSymbol = ghostSymbols[Math.floor(Math.random() * ghostSymbols.length)];
                     ghostParticle.textContent = randomSymbol;
                     
-                    // Təsadüfi başlanğıc mövqeyi
                     let x, y;
                     if (event.touches && event.touches.length > 0) {
                         x = event.touches[0].clientX;
@@ -1866,8 +2483,6 @@
                     const rect = document.querySelector('.click-area').getBoundingClientRect();
                     const startX = x - rect.left;
                     const startY = y - rect.top;
-                    
-                    // Təsadüfi yerdəyişmə
                     const offsetX = (Math.random() - 0.5) * 100;
                     const offsetY = (Math.random() - 0.5) * 100;
                     
@@ -1876,27 +2491,22 @@
                     
                     document.querySelector('.click-area').appendChild(ghostParticle);
                     
-                    // Animasiya bitdikdən sonra sil
                     setTimeout(() => {
                         if (ghostParticle.parentNode) {
                             ghostParticle.parentNode.removeChild(ghostParticle);
                         }
                     }, 1500);
                     
-                }, i * 100); // Hər partikül üçün kiçik gecikmə
+                }, i * 100);
             }
         }
 
-        // Animasiyaları əlavə et
         function addGhostAnimations(event) {
-            const icon = document.getElementById('mainIcon');
             const img = document.getElementById('clickImage');
-            
             img.classList.remove('ghost-hit-animation', 'ghost-stab-animation', 'ghost-explosion', 'ghost-scared-animation');
             
             const animations = ['ghost-hit-animation', 'ghost-stab-animation', 'ghost-explosion', 'ghost-scared-animation'];
             const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-            
             img.classList.add(randomAnimation);
             
             createGhostStabEffect(event);
@@ -1933,7 +2543,6 @@
             stabEffect.style.top = (y - rect.top - 40) + 'px';
             
             document.querySelector('.click-area').appendChild(stabEffect);
-            
             setTimeout(() => {
                 stabEffect.remove();
             }, 600);
@@ -1970,7 +2579,6 @@
 
             availableMoneyEl.textContent = formatMoney(state.totalMoney);
             
-            // DƏVƏT STATISTIKASINI YENİLƏ
             successfulReferralsEl.textContent = state.successfulReferrals || 0;
             referralBonusTotalEl.textContent = formatMoney(state.referralBonusEarned || 0);
             referralLimitEl.textContent = REFERRAL_BONUS_LIMIT;
@@ -2001,1514 +2609,16 @@
             }
         }
 
-        // =================================================================
-        // REKLAM SİSTEMLƏRİNİN KONFİQURASİYASI
-        // =================================================================
-
-        // RichAds konfiqurasiyası
-        document.addEventListener('DOMContentLoaded', () => {
-            // RichAds
-            if (typeof TelegramAdsController !== 'undefined') {
-                window.TelegramAdsController = new TelegramAdsController();
-                window.TelegramAdsController.initialize({
-                    pubId: "993631",
-                    appId: "4699",
-                });
-                console.log('✅ RichAds reklam sistemi başladıldı');
-            }
-
-            // Adexium (Yalnız Push-like)
-            if (typeof AdexiumWidget !== 'undefined') {
-                window.adexiumPush = new AdexiumWidget({
-                    wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae',
-                    adFormat: 'push-like'
-                });
-                window.adexiumPush.autoMode();
-                console.log('✅ Adexium push-like reklam sistemi başladıldı');
-            }
-        });
-
-        // =================================================================
-        // RICHADS REKLAM SİSTEMİ
-        // =================================================================
-
-        // RichAds reklam sistemini başlatmaq
-        function initializeRichAds() {
-            try {
-                if (typeof TelegramAdsController !== 'undefined' && window.TelegramAdsController) {
-                    console.log('✅ RichAds reklam sistemi hazırdır');
-                    return true;
-                } else {
-                    console.log('❌ RichAds reklam sistemi tapılmadı');
-                    return false;
-                }
-            } catch (error) {
-                console.error('RichAds xətası:', error);
-                return false;
-            }
-        }
-
-        // =================================================================
-        // ADEXIUM PUSH-LIKE REKLAM SİSTEMİ
-        // =================================================================
-
-        // Adexium reklam sistemini başlatmaq
-        function initializeAdexiumAds() {
-            try {
-                if (typeof AdexiumWidget !== 'undefined') {
-                    console.log('✅ Adexium push-like reklam sistemi hazırdır');
-                    return true;
-                } else {
-                    console.log('❌ Adexium reklam sistemi tapılmadı');
-                    return false;
-                }
-            } catch (error) {
-                console.error('Adexium xətası:', error);
-                return false;
-            }
-        }
-
-        // =================================================================
-        // ŞİFRƏ BƏRPA SİSTEMİ
-        // =================================================================
-
-        let currentForgotPasswordStep = 1;
-        let userDataForRecovery = null;
-
-        // Şifrə bərpa addımlarını idarə etmək
-        function showForgotPasswordStep(step) {
-            // Bütün addımları gizlə
-            document.getElementById('forgotPasswordStep1').style.display = 'none';
-            document.getElementById('forgotPasswordStep2').style.display = 'none';
-            document.getElementById('forgotPasswordStep3').style.display = 'none';
-            
-            // Aktiv addımı göstər
-            document.getElementById(`forgotPasswordStep${step}`).style.display = 'block';
-            
-            // Step indicator yenilə
-            updateStepIndicator(step);
-            
-            currentForgotPasswordStep = step;
-        }
-
-        function updateStepIndicator(activeStep) {
-            const steps = document.querySelectorAll('.step');
-            const stepLines = document.querySelectorAll('.step-line');
-            
-            steps.forEach((step, index) => {
-                if (index + 1 <= activeStep) {
-                    step.classList.add('active');
-                } else {
-                    step.classList.remove('active');
-                }
-            });
-            
-            stepLines.forEach((line, index) => {
-                if (index + 1 < activeStep) {
-                    line.classList.add('active');
-                } else {
-                    line.classList.remove('active');
-                }
-            });
-        }
-
-        // Addım 1: İstifadəçi axtarışı
-        document.getElementById('forgotPasswordForm1').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const phone = document.getElementById('forgotPhone').value.trim();
-            const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
-            
-            if (!phone || !email) {
-                showForgotPasswordError("Zəhmət olmasa bütün sahələri doldurun.");
-                return;
-            }
-
-            try {
-                // İstifadəçini telefon və email-ə görə axtar
-                const userQuery = await db.collection('users')
-                    .where('phone', '==', phone)
-                    .where('email', '==', email)
-                    .limit(1)
-                    .get();
-
-                if (userQuery.empty) {
-                    showForgotPasswordError("Bu telefon nömrəsi və e-poçt ünvanı ilə heç bir hesab tapılmadı.");
-                    return;
-                }
-
-                // İstifadəçi məlumatlarını saxla
-                userDataForRecovery = userQuery.docs[0].data();
-                userDataForRecovery.username = userQuery.docs[0].id;
-                
-                showForgotPasswordStep(2);
-                showForgotPasswordSuccess("İstifadəçi tapıldı! İndi təhlükəsizlik suallarına cavab verin.");
-
-            } catch (error) {
-                console.error('İstifadəçi axtarış xətası:', error);
-                showForgotPasswordError("Axtarış zamanı xəta baş verdi. Yenidən cəhd edin.");
-            }
-        });
-
-        // Addım 2: Təhlükəsizlik sorğuları
-        document.getElementById('forgotPasswordForm2').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('securityName').value.trim();
-            const surname = document.getElementById('securitySurname').value.trim();
-            
-            if (!name || !surname) {
-                showForgotPasswordError("Zəhmət olmasa ad və soyadınızı daxil edin.");
-                return;
-            }
-
-            // Təhlükəsizlik cavablarını yoxla
-            if (name !== userDataForRecovery.name || surname !== userDataForRecovery.surname) {
-                showForgotPasswordError("Ad və ya soyadınız düzgün deyil. Zəhmət olmasa düzgün məlumatları daxil edin.");
-                return;
-            }
-
-            // Növbəti addıma keç
-            document.getElementById('newUsername').value = userDataForRecovery.username;
-            showForgotPasswordStep(3);
-            showForgotPasswordSuccess("Təhlükəsizlik sualları uğurla təsdiqləndi! İndi yeni məlumatlarınızı daxil edin.");
-        });
-
-        // Addım 3: Yeni məlumatlar
-        document.getElementById('forgotPasswordForm3').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const newUsername = document.getElementById('newUsername').value.trim().toLowerCase();
-            const newPassword = document.getElementById('newPassword').value.trim();
-            const confirmNewPassword = document.getElementById('confirmNewPassword').value.trim();
-            
-            if (!newUsername || !newPassword || !confirmNewPassword) {
-                showForgotPasswordError("Zəhmət olmasa bütün sahələri doldurun.");
-                return;
-            }
-
-            if (newPassword !== confirmNewPassword) {
-                showForgotPasswordError("Şifrələr uyğun deyil!");
-                return;
-            }
-
-            if (newPassword.length < 6) {
-                showForgotPasswordError("Şifrə ən azı 6 simvol olmalıdır!");
-                return;
-            }
-
-            try {
-                // İstifadəçi adı dəyişirsə, yeni adın mövcud olub-olmadığını yoxla
-                if (newUsername !== userDataForRecovery.username) {
-                    const existingUser = await db.collection('users').doc(newUsername).get();
-                    if (existingUser.exists) {
-                        showForgotPasswordError("Bu istifadəçi adı artıq mövcuddur. Başqa bir ad seçin.");
-                        return;
-                    }
-                    
-                    // Köhnə istifadəçi sənədini sil və yenisini yarat
-                    await db.collection('users').doc(userDataForRecovery.username).delete();
-                    
-                    // Yeni məlumatlarla istifadəçi yarat
-                    const updatedUserData = {
-                        ...userDataForRecovery,
-                        username: newUsername,
-                        password: newPassword
-                    };
-                    
-                    await db.collection('users').doc(newUsername).set(updatedUserData);
-                    
-                } else {
-                    // Yalnız şifrəni yenilə
-                    await db.collection('users').doc(userDataForRecovery.username).update({
-                        password: newPassword
-                    });
-                }
-
-                showForgotPasswordSuccess("✅ Şifrəniz və istifadəçi adınız uğurla yeniləndi! İndi yeni məlumatlarınızla daxil ola bilərsiniz.");
-                
-                // Formu təmizlə və bağla
-                setTimeout(() => {
-                    closeModal('forgotPasswordModal');
-                    resetForgotPasswordForm();
-                    
-                    // Yenilənmiş məlumatları giriş formuna doldur
-                    document.getElementById('loginUsername').value = newUsername;
-                    document.getElementById('loginPassword').value = newPassword;
-                    
-                    showSuccess("Şifrəniz uğurla yeniləndi! İndi daxil ola bilərsiniz.");
-                }, 2000);
-
-            } catch (error) {
-                console.error('Şifrə yeniləmə xətası:', error);
-                showForgotPasswordError("Yeniləmə zamanı xəta baş verdi. Yenidən cəhd edin.");
-            }
-        });
-
-        // Köməkçi funksiyalar
-        function showForgotPasswordError(message) {
-            const errorElement = document.getElementById('forgotPasswordError');
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-            
-            const successElement = document.getElementById('forgotPasswordSuccess');
-            successElement.style.display = 'none';
-        }
-
-        function showForgotPasswordSuccess(message) {
-            const successElement = document.getElementById('forgotPasswordSuccess');
-            successElement.textContent = message;
-            successElement.style.display = 'block';
-            
-            const errorElement = document.getElementById('forgotPasswordError');
-            errorElement.style.display = 'none';
-        }
-
-        function resetForgotPasswordForm() {
-            // Formları təmizlə
-            document.getElementById('forgotPasswordForm1').reset();
-            document.getElementById('forgotPasswordForm2').reset();
-            document.getElementById('forgotPasswordForm3').reset();
-            
-            // Dəyişənləri sıfırla
-            currentForgotPasswordStep = 1;
-            userDataForRecovery = null;
-            
-            // İlk addıma qaytar
-            showForgotPasswordStep(1);
-            updateStepIndicator(1);
-            
-            // Mesajları gizlə
-            document.getElementById('forgotPasswordError').style.display = 'none';
-            document.getElementById('forgotPasswordSuccess').style.display = 'none';
-        }
-
-        // Modal açılanda formu sıfırla
-        document.getElementById('forgotPasswordModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                resetForgotPasswordForm();
-            }
-        });
-
-        // QAPAT düyməsinə klikləndikdə formu sıfırla
-        document.querySelector('#forgotPasswordModal .close-btn').addEventListener('click', function() {
-            resetForgotPasswordForm();
-        });
-
-        // İlkin addımı göstər
-        showForgotPasswordStep(1);
-
-        // =================================================================
-        // ADSGRAM SİSTEMİ - FIREBASE İLƏ EŞİTLƏNƏN
-        // =================================================================
-
-        let AdsgramVideoController = null;
-        let isAdsgramReady = false;
-
-        // AdsGram məlumatlarını Firebase-dən oxumaq
-        async function getAdsgramData() {
-            if (currentUserState.username && currentUserState.adsgramData) {
-                return currentUserState.adsgramData;
-            }
-            
-            // Default data
-            return {
-                lastSessionEndTime: 0,
-                adsWatchedInSession: 0,
-                nextAdAvailableTime: 0
-            };
-        }
-
-        // AdsGram məlumatlarını Firebase-ə yazmaq
-        async function setAdsgramData(data) {
-            if (currentUserState.username) {
-                currentUserState.adsgramData = data;
-                await saveUserState();
-            }
-        }
-
-        // AdsGram SDK-ni initialize etmək
-        function initializeAdsGramVideo() {
-            try {
-                if (window.Adsgram) {
-                    console.log('🔄 AdsGram SDK tapıldı, başladılır...');
-                    AdsgramVideoController = window.Adsgram.init({ blockId: "17997" });
-                    
-                    // Manual olaraq hazır olduğunu qəbul edək
-                    isAdsgramReady = true;
-                    console.log('✅ AdsGram hazır qəbul edildi');
-                    updateAdsGramVideoDisplay();
-                    return true;
-                } else {
-                    console.log('❌ AdsGram SDK tapılmadı');
-                    // Test üçün mock sistem yaradaq
-                    createMockAdsSystem();
-                    return true;
-                }
-            } catch (error) {
-                console.error('❌ AdsGram xətası:', error);
-                // Xəta halında da mock sistem yaradaq
-                createMockAdsSystem();
-                return true;
-            }
-        }
-
-        // Test üçün mock reklam sistemi
-        function createMockAdsSystem() {
-            console.log('🔄 Mock reklam sistemi yaradılır...');
-            isAdsgramReady = true;
-            
-            // Mock AdsGram controller yaradırıq
-            AdsgramVideoController = {
-                show: function() {
-                    return new Promise((resolve, reject) => {
-                        console.log('🎬 Mock reklam göstərilir...');
-                        
-                        // 3 saniyəlik mock reklam
-                        setTimeout(() => {
-                            console.log('✅ Mock reklam tamamlandı');
-                            resolve({ status: 'completed' });
-                        }, 3000);
-                    });
-                }
-            };
-            
-            console.log('✅ Mock reklam sistemi hazırdır');
-            updateAdsGramVideoDisplay();
-        }
-
-        // Reklam göstərib-göstərilməyəcəyini yoxlamaq
-        async function canShowAdsGramReward() {
-            const adsgramData = await getAdsgramData();
-            const now = Date.now();
-            
-            if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
-                if (now - adsgramData.lastSessionEndTime < AD_COOLDOWN_MS) {
-                    return false;
-                } else {
-                    // 4 saat bitibsə, sessionu sıfırla
-                    await resetAdsGramSession();
-                    return true;
-                }
-            }
-            
-            if (adsgramData.nextAdAvailableTime > now) {
-                return false;
-            }
-            
-            return true;
-        }
-
-        // Reward video göstərmək
-        async function showAdsGramVideoReward() {
-            console.log('🔘 AdsGram düyməsinə klik edildi');
-            
-            const canShow = await canShowAdsGramReward();
-            if (!canShow) {
-                const remaining = await getRemainingTime();
-                const minutes = Math.floor(remaining / 60000);
-                const seconds = Math.floor((remaining % 60000) / 1000);
-                
-                alert(`⏰ Növbəti reklam üçün ${minutes}:${seconds.toString().padStart(2,'0')} dəqiqə gözləyin.`);
-                return false;
-            }
-
-            if (!AdsgramVideoController) {
-                console.log('🔄 AdsGram controller yoxdur, yenidən başladılır...');
-                initializeAdsGramVideo();
-                
-                setTimeout(() => {
-                    if (isAdsgramReady) {
-                        showAdsGramVideoReward();
-                    } else {
-                        alert('❌ Reklam sistemi hazır deyil. Yenidən cəhd edin.');
-                    }
-                }, 1000);
-                return false;
-            }
-
-            console.log('🎬 Reklam göstərilməyə başlayır...');
-            
-            // Loading mesajı göstər
-            const button = document.getElementById('adsgramVideoButton');
-            const timer = document.getElementById('adsgramTimer');
-            if (button) button.innerHTML = '⏳ Reklam Yüklənir...';
-            if (timer) timer.textContent = 'Yüklənir...';
-
-            AdsgramVideoController.show()
-                .then((result) => {
-                    console.log('✅ Reklam tamamlandı:', result);
-                    handleAdsGramVideoReward();
-                })
-                .catch((error) => {
-                    console.error('❌ Reklam xətası:', error);
-                    alert('❌ Reklam göstərilərkən xəta baş verdi. Yenidən cəhd edin.');
-                    
-                    // Error halında da mükafat verək (test üçün)
-                    handleAdsGramVideoReward();
-                });
-
-            return true;
-        }
-
-        // Video mükafatını emal et
-        async function handleAdsGramVideoReward() {
-            const adsgramData = await getAdsgramData();
-            const now = Date.now();
-            
-            adsgramData.adsWatchedInSession++;
-            adsgramData.nextAdAvailableTime = now + AD_INTERVAL_BETWEEN;
-            
-            if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
-                adsgramData.lastSessionEndTime = now;
-            }
-            
-            await setAdsgramData(adsgramData);
-            
-            // Pul mükafatı ver
-            if (currentUserState.username) {
-                currentUserState.totalMoney += ADSGRAM_REWARD_AMOUNT;
-                await saveUserState();
-                updateEnergyDisplay();
-            }
-            
-            showSuccess(`🎉 Reklam ${adsgramData.adsWatchedInSession}/${ADS_PER_SESSION} tamamlandı! +${ADSGRAM_REWARD_AMOUNT} AZN qazandınız!`);
-            
-            updateAdsGramVideoDisplay();
-            console.log('💰 Mükafat verildi, display yeniləndi');
-        }
-
-        // Qalan vaxtı hesablamaq
-        async function getRemainingTime() {
-            const adsgramData = await getAdsgramData();
-            const now = Date.now();
-            
-            if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
-                const remaining = AD_COOLDOWN_MS - (now - adsgramData.lastSessionEndTime);
-                return remaining > 0 ? remaining : 0;
-            }
-            
-            if (adsgramData.nextAdAvailableTime > now) {
-                return adsgramData.nextAdAvailableTime - now;
-            }
-            
-            return 0;
-        }
-
-        // UI display-i yeniləmək
-        async function updateAdsGramVideoDisplay() {
-            try {
-                const adsgramData = await getAdsgramData();
-                const remaining = await getRemainingTime();
-                
-                const timerElement = document.getElementById('adsgramTimer');
-                const buttonElement = document.getElementById('adsgramVideoButton');
-                
-                if (!timerElement || !buttonElement) {
-                    console.log('⚠️ AdsGram elementləri tapılmadı');
-                    return;
-                }
-                
-                if (remaining <= 0) {
-                    timerElement.textContent = "Hazır!";
-                    timerElement.style.color = "#00b894";
-                    buttonElement.disabled = false;
-                    buttonElement.style.opacity = "1";
-                    buttonElement.innerHTML = `🎬 Video İzlə & 0.001 AZN Qazan! (${adsgramData.adsWatchedInSession}/${ADS_PER_SESSION})`;
-                } else {
-                    const adsgramData = await getAdsgramData();
-                    
-                    if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
-                        const hours = Math.floor(remaining / 3600000);
-                        const minutes = Math.floor((remaining % 3600000) / 60000);
-                        timerElement.textContent = `${hours}sa ${minutes}dəq`;
-                        buttonElement.innerHTML = `⏳ ${hours}sa ${minutes}dəq Sonra`;
-                    } else {
-                        const minutes = Math.floor(remaining / 60000);
-                        const seconds = Math.floor((remaining % 60000) / 1000);
-                        timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                        buttonElement.innerHTML = `⏳ ${minutes}:${seconds.toString().padStart(2, '0')} Sonra`;
-                    }
-                    
-                    timerElement.style.color = "#ff6b6b";
-                    buttonElement.disabled = true;
-                    buttonElement.style.opacity = "0.6";
-                }
-                
-                console.log('🔄 AdsGram display yeniləndi');
-            } catch (error) {
-                console.error('AdsGram display xətası:', error);
-            }
-        }
-
-        // Session-u sıfırlamaq
-        async function resetAdsGramSession() {
-            const adsgramData = {
-                lastSessionEndTime: 0,
-                adsWatchedInSession: 0,
-                nextAdAvailableTime: 0
-            };
-            await setAdsgramData(adsgramData);
-            updateAdsGramVideoDisplay();
-            console.log('🔄 AdsGram session sıfırlandı');
-        }
-
-        // Timer-i başlatmaq
-        function startAdsGramVideoTimer() {
-            setInterval(() => {
-                updateAdsGramVideoDisplay();
-            }, 1000);
-            console.log('✅ AdsGram timer başladıldı');
-        }
-
-        // =================================================================
-        // TELEGRAM BOT AYARLARI
-        // =================================================================
-        const TELEGRAM_BOT_URL = "https://t.me/Casper_Game_bot/directlink";
-
-        // =================================================================
-        // YENİ CG ID SİSTEMİ
-        // =================================================================
-
-        async function getNextCGId() {
-            try {
-                const counterRef = db.collection('counters').doc('userCounter');
-                
-                const result = await db.runTransaction(async (transaction) => {
-                    const doc = await transaction.get(counterRef);
-                    const currentCount = doc.exists ? doc.data().count : 0;
-                    const newCount = currentCount + 1;
-                    transaction.set(counterRef, { count: newCount });
-                    return newCount;
-                });
-                
-                return `CG${result}`;
-            } catch (error) {
-                console.error('CG ID xətası:', error);
-                return `CG${Date.now()}${Math.random().toString(36).substr(2, 5)}`.toUpperCase();
-            }
-        }
-
-        async function initializeCounter() {
-            try {
-                const counterRef = db.collection('counters').doc('userCounter');
-                const counterDoc = await counterRef.get();
-                
-                if (!counterDoc.exists) {
-                    await counterRef.set({ count: 0 });
-                    console.log('✅ Counter initialized with 0');
-                } else {
-                    console.log('✅ Counter already exists:', counterDoc.data().count);
-                }
-            } catch (error) {
-                console.error('❌ Counter initialization xətası:', error);
-            }
-        }
-
-        // =================================================================
-        // KÖMƏKÇİ FUNKSİYALAR
-        // =================================================================
-
-        // Firebase-dən istifadəçi axtarış funksiyası
-        async function findUserByUsername(username) {
-            try {
-                const userDoc = await db.collection('users').doc(username).get();
-                
-                if (userDoc.exists) {
-                    console.log('✅ İstifadəçi tapıldı:', username);
-                    return userDoc.data();
-                } else {
-                    console.log('❌ İstifadəçi tapılmadı:', username);
-                    return null;
-                }
-            } catch (error) {
-                console.error('❌ İstifadəçi axtarış xətası:', error);
-                throw error;
-            }
-        }
-
-        // Eyni məlumatları yoxlamaq üçün funksiya
-        async function checkDuplicateUserInfo(name, surname, phone, email) {
-            try {
-                // Telefon nömrəsi yoxlaması
-                const phoneQuery = await db.collection('users')
-                    .where('phone', '==', phone)
-                    .limit(1)
-                    .get();
-                
-                if (!phoneQuery.empty) {
-                    return { duplicate: true, field: 'telefon nömrəsi', message: 'Bu telefon nömrəsi artıq qeydiyyatdan keçib' };
-                }
-                
-                // E-poçt yoxlaması
-                const emailQuery = await db.collection('users')
-                    .where('email', '==', email.toLowerCase())
-                    .limit(1)
-                    .get();
-                
-                if (!emailQuery.empty) {
-                    return { duplicate: true, field: 'e-poçt', message: 'Bu e-poçt ünvanı artıq qeydiyyatdan keçib' };
-                }
-                
-                // Ad və soyad yoxlaması (eyni ad+soyad+telefon kombinasiyası)
-                const nameQuery = await db.collection('users')
-                    .where('name', '==', name)
-                    .where('surname', '==', surname)
-                    .where('phone', '==', phone)
-                    .limit(1)
-                    .get();
-                
-                if (!nameQuery.empty) {
-                    return { duplicate: true, field: 'ad və soyad', message: 'Bu ad, soyad və telefon nömrəsi kombinasiyası artıq mövcuddur' };
-                }
-                
-                return { duplicate: false };
-            } catch (error) {
-                console.error('❌ Duplicate yoxlama xətası:', error);
-                return { duplicate: false };
-            }
-        }
-
-        // Firebase xətalarını idarə etmək üçün köməkçi funksiya
-        function handleFirebaseError(error) {
-            console.error('Firebase Xətası:', error);
-            
-            if (error.code === 'failed-precondition') {
-                showError("Verilənlər bazasına çatmaq mümkün olmadı. Yenidən cəhd edin.");
-            } else if (error.code === 'unavailable') {
-                showError("İnternet bağlantısı yoxdur. Zəhmət olmasa bağlantınızı yoxlayın.");
-            } else {
-                showError("Sistem xətası. Yenidən cəhd edin.");
-            }
-        }
-
-        // Dəvət kodu generatoru
-        function generateReferralCode(username) {
-            const randomNum = Math.floor(1000 + Math.random() * 9000);
-            return `${username.toUpperCase().substring(0, 3)}${randomNum}`;
-        }
-
-        function showError(message) {
-            const errorElement = document.getElementById('errorMessage');
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-            
-            const successElement = document.getElementById('successMessage');
-            successElement.style.display = 'none';
-            
-            setTimeout(() => {
-                errorElement.style.display = 'none';
-            }, 5000);
-        }
-
-        function showSuccess(message) {
-            const successElement = document.getElementById('successMessage');
-            successElement.textContent = message;
-            successElement.style.display = 'block';
-            
-            const errorElement = document.getElementById('errorMessage');
-            errorElement.style.display = 'none';
-            
-            setTimeout(() => {
-                successElement.style.display = 'none';
-            }, 5000);
-        }
-
-        // =================================================================
-        // İSTİFADƏÇİ DƏYİŞDİKƏ DİNLƏYİCİNİ YENİLƏ
-        // =================================================================
-        function switchUser(newUsername) {
-            // Köhnə dinləyicini təmizlə
-            if (referralUnsubscribe) {
-                referralUnsubscribe();
-                referralUnsubscribe = null;
-            }
-            
-            // Yeni dinləyicini başlat
-            listenToReferralCount(newUsername);
-        }
-
-        // =================================================================
-        // DƏVƏT LİNKİ SİSTEMİ FUNKSİYALARI
-        // =================================================================
-
-        function generateInviteLink() {
-            return TELEGRAM_BOT_URL;
-        }
-
-        function updateInviteLinkDisplay() {
-            const inviteLink = generateInviteLink();
-            if (inviteLink && currentUserState.referralCode) {
-                inviteLinkDisplay.innerHTML = `
-                    <div style="margin-bottom: 12px; text-align: center;">
-                        <strong style="color: #0f3460;">📱 Telegram Bot Linki:</strong><br>
-                        <div style="background: white; padding: 8px; border-radius: 6px; margin: 6px 0; border: 1px solid #e9ecef; word-break: break-all;">
-                            ${inviteLink}
-                        </div>
-                    </div>
-                    <div style="margin-bottom: 12px; text-align: center;">
-                        <strong style="color: #0f3460;">🎯 Dəvət Kodunuz:</strong><br>
-                        <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 6px; margin: 6px 0; font-weight: bold; font-size: 14px; border: 1px dashed #00b894;">
-                            ${currentUserState.referralCode}
-                        </div>
-                    </div>
-                    <div style="margin-top: 8px; padding: 10px; background: #fff3cd; border-radius: 6px; font-size: 10px; color: #856404; border: 1px solid #ffeeba;">
-                        ⚠️ <strong>Diqqət:</strong> Dostunuz qeydiyyatdan keçərkən yuxarıdakı dəvət kodunuzu daxil etməlidir!
-                    </div>
-                `;
-            } else {
-                inviteLinkDisplay.textContent = "Məlumatlar yüklənir...";
-            }
-        }
-
-        function copyInviteLink() {
-            const inviteLink = generateInviteLink();
-            const referralCode = currentUserState.referralCode;
-            
-            if (!inviteLink || !referralCode) {
-                alert("Dəvət məlumatları hazır deyil.");
-                return;
-            }
-
-            const fullInfo = `🎮 Casper Game - Dost Dəvət Məlumatları:
-
-📱 Telegram Bot: ${inviteLink}
-🎯 Dəvət Kodum: ${referralCode}
-
-💡 Qeydiyyat zamanı dəvət kodumu daxil et!`;
-            
-            navigator.clipboard.writeText(fullInfo).then(() => {
-                alert("✅ Dəvət məlumatları uğurla kopyalandı!\n\nTelegram Bot Linki və Dəvət Kodunuz kopyalandı.");
-            }).catch(() => {
-                const tempInput = document.createElement('textarea');
-                tempInput.value = fullInfo;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                alert("✅ Dəvət məlumatları uğurla kopyalandı!");
-            });
-        }
-
-        function shareOnWhatsApp() {
-            const inviteLink = generateInviteLink();
-            const referralCode = currentUserState.referralCode;
-            if (!inviteLink || !referralCode) return;
-            
-            const message = `🎮 Casper Game - Dost Dəvəti
-
-Salam! Casper Game-də mənə qoşul və pul qazan! 
-
-📱 Telegram Bot: ${inviteLink}
-🎯 Dəvət Kodum: ${referralCode}
-
-💡 Qeydiyyat zamanı yuxarıdakı dəvət kodumu daxil et! 🚀`;
-            
-            const encodedMessage = encodeURIComponent(message);
-            const url = `https://wa.me/?text=${encodedMessage}`;
-            window.open(url, '_blank');
-        }
-
-        function shareOnTelegram() {
-            const inviteLink = generateInviteLink();
-            const referralCode = currentUserState.referralCode;
-            if (!inviteLink || !referralCode) return;
-            
-            const message = `🎮 Casper Game - Dost Dəvəti
-
-Salam! Casper Game-də mənə qoşul və pul qazan! 
-
-📱 Telegram Bot: ${inviteLink}
-🎯 Dəvət Kodum: ${referralCode}
-
-💡 Qeydiyyat zamanı yuxarıdakı dəvət kodumu daxil et! 🚀`;
-            
-            const encodedMessage = encodeURIComponent(message);
-            const url = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodedMessage}`;
-            window.open(url, '_blank');
-        }
-
-        function shareOnTikTok() {
-            const inviteLink = generateInviteLink();
-            const referralCode = currentUserState.referralCode;
-            if (!inviteLink || !referralCode) return;
-            
-            const message = `🎮 Casper Game - Dost Dəvəti
-
-Salam! Casper Game-də mənə qoşul və pul qazan! 
-
-Dəvət Kodum: ${referralCode}
-
-Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
-            
-            const encodedMessage = encodeURIComponent(message);
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Casper Game - Dost Dəvəti',
-                    text: message,
-                    url: inviteLink
-                }).then(() => {
-                    console.log('TikTok paylaşım uğurlu');
-                }).catch((error) => {
-                    console.log('TikTok paylaşım xətası:', error);
-                    copyInviteLink();
-                });
-            } else {
-                copyInviteLink();
-                alert("TikTok paylaşımı üçün məlumatlar kopyalandı! TikTok-da paylaşın.");
-            }
-        }
-
-        function checkUrlForReferralCode() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const refCode = urlParams.get('ref');
-            
-            if (refCode) {
-                document.getElementById('registerReferralCode').value = refCode;
-                showSuccess(`Dəvət kodu avtomatik dolduruldu: ${refCode}`);
-            }
-        }
-
-        // =================================================================
-        // ŞƏKİL AYARLARI VƏ YÜKLƏNMƏSİ
-        // =================================================================
-
-        const IMAGE_CONFIG = {
-            splashImage: "https://i.ibb.co/JFndRdvY/casper.jpg",
-            gameIcon: "https://i.ibb.co/hp0mdt1/2025-10-31-T103543-300-removebg-preview.png",
-            fallbackText: "👻"
-        };
-
-        function loadImages() {
-            const splashImg = document.querySelector('.splash-image img');
-            const gameIcon = document.getElementById('clickImage');
-            
-            splashImg.src = IMAGE_CONFIG.splashImage;
-            splashImg.alt = "Casper Game Logo";
-            
-            gameIcon.src = IMAGE_CONFIG.gameIcon;
-            gameIcon.alt = "Casper";
-            
-            const handleImageError = (img, fallback) => {
-                img.onerror = null;
-                img.style.display = 'none';
-                img.parentElement.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:60px;color:white;">${fallback}</div>`;
-            };
-            
-            splashImg.onerror = () => handleImageError(splashImg, IMAGE_CONFIG.fallbackText);
-            gameIcon.onerror = () => handleImageError(gameIcon, IMAGE_CONFIG.fallbackText);
-        }
-
-        // =================================================================
-        // REAL-TIME REFERRAL VƏ BALANS DİNLƏYİCİSİ - DÜZƏLDİLMİŞ
-        // =================================================================
-        function listenToReferralCount(username) {
-            // Əvvəlki dinləyicini dayandır
-            if (referralUnsubscribe) {
-                referralUnsubscribe();
-                referralUnsubscribe = null;
-            }
-
-            // KODU DAHA DAYANIQLI ETMƏK ÜÇÜN YOXLAMA:
-            if (typeof db === 'undefined' || !db.collection) {
-                console.error("❌ Firestore 'db' instansiyası tapılmadı. Real-time dinləmə dayandırıldı.");
-                return;
-            }
-            
-            const userRef = db.collection('users').doc(username);
-
-            // Yeni dinləyicini başlat
-            referralUnsubscribe = userRef.onSnapshot((doc) => {
-                if (doc.exists) {
-                    const data = doc.data();
-
-                    const referralCount = data.successfulReferrals || 0;
-                    const referralBonus = data.referralBonusEarned || 0;
-                    const currentMoney = data.totalMoney || 0;
-                    const currentEnergy = data.currentEnergy || 0;
-                    const adsgramData = data.adsgramData || {
-                        lastSessionEndTime: 0,
-                        adsWatchedInSession: 0,
-                        nextAdAvailableTime: 0
-                    };
-
-                    console.log(`📊 Real-time update: ${username} - Referrals: ${referralCount}, Bonus: ${formatMoney(referralBonus)}, Total: ${formatMoney(currentMoney)}`);
-
-                    // UI elementlərini yenilə
-                    if (successfulReferralsEl) successfulReferralsEl.textContent = referralCount;
-                    if (referralBonusTotalEl) referralBonusTotalEl.textContent = formatMoney(referralBonus);
-
-                    if (totalMoneyEl) {
-                        totalMoneyEl.textContent = formatMoney(currentMoney);
-                        // Vizual effekt (istəyə bağlı)
-                        totalMoneyEl.style.color = '#00ff00'; // Yaşıl rəngə boya
-                        setTimeout(() => totalMoneyEl.style.color = '', 500); // 0.5 saniyə sonra qaytar
-                    }
-
-                    if (availableMoneyEl) availableMoneyEl.textContent = formatMoney(currentMoney);
-                    if (profileMoneyEl) profileMoneyEl.textContent = formatMoney(currentMoney);
-
-                    // Local state-i və Yaddaşı yenilə
-                    if (currentUserState && currentUserState.username === username) {
-                        currentUserState.successfulReferrals = referralCount;
-                        currentUserState.referralBonusEarned = referralBonus;
-                        currentUserState.totalMoney = currentMoney;
-                        currentUserState.currentEnergy = currentEnergy;
-                        currentUserState.adsgramData = adsgramData;
-
-                        // 1. YADDAŞDA SAXLA (Vacib)
-                        localStorage.setItem('userState', JSON.stringify(currentUserState));
-                        
-                        // 2. DEBUG ÜÇÜN (İstəyə bağlı)
-                        console.log(`Referal bonusu əlavə edildi: +${referralBonus}. Ümumi: ${currentMoney}`);
-                        
-                        // 3. ADSGRAM DISPLAY YENİLƏ
-                        updateAdsGramVideoDisplay();
-                    }
-                }
-            }, (error) => {
-                console.error("❌ Referral dinləmə xətası:", error);
-            });
-        }
-
-        // =================================================================
-        // GİRİŞ FUNKSİYASI (Login) - YENİLƏNMİŞ
-        // =================================================================
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!username || !password) {
-                showError("Zəhmət olmasa bütün sahələri doldurun.");
-                return;
-            }
-
-            try {
-                const userData = await findUserByUsername(username);
-
-                if (userData && userData.password === password) {
-                    // BÜTÜN MƏLUMATLARI FIREBASE-DƏN GÖTÜR
-                    currentUserState = { ...userData, username };
-
-                    // Real-time referral dinləyicisini aç
-                    listenToReferralCount(username);
-
-                    showSuccess(`Xoş gəldiniz, ${username}!`);
-                    this.reset();
-
-                    setTimeout(() => {
-                        loginScreen.style.display = 'none';
-                        gameScreen.style.display = 'flex';
-                        switchScreen('tapScreen');
-                        updateEnergyDisplay();
-                        saveUserState();
-                        
-                        // ADSGRAM DISPLAY YENİLƏ
-                        updateAdsGramVideoDisplay();
-                    }, 1200);
-
-                } else {
-                    showError("İstifadəçi adı və ya şifrə yanlışdır.");
-                }
-
-            } catch (error) {
-                console.error("Giriş xətası:", error);
-                showError("Giriş zamanı xəta baş verdi.");
-            }
-        });
-
-        // =================================================================
-        // QEYDİYYAT FUNKSİYASI (Register) - TƏCİL HƏLL
-        // =================================================================
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const username = document.getElementById('registerUsername').value.trim().toLowerCase();
-            const name = document.getElementById('registerName').value.trim();
-            const surname = document.getElementById('registerSurname').value.trim();
-            const phone = document.getElementById('registerPhone').value.trim();
-            const email = document.getElementById('registerEmail').value.trim().toLowerCase();
-            const password = document.getElementById('registerPassword').value.trim();
-            const confirmPassword = document.getElementById('confirmPassword').value.trim();
-            const referralCodeInput = document.getElementById('registerReferralCode').value.trim();
-
-            if (password !== confirmPassword) return showError("Şifrələr uyğun deyil!");
-            if (!username || !name || !surname || !phone || !email || !password)
-                return showError("Zəhmət olmasa bütün xanaları doldurun!");
-
-            try {
-                // Username unikallığı
-                const existingUser = await db.collection('users').doc(username).get();
-                if (existingUser.exists) return showError("Bu istifadəçi adı artıq mövcuddur.");
-
-                // Duplicate məlumat yoxlanışı
-                const duplicateCheck = await checkDuplicateUserInfo(name, surname, phone, email);
-                if (duplicateCheck.duplicate)
-                    return showError(`❌ Bu ${duplicateCheck.field} artıq qeydiyyatdan keçib!`);
-
-                // CG ID
-                const cgId = await getNextCGId();
-
-                // Yeni istifadəçi məlumatları - ADSGRAM DATA DA DAXİL
-                const newUserData = {
-                    cgId,
-                    name,
-                    surname,
-                    phone,
-                    email,
-                    password,
-                    username,
-
-                    // REFERAL SİSTEMİ
-                    invitedFriends: [],
-                    referralBonusTotal: 0,
-                    referralBonusEarned: 0,
-                    successfulReferrals: 0,
-                    referralCode: generateReferralCode(username),
-                    referredBy: referralCodeInput || null,
-
-                    // OYUN
-                    totalMoney: 0,
-                    scorePerClick: 1,
-                    currentEnergy: 100000,
-                    maxEnergy: 100000,
-
-                    // ADSGRAM DATA
-                    adsgramData: {
-                        lastSessionEndTime: 0,
-                        adsWatchedInSession: 0,
-                        nextAdAvailableTime: 0
-                    },
-
-                    // ZAMAN
-                    registrationDate: new Date().toISOString(),
-                    lastEnergyUpdate: Date.now(),
-                    lastClickTime: Date.now(),
-                    lastWithdrawalDate: null,
-                };
-
-                // Yeni user yazılır
-                await db.collection('users').doc(username).set(newUserData);
-
-                // ================================
-                // REFERRAL PROSESSI - DÜZƏLDİLMİŞ VERSİYA (10-DAN SONRA BONUS YOXDUR)
-                // ================================
-                if (referralCodeInput) {
-                    const referrerQuery = await db.collection('users')
-                        .where('referralCode', '==', referralCodeInput)
-                        .limit(1)
-                        .get();
-
-                    if (!referrerQuery.empty) {
-                        const referrerDoc = referrerQuery.docs[0];
-                        const referrerData = referrerDoc.data();
-                        const referrerUsername = referrerDoc.id;
-
-                        // Cari referral sayını yoxla
-                        const currentReferralCount = referrerData.successfulReferrals || 0;
-                        
-                        console.log(`🔄 Referral prosesi: ${referrerUsername} üçün ${currentReferralCount} referral var`);
-
-                        // Dostlar siyahısına əlavə (HƏR ZAMAN)
-                        await db.collection('users').doc(referrerUsername).update({
-                            invitedFriends: firebase.firestore.FieldValue.arrayUnion(username)
-                        });
-
-                        // BONUS — yalnız ilk 10 nəfərə (10-dan sonra bonus YOXDUR)
-                        if (currentReferralCount < REFERRAL_BONUS_LIMIT) {
-                            await db.collection('users').doc(referrerUsername).update({
-                                successfulReferrals: firebase.firestore.FieldValue.increment(1),
-                                referralBonusTotal: firebase.firestore.FieldValue.increment(REFERRAL_BONUS_AMOUNT),
-                                referralBonusEarned: firebase.firestore.FieldValue.increment(REFERRAL_BONUS_AMOUNT),
-                                totalMoney: firebase.firestore.FieldValue.increment(REFERRAL_BONUS_AMOUNT),
-                            });
-                            
-                            console.log(`✅ Referral bonus verildi: ${referrerUsername} üçün +${REFERRAL_BONUS_AMOUNT} AZN`);
-                            
-                        } else {
-                            // 10-dan sonra - YALNIZ SAY ARTIR, BONUS YOXDUR
-                            await db.collection('users').doc(referrerUsername).update({
-                                successfulReferrals: firebase.firestore.FieldValue.increment(1),
-                            });
-                            
-                            console.log(`ℹ️ Referral limit dolub (10+): ${referrerUsername} üçün bonus VERİLMƏDİ, ancaq say artırıldı`);
-                        }
-                    } else {
-                        console.log(`❌ Referral kodu tapılmadı: ${referralCodeInput}`);
-                    }
-                }
-
-                showSuccess("✅ Qeydiyyat tamamlandı! İndi giriş edə bilərsiniz.");
-                document.getElementById('registerForm').reset();
-                switchToLogin();
-
-            } catch (error) {
-                console.error("❌ Qeydiyyat zamanı xəta:", error);
-                showError("Xəta baş verdi. Yenidən cəhd edin.");
-            }
-        });
-
-        // =================================================================
-        // WHATSAPP GÖNDƏRMƏ FUNKSİYASI
-        // =================================================================
-
-        function sendWithdrawalToAdmin(withdrawalData) {
-            // 1. Əvvəlcə verilənlər bazasına yaz
-            saveWithdrawalRequestToFirestore(withdrawalData);
-            
-            // 2. WhatsApp göndərmə
-            sendWhatsAppToAdmin(withdrawalData);
-            
-            return true;
-        }
-
-        // =================================================================
-        // WHATSAPP MESAJI GÖNDƏR
-        // =================================================================
-
-        function sendWhatsAppToAdmin(withdrawalData) {
-            const message = `💰 CASPER GAME ÇIXARIŞ SORĞUSU 💰
-
-👤 İstifadəçi Məlumatları:
-• CG ID: ${withdrawalData.userId}
-• İstifadəçi adı: ${withdrawalData.username}
-• Ad Soyad: ${withdrawalData.fullName}
-• Telefon: ${withdrawalData.phone}
-• E-poçt: ${withdrawalData.email}
-
-💳 Çıxarış Məlumatları:
-• Məbləğ: ${withdrawalData.amount} AZN
-• Kart nömrəsi: ${withdrawalData.cardNumber}
-• Kart sahibi: ${withdrawalData.cardHolder}
-
-📊 Oyun Statistikası:
-• Cəmi qazanc: ${withdrawalData.totalMoney}
-• Uğurlu dəvətlər: ${withdrawalData.successfulReferrals}
-• Referral bonus: ${withdrawalData.referralBonus}
-• Ümumi kliklər: ${withdrawalData.totalClicks}
-
-⏰ Çıxarış tarixi: ${withdrawalData.withdrawalDate}
-⏳ Növbəti çıxarış: ${new Date(Date.now() + (10 * 24 * 60 * 60 * 1000)).toLocaleDateString('az-AZ')}
-
-────────────────────
-⚠️ BU MESAJ AVTOMATİK GÖNDƏRİLİB
-⚠️ MƏZMUNU DƏYİŞDİRİLƏ BİLMƏZ
-⚠️ YALNIZ ADMIN TƏRƏFİNDƏN İŞLƏNİR
-⚠️ SAXTALAŞDIRMA CƏHDLƏRİ QEYDƏ ALINIR
-────────────────────`;
-
-            // WhatsApp nömrəsi
-            const whatsappNumber = "994513248685";
-            const encodedMessage = encodeURIComponent(message);
-            
-            // WhatsApp linkini yarat
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-            
-            // WhatsApp-ı aç
-            openWhatsAppWindow(whatsappUrl);
-        }
-
-        // =================================================================
-        // WHATSAPP PENCƏRƏSİ
-        // =================================================================
-
-        function openWhatsAppWindow(url) {
-            try {
-                // WhatsApp-ı yeni pəncərədə aç
-                const whatsappWindow = window.open(url, 'whatsappWindow', 
-                    'width=600,height=700,left=100,top=100,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no');
-                
-                // Pəncərənin bağlanıb-bağlanmadığını yoxla
-                if (whatsappWindow) {
-                    const checkWindow = setInterval(function() {
-                        if (whatsappWindow.closed) {
-                            clearInterval(checkWindow);
-                            console.log('WhatsApp pəncərəsi bağlandı');
-                        }
-                    }, 1000);
-                }
-                
-                return true;
-            } catch (error) {
-                console.log('WhatsApp açıla bilmədi, ancaq sorğu qeydə alındı');
-                return false;
-            }
-        }
-
-        // =================================================================
-        // FIRESTORE'A ÇIXARIŞ SORĞUSU YAZMAQ
-        // =================================================================
-
-        async function saveWithdrawalRequestToFirestore(withdrawalData) {
-            try {
-                const withdrawalRef = db.collection('withdrawalRequests').doc();
-                
-                await withdrawalRef.set({
-                    // İstifadəçi məlumatları
-                    userId: withdrawalData.userId,
-                    username: withdrawalData.username,
-                    fullName: withdrawalData.fullName,
-                    phone: withdrawalData.phone,
-                    email: withdrawalData.email,
-                    
-                    // Çıxarış məlumatları
-                    amount: withdrawalData.amount,
-                    cardNumber: withdrawalData.cardNumber,
-                    cardHolder: withdrawalData.cardHolder,
-                    
-                    // Statistikalar
-                    totalMoney: withdrawalData.totalMoney,
-                    successfulReferrals: withdrawalData.successfulReferrals,
-                    referralBonus: withdrawalData.referralBonus,
-                    totalClicks: withdrawalData.totalClicks,
-                    
-                    // Status və tarixlər
-                    status: 'pending',
-                    whatsappSent: true,
-                    userIP: await getUserIP(),
-                    userAgent: navigator.userAgent,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    withdrawalDate: withdrawalData.withdrawalDate
-                });
-                
-                console.log('✅ Çıxarış sorğusu Firestore-a yazıldı');
-                return true;
-                
-            } catch (error) {
-                console.error('❌ Firestore xətası:', error);
-                return false;
-            }
-        }
-
-        // İstifadəçi IP ünvanı
-        async function getUserIP() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                return data.ip;
-            } catch (error) {
-                return 'unknown';
-            }
-        }
-
-        // =================================================================
-        // ÇIXARIŞ SİSTEMİ FUNKSİYALARI
-        // =================================================================
-
-        function checkWithdrawalAvailability() {
-            if (!currentUserState.username) return false;
-            
-            const lastWithdrawal = currentUserState.lastWithdrawalDate;
-            if (!lastWithdrawal) return true;
-            
-            const now = new Date();
-            const lastWithdrawalDate = new Date(lastWithdrawal);
-            const timeDiff = now.getTime() - lastWithdrawalDate.getTime();
-            const daysDiff = timeDiff / (1000 * 3600 * 24);
-            
-            return daysDiff >= 10; // 10 gün
-        }
-
-        function getNextWithdrawalTime() {
-            if (!currentUserState.lastWithdrawalDate) {
-                return { available: true, timeLeft: 0 };
-            }
-            
-            const lastWithdrawal = new Date(currentUserState.lastWithdrawalDate);
-            const nextWithdrawal = new Date(lastWithdrawal);
-            nextWithdrawal.setDate(nextWithdrawal.getDate() + 10); // 10 gün
-            
-            const now = new Date();
-            const timeLeft = nextWithdrawal.getTime() - now.getTime();
-            
-            if (timeLeft <= 0) {
-                return { available: true, timeLeft: 0 };
-            }
-            
-            return {
-                available: false,
-                timeLeft: timeLeft,
-                nextDate: nextWithdrawal
-            };
-        }
-
-        function formatTimeLeft(milliseconds) {
-            const days = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((milliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
-            
-            if (days > 0) {
-                return `${days} gün ${hours} saat`;
-            } else if (hours > 0) {
-                return `${hours} saat ${minutes} dəqiqə`;
-            } else {
-                return `${minutes} dəqiqə`;
-            }
-        }
-
-        function updateWithdrawalDisplay() {
-            if (!currentUserState.username) return;
-            
-            const withdrawalStatus = getNextWithdrawalTime();
-            
-            // User ID göstər
-            withdrawalUserIdDisplay.textContent = currentUserState.cgId || 'N/A';
-            
-            if (withdrawalStatus.available) {
-                nextWithdrawalTimeEl.textContent = "Hazır";
-                withdrawalTimerInfoEl.innerHTML = 'Növbəti çıxarış üçün: <strong style="color: #00b894;">Hazır</strong>';
-                withdrawSubmitBtn.disabled = false;
-                withdrawSubmitBtn.style.opacity = "1";
-                withdrawSubmitBtn.textContent = "ÇIXARIŞ ET";
-                withdrawSubmitBtn.classList.remove('withdraw-btn-disabled');
-            } else {
-                const timeLeftFormatted = formatTimeLeft(withdrawalStatus.timeLeft);
-                nextWithdrawalTimeEl.textContent = timeLeftFormatted;
-                withdrawalTimerInfoEl.innerHTML = `Növbəti çıxarış üçün: <strong style="color: #ff6b6b;">${timeLeftFormatted}</strong>`;
-                withdrawSubmitBtn.disabled = true;
-                withdrawSubmitBtn.style.opacity = "0.6";
-                withdrawSubmitBtn.textContent = `10 GÜN GÖZLƏMƏ (${timeLeftFormatted})`;
-                withdrawSubmitBtn.classList.add('withdraw-btn-disabled');
-            }
-            
-            availableMoneyEl.textContent = formatMoney(currentUserState.totalMoney);
-            
-            setTimeout(updateWithdrawalDisplay, 60000);
-        }
-
-        // =================================================================
-        // ÇIXARIŞ FORM FUNKSİYASI - TƏMİZ VERSİYA
-        // =================================================================
-        document.getElementById('withdrawalForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const amountAZN = parseFloat(document.getElementById('withdrawAmount').value);
-            const name = document.getElementById('withdrawName').value.trim();
-            const surname = document.getElementById('withdrawSurname').value.trim();
-            const phone = document.getElementById('withdrawPhone').value.trim();
-            const cardNumber = document.getElementById('withdrawCardNumber').value.trim();
-            const cardHolder = document.getElementById('withdrawCardHolder').value.trim();
-            
-            // Validasiyalar
-            if (!amountAZN || !name || !surname || !phone || !cardNumber || !cardHolder) {
-                alert("❌ Zəhmət olmasa bütün sahələri doldurun.");
-                return;
-            }
-
-            if (cardNumber.length !== 16 || !/^\d{16}$/.test(cardNumber)) {
-                alert("❌ Kart nömrəsi 16 rəqəmdən ibarət olmalıdır.");
-                return;
-            }
-
-            if (amountAZN < 3.00) {
-                alert("❌ Minimum çıxarış məbləği 3.00 AZN-dir.");
-                return;
-            }
-            
-            if (amountAZN > currentUserState.totalMoney) {
-                alert("❌ Balansınızda kifayət qədər pul yoxdur.");
-                return;
-            }
-
-            if (!checkWithdrawalAvailability()) {
-                const withdrawalStatus = getNextWithdrawalTime();
-                const timeLeftFormatted = formatTimeLeft(withdrawalStatus.timeLeft);
-                alert(`❌ Çıxarış etmək üçün ${timeLeftFormatted} gözləməlisiniz.`);
-                return;
-            }
-
-            // Withdrawal data hazırlayırıq
-            const withdrawalData = {
-                userId: currentUserState.cgId,
-                username: currentUserState.username,
-                fullName: `${name} ${surname}`,
-                phone: phone,
-                email: currentUserState.email,
-                amount: amountAZN.toFixed(2),
-                cardNumber: cardNumber,
-                cardHolder: cardHolder,
-                totalMoney: formatMoney(currentUserState.totalMoney),
-                successfulReferrals: currentUserState.successfulReferrals,
-                referralBonus: formatMoney(currentUserState.referralBonusEarned),
-                totalClicks: currentUserState.totalClicks,
-                withdrawalDate: new Date().toLocaleString('az-AZ')
-            };
-
-            try {
-                // WhatsApp göndərmə
-                const requestSent = sendWithdrawalToAdmin(withdrawalData);
-
-                if (requestSent) {
-                    // Pulu çıxar və tarixi yenilə
-                    currentUserState.totalMoney -= amountAZN;
-                    currentUserState.lastWithdrawalDate = new Date().toISOString();
-                    
-                    // Formu təmizlə
-                    document.getElementById('withdrawAmount').value = '';
-                    document.getElementById('withdrawName').value = '';
-                    document.getElementById('withdrawSurname').value = '';
-                    document.getElementById('withdrawPhone').value = '+994';
-                    document.getElementById('withdrawCardNumber').value = '';
-                    document.getElementById('withdrawCardHolder').value = '';
-
-                    await saveUserState();
-                    updateEnergyDisplay();
-                    updateWithdrawalDisplay();
-                    
-                    // İSTİFADƏÇİYƏ GÖSTƏRİLƏCƏK MESAJ
-                    alert(`✅ Çıxarış sorğunuz UĞURLA göndərildi!\n\n💰 ${amountAZN.toFixed(2)} AZN\n📱 WhatsApp ilə adminə göndərildi\n⏳ Növbəti çıxarış: 10 gün sonra\n\nSorğunuz 3 iş günü ərzində yoxlanılacaq.`);
-                    
-                } else {
-                    alert("❌ Çıxarış sorğusu göndərilə bilmədi. Yenidən cəhd edin.");
-                }
-            } catch (error) {
-                console.error('Çıxarış xətası:', error);
-                alert("❌ Xəta baş verdi. Yenidən cəhd edin.");
-            }
-        });
-                
-        // =================================================================
-        // ƏSAS OYUN FUNKSİYALARI
-        // =================================================================
-
-        function showWelcomeMessage() {
-            const userName = currentUserState.name || currentUserState.username;
-            const welcomeMessages = [
-                `Sizi yenidən görmək əladır, ${userName}! Oynamağa davam edin və daha çox qazanın! 🚀`,
-                `Xoş gəldiniz, ${userName}! Gününüz xoş keçsin və bol qazanclı olsun! 💫`,
-                `Təşəkkürlər, ${userName}! Yenidən oynamağa başladığınız üçün çox sevindik! 🎮`
-            ];
-            
-            const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
-            welcomeText.textContent = `Xoş gəldiniz, ${userName}! 👋`;
-            personalWelcomeText.textContent = randomMessage;
-            welcomeMessage.style.display = 'block';
-            
-            setTimeout(() => {
-                welcomeMessage.style.display = 'none';
-            }, 5000);
-        }
-
         function formatMoney(amount) {
             return parseFloat(amount).toFixed(MONEY_DECIMAL_PLACES) + ' AZN';
         }
 
-        function hideMessages() {
-            document.getElementById('errorMessage').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'none';
-        }
-
-        // İstifadəçi məlumatlarını Firebase-ə yaz - BÜTÜN MƏLUMATLAR
         async function saveUserState() {
             if (currentUserState.username) {
                 const stateToSave = { 
                     ...currentUserState, 
                     energyRegenRate: BASE_REGEN_RATE, 
                     maxEnergy: MAX_ENERGY_CAP,
-                    // ADSGRAM DATA DA DAXİL
                     adsgramData: currentUserState.adsgramData || {
                         lastSessionEndTime: 0,
                         adsWatchedInSession: 0,
@@ -3516,76 +2626,17 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                     }
                 };
                 
-                // Firebase-ə göndər
                 try {
                     await db.collection('users').doc(currentUserState.username).update(stateToSave);
-                    console.log('✅ Firebase uğurlu');
                 } catch (error) {
                     console.warn('⚠️ Firebase uğursuz:', error);
                 }
             }
         }
 
-        function updateEnergyDisplay() {
-            const state = currentUserState;
-            const energyPercent = (state.currentEnergy / state.maxEnergy) * 100;
-
-            // ENERJİ BARINI VƏ MƏTNİ YENİLƏ (Null Yoxlaması)
-            if (energyFillEl) {
-                energyFillEl.style.width = energyPercent + '%';
-                
-                // Rəngləri faizə görə dəyiş
-                if (energyPercent <= 20) {
-                    energyFillEl.style.background = 'linear-gradient(90deg, #ff4d4d, #cc0000)'; 
-                } else if (energyPercent <= 50) {
-                    energyFillEl.style.background = 'linear-gradient(90deg, #ff9933, #ff6600)'; 
-                } else {
-                    energyFillEl.style.background = 'linear-gradient(90deg, #00b894, #55efc4)'; 
-                }
-            }
-
-            if (energyTextEl) {
-                energyTextEl.textContent = state.currentEnergy.toFixed(0);
-            }
-
-            // PUL VƏ REKLAM KLİKLƏRİNİ YENİLƏ
-            if (totalMoneyEl) {
-                totalMoneyEl.textContent = formatMoney(state.totalMoney);
-            }
-            
-            // EKRANLARI YOXLA VƏ ŞƏRTLİ YENİLƏMƏ
-            const friendsScreenEl = document.getElementById('friendsScreen');
-            if (friendsScreenEl && friendsScreenEl.classList.contains('active')) {
-                updateInviteLinkDisplay();
-            }
-
-            const profileScreenEl = document.getElementById('profileScreen');
-            if (profileScreenEl && profileScreenEl.classList.contains('active')) {
-                updateProfileDisplay();
-            }
-
-            if (availableMoneyEl) {
-                availableMoneyEl.textContent = formatMoney(state.totalMoney);
-            }
-            
-            // DƏVƏT STATISTIKASINI YENİLƏ
-            if (successfulReferralsEl) {
-                successfulReferralsEl.textContent = state.successfulReferrals || 0;
-            }
-            if (referralBonusTotalEl) {
-                referralBonusTotalEl.textContent = formatMoney(state.referralBonusEarned || 0);
-            }
-            if (referralLimitEl) {
-                referralLimitEl.textContent = REFERRAL_BONUS_LIMIT;
-            }
-
-            saveUserState();
-        }
-
         function updateProfileDisplay() {
             const state = currentUserState;
 
-            // CG ID GÖSTƏR
             if (profileCGIDEl) profileCGIDEl.textContent = state.cgId || 'N/A';
             if (profileUsernameEl) profileUsernameEl.textContent = state.username || 'N/A';
             if (profileFullNameEl) profileFullNameEl.textContent = (state.name && state.surname) ? `${state.name} ${state.surname}` : 'N/A';
@@ -3594,7 +2645,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             if (profileMoneyEl) profileMoneyEl.textContent = formatMoney(state.totalMoney);
             if (profileReferralCodeEl) profileReferralCodeEl.textContent = state.referralCode || 'GENERATING...';
             
-            // DƏVƏT STATISTIKASINI YENİLƏ
             if (successfulReferralsEl) successfulReferralsEl.textContent = state.successfulReferrals || 0;
             if (referralBonusTotalEl) referralBonusTotalEl.textContent = formatMoney(state.referralBonusEarned || 0);
             if (referralLimitEl) referralLimitEl.textContent = REFERRAL_BONUS_LIMIT;
@@ -3617,69 +2667,215 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             }
         }
 
-        function simulateEnergyRegen() {
-            // 1. İlkin yoxlama: İstifadəçi statusu yoxdursa, funksiyanı dayandır
-            if (!currentUserState || !currentUserState.username) {
+        // =================================================================
+        // REAL-TIME REFERRAL DİNLƏYİCİSİ
+        // =================================================================
+        function listenToReferralCount(username) {
+            if (referralUnsubscribe) {
+                referralUnsubscribe();
+                referralUnsubscribe = null;
+            }
+
+            if (typeof db === 'undefined' || !db.collection) {
+                console.error("❌ Firestore 'db' instansiyası tapılmadı.");
+                return;
+            }
+            
+            const userRef = db.collection('users').doc(username);
+
+            referralUnsubscribe = userRef.onSnapshot((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+
+                    const referralCount = data.successfulReferrals || 0;
+                    const referralBonus = data.referralBonusEarned || 0;
+                    const currentMoney = data.totalMoney || 0;
+                    const currentEnergy = data.currentEnergy || 0;
+                    const adsgramData = data.adsgramData || {
+                        lastSessionEndTime: 0,
+                        adsWatchedInSession: 0,
+                        nextAdAvailableTime: 0
+                    };
+
+                    console.log(`📊 Real-time update: ${username} - Referrals: ${referralCount}, Bonus: ${formatMoney(referralBonus)}, Total: ${formatMoney(currentMoney)}`);
+
+                    if (successfulReferralsEl) successfulReferralsEl.textContent = referralCount;
+                    if (referralBonusTotalEl) referralBonusTotalEl.textContent = formatMoney(referralBonus);
+
+                    if (totalMoneyEl) {
+                        totalMoneyEl.textContent = formatMoney(currentMoney);
+                        totalMoneyEl.style.color = '#00ff00';
+                        setTimeout(() => totalMoneyEl.style.color = '', 500);
+                    }
+
+                    if (availableMoneyEl) availableMoneyEl.textContent = formatMoney(currentMoney);
+                    if (profileMoneyEl) profileMoneyEl.textContent = formatMoney(currentMoney);
+
+                    if (currentUserState && currentUserState.username === username) {
+                        currentUserState.successfulReferrals = referralCount;
+                        currentUserState.referralBonusEarned = referralBonus;
+                        currentUserState.totalMoney = currentMoney;
+                        currentUserState.currentEnergy = currentEnergy;
+                        currentUserState.adsgramData = adsgramData;
+
+                        localStorage.setItem('userState', JSON.stringify(currentUserState));
+                        updateAdsGramVideoDisplay();
+                    }
+                }
+            }, (error) => {
+                console.error("❌ Referral dinləmə xətası:", error);
+            });
+        }
+
+        // =================================================================
+        // GİRİŞ FUNKSİYASI
+        // =================================================================
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username || !password) {
+                showError("Zəhmət olmasa bütün sahələri doldurun.");
                 return;
             }
 
-            const now = Date.now();
-            
-            // 2. Təhlükəsizlik yoxlaması: lastEnergyUpdate-in ilkin dəyərini təyin et
-            const lastUpdate = currentUserState.lastEnergyUpdate || now; 
-            
-            // Keçən zamanı saniyələrlə hesablayırıq
-            const timePassedInSeconds = (now - lastUpdate) / 1000;
-            
-            // Yalnız ən azı 1 saniyə keçibsə, enerjini bərpa et
-            if (timePassedInSeconds >= 1) {
-                const energyToAdd = timePassedInSeconds * ENERGY_REGEN_PER_SECOND;
-                const oldEnergy = currentUserState.currentEnergy;
-                
-                // 3. Enerjini yenilə (Maksimum dəyəri keçməsinə icazə vermə)
-                currentUserState.currentEnergy = Math.min(
-                    currentUserState.maxEnergy, 
-                    currentUserState.currentEnergy + energyToAdd
-                );
-                
-                // 4. Yeniləmə vaxtını dəqiqliklə tənzimlə
-                currentUserState.lastEnergyUpdate = now - ((energyToAdd % 1) * 1000);
-                
-                // 5. İnterfeysi yalnız tam enerji dəyişdikdə yenilə (Optimallaşdırma)
-                if (Math.floor(currentUserState.currentEnergy) > Math.floor(oldEnergy)) {
-                    updateEnergyDisplay();
-                }
-                
-            } else {
-                // 6. Əgər 1 saniyə keçməyibsə, lakin lastEnergyUpdate hələ də təyin edilməyibsə,
-                if (!currentUserState.lastEnergyUpdate) {
-                    currentUserState.lastEnergyUpdate = now;
-                }
-            }
-        }
+            try {
+                const userData = await findUserByUsername(username);
 
-        function createMoneyPopup(event, money) {
-            const popup = document.createElement('div');
-            popup.className = 'money-popup';
-            popup.textContent = `+${formatMoney(money)}`;
-            
-            let x, y;
-            if (event.touches && event.touches.length > 0) {
-                x = event.touches[0].clientX;
-                y = event.touches[0].clientY;
-            } else {
-                x = event.clientX;
-                y = event.clientY;
-            }
+                if (userData && userData.password === password) {
+                    currentUserState = { ...userData, username };
+                    listenToReferralCount(username);
+                    showSuccess(`Xoş gəldiniz, ${username}!`);
+                    this.reset();
 
-            const rect = document.querySelector('.click-area').getBoundingClientRect();
-            popup.style.left = (x - rect.left + 20) + 'px'; 
-            popup.style.top = (y - rect.top - 20) + 'px'; 
-            
-            document.querySelector('.click-area').appendChild(popup);
-            
-            setTimeout(() => popup.remove(), 1200);
-        }
+                    setTimeout(() => {
+                        loginScreen.style.display = 'none';
+                        gameScreen.style.display = 'flex';
+                        switchScreen('tapScreen');
+                        updateEnergyDisplay();
+                        saveUserState();
+                        updateAdsGramVideoDisplay();
+                    }, 1200);
+
+                } else {
+                    showError("İstifadəçi adı və ya şifrə yanlışdır.");
+                }
+
+            } catch (error) {
+                console.error("Giriş xətası:", error);
+                showError("Giriş zamanı xəta baş verdi.");
+            }
+        });
+
+        // =================================================================
+        // QEYDİYYAT FUNKSİYASI
+        // =================================================================
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('registerUsername').value.trim().toLowerCase();
+            const name = document.getElementById('registerName').value.trim();
+            const surname = document.getElementById('registerSurname').value.trim();
+            const phone = document.getElementById('registerPhone').value.trim();
+            const email = document.getElementById('registerEmail').value.trim().toLowerCase();
+            const password = document.getElementById('registerPassword').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+            const referralCodeInput = document.getElementById('registerReferralCode').value.trim();
+
+            if (password !== confirmPassword) return showError("Şifrələr uyğun deyil!");
+            if (!username || !name || !surname || !phone || !email || !password)
+                return showError("Zəhmət olmasa bütün xanaları doldurun!");
+
+            try {
+                const existingUser = await db.collection('users').doc(username).get();
+                if (existingUser.exists) return showError("Bu istifadəçi adı artıq mövcuddur.");
+
+                const duplicateCheck = await checkDuplicateUserInfo(name, surname, phone, email);
+                if (duplicateCheck.duplicate)
+                    return showError(`❌ Bu ${duplicateCheck.field} artıq qeydiyyatdan keçib!`);
+
+                const cgId = await getNextCGId();
+
+                const newUserData = {
+                    cgId,
+                    name,
+                    surname,
+                    phone,
+                    email,
+                    password,
+                    username,
+                    invitedFriends: [],
+                    referralBonusTotal: 0,
+                    referralBonusEarned: 0,
+                    successfulReferrals: 0,
+                    referralCode: generateReferralCode(username),
+                    referredBy: referralCodeInput || null,
+                    totalMoney: 0,
+                    scorePerClick: 1,
+                    currentEnergy: 100000,
+                    maxEnergy: 100000,
+                    adsgramData: {
+                        lastSessionEndTime: 0,
+                        adsWatchedInSession: 0,
+                        nextAdAvailableTime: 0
+                    },
+                    registrationDate: new Date().toISOString(),
+                    lastEnergyUpdate: Date.now(),
+                    lastClickTime: Date.now(),
+                    lastWithdrawalDate: null,
+                };
+
+                await db.collection('users').doc(username).set(newUserData);
+
+                if (referralCodeInput) {
+                    const referrerQuery = await db.collection('users')
+                        .where('referralCode', '==', referralCodeInput)
+                        .limit(1)
+                        .get();
+
+                    if (!referrerQuery.empty) {
+                        const referrerDoc = referrerQuery.docs[0];
+                        const referrerData = referrerDoc.data();
+                        const referrerUsername = referrerDoc.id;
+
+                        const currentReferralCount = referrerData.successfulReferrals || 0;
+                        
+                        await db.collection('users').doc(referrerUsername).update({
+                            invitedFriends: firebase.firestore.FieldValue.arrayUnion(username)
+                        });
+
+                        if (currentReferralCount < REFERRAL_BONUS_LIMIT) {
+                            await db.collection('users').doc(referrerUsername).update({
+                                successfulReferrals: firebase.firestore.FieldValue.increment(1),
+                                referralBonusTotal: firebase.firestore.FieldValue.increment(REFERRAL_BONUS_AMOUNT),
+                                referralBonusEarned: firebase.firestore.FieldValue.increment(REFERRAL_BONUS_AMOUNT),
+                                totalMoney: firebase.firestore.FieldValue.increment(REFERRAL_BONUS_AMOUNT),
+                            });
+                        } else {
+                            await db.collection('users').doc(referrerUsername).update({
+                                successfulReferrals: firebase.firestore.FieldValue.increment(1),
+                            });
+                        }
+                    }
+                }
+
+                showSuccess("✅ Qeydiyyat tamamlandı! İndi giriş edə bilərsiniz.");
+                document.getElementById('registerForm').reset();
+                switchToLogin();
+
+            } catch (error) {
+                console.error("❌ Qeydiyyat zamanı xəta:", error);
+                showError("Xəta baş verdi. Yenidən cəhd edin.");
+            }
+        });
+
+        // =================================================================
+        // SCREEN SWITCHING
+        // =================================================================
 
         function switchScreen(screenName) {
             if (screenName === 'loginScreen') {
@@ -3726,8 +2922,11 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             });
         });
 
+        // =================================================================
+        // LOGOUT
+        // =================================================================
+
         function logout() {
-            // REAL-TIME DİNLƏYİCİNİ DAYANDIR
             if (referralUnsubscribe) {
                 referralUnsubscribe();
                 referralUnsubscribe = null;
@@ -3768,6 +2967,10 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             switchToLogin();
         }
 
+        // =================================================================
+        // TAB SWITCHING
+        // =================================================================
+
         function switchToLogin() {
             document.getElementById('loginTab').classList.add('active');
             document.getElementById('registerTab').classList.remove('active');
@@ -3795,16 +2998,15 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
         document.getElementById('loginTab').addEventListener('click', switchToLogin);
         document.getElementById('registerTab').addEventListener('click', switchToRegister);
 
-        function enforcePlus994(event) {
-            const input = event.target;
-            if (!input.value.startsWith('+994')) {
-                input.value = '+994';
-            }
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
         }
-        document.getElementById('registerPhone').addEventListener('input', enforcePlus994);
-        document.getElementById('withdrawPhone').addEventListener('input', enforcePlus994);
 
-        // Modal funksiyaları
+        // =================================================================
+        // MODAL FUNCTIONS
+        // =================================================================
+
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
@@ -3831,6 +3033,10 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             }
         }
 
+        // =================================================================
+        // EDIT PROFILE
+        // =================================================================
+
         document.getElementById('editProfileForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -3851,6 +3057,10 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 alert("Zəhmət olmasa bütün sahələri doldurun.");
             }
         });
+
+        // =================================================================
+        // DELETE PROFILE
+        // =================================================================
 
         async function deleteProfile() {
             const confirmText = document.getElementById('deleteConfirm').value.trim();
@@ -3873,7 +3083,92 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             }
         }
 
-        // Çıxarış məbləği real-time validasiyası
+        // =================================================================
+        // WITHDRAWAL SYSTEM
+        // =================================================================
+
+        function checkWithdrawalAvailability() {
+            if (!currentUserState.username) return false;
+            
+            const lastWithdrawal = currentUserState.lastWithdrawalDate;
+            if (!lastWithdrawal) return true;
+            
+            const now = new Date();
+            const lastWithdrawalDate = new Date(lastWithdrawal);
+            const timeDiff = now.getTime() - lastWithdrawalDate.getTime();
+            const daysDiff = timeDiff / (1000 * 3600 * 24);
+            
+            return daysDiff >= 10;
+        }
+
+        function getNextWithdrawalTime() {
+            if (!currentUserState.lastWithdrawalDate) {
+                return { available: true, timeLeft: 0 };
+            }
+            
+            const lastWithdrawal = new Date(currentUserState.lastWithdrawalDate);
+            const nextWithdrawal = new Date(lastWithdrawal);
+            nextWithdrawal.setDate(nextWithdrawal.getDate() + 10);
+            
+            const now = new Date();
+            const timeLeft = nextWithdrawal.getTime() - now.getTime();
+            
+            if (timeLeft <= 0) {
+                return { available: true, timeLeft: 0 };
+            }
+            
+            return {
+                available: false,
+                timeLeft: timeLeft,
+                nextDate: nextWithdrawal
+            };
+        }
+
+        function formatTimeLeft(milliseconds) {
+            const days = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((milliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+            
+            if (days > 0) {
+                return `${days} gün ${hours} saat`;
+            } else if (hours > 0) {
+                return `${hours} saat ${minutes} dəqiqə`;
+            } else {
+                return `${minutes} dəqiqə`;
+            }
+        }
+
+        function updateWithdrawalDisplay() {
+            if (!currentUserState.username) return;
+            
+            const withdrawalStatus = getNextWithdrawalTime();
+            
+            withdrawalUserIdDisplay.textContent = currentUserState.cgId || 'N/A';
+            
+            if (withdrawalStatus.available) {
+                nextWithdrawalTimeEl.textContent = "Hazır";
+                withdrawalTimerInfoEl.innerHTML = 'Növbəti çıxarış üçün: <strong style="color: #00b894;">Hazır</strong>';
+                withdrawSubmitBtn.disabled = false;
+                withdrawSubmitBtn.style.opacity = "1";
+                withdrawSubmitBtn.textContent = "ÇIXARIŞ ET";
+                withdrawSubmitBtn.classList.remove('withdraw-btn-disabled');
+            } else {
+                const timeLeftFormatted = formatTimeLeft(withdrawalStatus.timeLeft);
+                nextWithdrawalTimeEl.textContent = timeLeftFormatted;
+                withdrawalTimerInfoEl.innerHTML = `Növbəti çıxarış üçün: <strong style="color: #ff6b6b;">${timeLeftFormatted}</strong>`;
+                withdrawSubmitBtn.disabled = true;
+                withdrawSubmitBtn.style.opacity = "0.6";
+                withdrawSubmitBtn.textContent = `10 GÜN GÖZLƏMƏ (${timeLeftFormatted})`;
+                withdrawSubmitBtn.classList.add('withdraw-btn-disabled');
+            }
+            
+            availableMoneyEl.textContent = formatMoney(currentUserState.totalMoney);
+        }
+
+        // =================================================================
+        // WITHDRAWAL FORM
+        // =================================================================
+
         document.getElementById('withdrawAmount').addEventListener('input', function(e) {
             const amount = parseFloat(e.target.value) || 0;
             const hint = document.getElementById('amountHint');
@@ -3889,171 +3184,478 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             }
         });
 
-        // =================================================================
-        // ADEXIUM REKLAM SİSTEMİ
-        // =================================================================
+        document.getElementById('withdrawalForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const amountAZN = parseFloat(document.getElementById('withdrawAmount').value);
+            const name = document.getElementById('withdrawName').value.trim();
+            const surname = document.getElementById('withdrawSurname').value.trim();
+            const phone = document.getElementById('withdrawPhone').value.trim();
+            const cardNumber = document.getElementById('withdrawCardNumber').value.trim();
+            const cardHolder = document.getElementById('withdrawCardHolder').value.trim();
+            
+            if (!amountAZN || !name || !surname || !phone || !cardNumber || !cardHolder) {
+                alert("❌ Zəhmət olmasa bütün sahələri doldurun.");
+                return;
+            }
 
-        // Adexium reklam sistemini başlatmaq
-        function initializeAdexiumAds() {
+            if (cardNumber.length !== 16 || !/^\d{16}$/.test(cardNumber)) {
+                alert("❌ Kart nömrəsi 16 rəqəmdən ibarət olmalıdır.");
+                return;
+            }
+
+            if (amountAZN < 3.00) {
+                alert("❌ Minimum çıxarış məbləği 3.00 AZN-dir.");
+                return;
+            }
+            
+            if (amountAZN > currentUserState.totalMoney) {
+                alert("❌ Balansınızda kifayət qədər pul yoxdur.");
+                return;
+            }
+
+            if (!checkWithdrawalAvailability()) {
+                const withdrawalStatus = getNextWithdrawalTime();
+                const timeLeftFormatted = formatTimeLeft(withdrawalStatus.timeLeft);
+                alert(`❌ Çıxarış etmək üçün ${timeLeftFormatted} gözləməlisiniz.`);
+                return;
+            }
+
+            const withdrawalData = {
+                userId: currentUserState.cgId,
+                username: currentUserState.username,
+                fullName: `${name} ${surname}`,
+                phone: phone,
+                email: currentUserState.email,
+                amount: amountAZN.toFixed(2),
+                cardNumber: cardNumber,
+                cardHolder: cardHolder,
+                totalMoney: formatMoney(currentUserState.totalMoney),
+                successfulReferrals: currentUserState.successfulReferrals,
+                referralBonus: formatMoney(currentUserState.referralBonusEarned),
+                totalClicks: currentUserState.totalClicks,
+                withdrawalDate: new Date().toLocaleString('az-AZ')
+            };
+
             try {
-                // Adexium reklam sisteminin yükləndiyini yoxla
-                if (typeof AdexiumWidget !== 'undefined') {
-                    console.log('✅ Adexium reklam sistemi hazırdır');
-                    return true;
+                const requestSent = sendWithdrawalToAdmin(withdrawalData);
+
+                if (requestSent) {
+                    currentUserState.totalMoney -= amountAZN;
+                    currentUserState.lastWithdrawalDate = new Date().toISOString();
+                    
+                    document.getElementById('withdrawAmount').value = '';
+                    document.getElementById('withdrawName').value = '';
+                    document.getElementById('withdrawSurname').value = '';
+                    document.getElementById('withdrawPhone').value = '+994';
+                    document.getElementById('withdrawCardNumber').value = '';
+                    document.getElementById('withdrawCardHolder').value = '';
+
+                    await saveUserState();
+                    updateEnergyDisplay();
+                    updateWithdrawalDisplay();
+                    
+                    alert(`✅ Çıxarış sorğunuz UĞURLA göndərildi!\n\n💰 ${amountAZN.toFixed(2)} AZN\n📱 WhatsApp ilə adminə göndərildi\n⏳ Növbəti çıxarış: 10 gün sonra\n\nSorğunuz 3 iş günü ərzində yoxlanılacaq.`);
+                    
                 } else {
-                    console.log('❌ Adexium reklam sistemi tapılmadı');
-                    return false;
+                    alert("❌ Çıxarış sorğusu göndərilə bilmədi. Yenidən cəhd edin.");
                 }
             } catch (error) {
-                console.error('Adexium xətası:', error);
+                console.error('Çıxarış xətası:', error);
+                alert("❌ Xəta baş verdi. Yenidən cəhd edin.");
+            }
+        });
+
+        function sendWithdrawalToAdmin(withdrawalData) {
+            saveWithdrawalRequestToFirestore(withdrawalData);
+            sendWhatsAppToAdmin(withdrawalData);
+            return true;
+        }
+
+        function sendWhatsAppToAdmin(withdrawalData) {
+            const message = `💰 CASPER GAME ÇIXARIŞ SORĞUSU 💰
+
+👤 İstifadəçi Məlumatları:
+• CG ID: ${withdrawalData.userId}
+• İstifadəçi adı: ${withdrawalData.username}
+• Ad Soyad: ${withdrawalData.fullName}
+• Telefon: ${withdrawalData.phone}
+• E-poçt: ${withdrawalData.email}
+
+💳 Çıxarış Məlumatları:
+• Məbləğ: ${withdrawalData.amount} AZN
+• Kart nömrəsi: ${withdrawalData.cardNumber}
+• Kart sahibi: ${withdrawalData.cardHolder}
+
+📊 Oyun Statistikası:
+• Cəmi qazanc: ${withdrawalData.totalMoney}
+• Uğurlu dəvətlər: ${withdrawalData.successfulReferrals}
+• Referral bonus: ${withdrawalData.referralBonus}
+• Ümumi kliklər: ${withdrawalData.totalClicks}
+
+⏰ Çıxarış tarixi: ${withdrawalData.withdrawalDate}
+⏳ Növbəti çıxarış: ${new Date(Date.now() + (10 * 24 * 60 * 60 * 1000)).toLocaleDateString('az-AZ')}
+
+────────────────────
+⚠️ BU MESAJ AVTOMATİK GÖNDƏRİLİB
+⚠️ MƏZMUNU DƏYİŞDİRİLƏ BİLMƏZ
+⚠️ YALNIZ ADMIN TƏRƏFİNDƏN İŞLƏNİR
+⚠️ SAXTALAŞDIRMA CƏHDLƏRİ QEYDƏ ALINIR
+────────────────────`;
+
+            const whatsappNumber = "994513248685";
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            openWhatsAppWindow(whatsappUrl);
+        }
+
+        function openWhatsAppWindow(url) {
+            try {
+                const whatsappWindow = window.open(url, 'whatsappWindow', 
+                    'width=600,height=700,left=100,top=100,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no');
+                
+                if (whatsappWindow) {
+                    const checkWindow = setInterval(function() {
+                        if (whatsappWindow.closed) {
+                            clearInterval(checkWindow);
+                            console.log('WhatsApp pəncərəsi bağlandı');
+                        }
+                    }, 1000);
+                }
+                
+                return true;
+            } catch (error) {
+                console.log('WhatsApp açıla bilmədi, ancaq sorğu qeydə alındı');
                 return false;
             }
         }
 
+        async function saveWithdrawalRequestToFirestore(withdrawalData) {
+            try {
+                const withdrawalRef = db.collection('withdrawalRequests').doc();
+                
+                await withdrawalRef.set({
+                    userId: withdrawalData.userId,
+                    username: withdrawalData.username,
+                    fullName: withdrawalData.fullName,
+                    phone: withdrawalData.phone,
+                    email: withdrawalData.email,
+                    amount: withdrawalData.amount,
+                    cardNumber: withdrawalData.cardNumber,
+                    cardHolder: withdrawalData.cardHolder,
+                    totalMoney: withdrawalData.totalMoney,
+                    successfulReferrals: withdrawalData.successfulReferrals,
+                    referralBonus: withdrawalData.referralBonus,
+                    totalClicks: withdrawalData.totalClicks,
+                    status: 'pending',
+                    whatsappSent: true,
+                    userIP: await getUserIP(),
+                    userAgent: navigator.userAgent,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    withdrawalDate: withdrawalData.withdrawalDate
+                });
+                
+                console.log('✅ Çıxarış sorğusu Firestore-a yazıldı');
+                return true;
+                
+            } catch (error) {
+                console.error('❌ Firestore xətası:', error);
+                return false;
+            }
+        }
+
+        async function getUserIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                return 'unknown';
+            }
+        }
+
         // =================================================================
-        // BAŞLANĞIÇ FUNKSİYASI
+        // PHONE INPUT VALIDATION
         // =================================================================
+
+        function enforcePlus994(event) {
+            const input = event.target;
+            if (!input.value.startsWith('+994')) {
+                input.value = '+994';
+            }
+        }
+        document.getElementById('registerPhone').addEventListener('input', enforcePlus994);
+        document.getElementById('withdrawPhone').addEventListener('input', enforcePlus994);
+
+        // =================================================================
+        // FORGOT PASSWORD SYSTEM
+        // =================================================================
+
+        let currentForgotPasswordStep = 1;
+        let userDataForRecovery = null;
+
+        function showForgotPasswordStep(step) {
+            document.getElementById('forgotPasswordStep1').style.display = 'none';
+            document.getElementById('forgotPasswordStep2').style.display = 'none';
+            document.getElementById('forgotPasswordStep3').style.display = 'none';
+            
+            document.getElementById(`forgotPasswordStep${step}`).style.display = 'block';
+            updateStepIndicator(step);
+            currentForgotPasswordStep = step;
+        }
+
+        function updateStepIndicator(activeStep) {
+            const steps = document.querySelectorAll('.step');
+            const stepLines = document.querySelectorAll('.step-line');
+            
+            steps.forEach((step, index) => {
+                if (index + 1 <= activeStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            stepLines.forEach((line, index) => {
+                if (index + 1 < activeStep) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }
+
+        document.getElementById('forgotPasswordForm1').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const phone = document.getElementById('forgotPhone').value.trim();
+            const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+            
+            if (!phone || !email) {
+                showForgotPasswordError("Zəhmət olmasa bütün sahələri doldurun.");
+                return;
+            }
+
+            try {
+                const userQuery = await db.collection('users')
+                    .where('phone', '==', phone)
+                    .where('email', '==', email)
+                    .limit(1)
+                    .get();
+
+                if (userQuery.empty) {
+                    showForgotPasswordError("Bu telefon nömrəsi və e-poçt ünvanı ilə heç bir hesab tapılmadı.");
+                    return;
+                }
+
+                userDataForRecovery = userQuery.docs[0].data();
+                userDataForRecovery.username = userQuery.docs[0].id;
+                
+                showForgotPasswordStep(2);
+                showForgotPasswordSuccess("İstifadəçi tapıldı! İndi təhlükəsizlik suallarına cavab verin.");
+
+            } catch (error) {
+                console.error('İstifadəçi axtarış xətası:', error);
+                showForgotPasswordError("Axtarış zamanı xəta baş verdi. Yenidən cəhd edin.");
+            }
+        });
+
+        document.getElementById('forgotPasswordForm2').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('securityName').value.trim();
+            const surname = document.getElementById('securitySurname').value.trim();
+            
+            if (!name || !surname) {
+                showForgotPasswordError("Zəhmət olmasa ad və soyadınızı daxil edin.");
+                return;
+            }
+
+            if (name !== userDataForRecovery.name || surname !== userDataForRecovery.surname) {
+                showForgotPasswordError("Ad və ya soyadınız düzgün deyil. Zəhmət olmasa düzgün məlumatları daxil edin.");
+                return;
+            }
+
+            document.getElementById('newUsername').value = userDataForRecovery.username;
+            showForgotPasswordStep(3);
+            showForgotPasswordSuccess("Təhlükəsizlik sualları uğurla təsdiqləndi! İndi yeni məlumatlarınızı daxil edin.");
+        });
+
+        document.getElementById('forgotPasswordForm3').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const newUsername = document.getElementById('newUsername').value.trim().toLowerCase();
+            const newPassword = document.getElementById('newPassword').value.trim();
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value.trim();
+            
+            if (!newUsername || !newPassword || !confirmNewPassword) {
+                showForgotPasswordError("Zəhmət olmasa bütün sahələri doldurun.");
+                return;
+            }
+
+            if (newPassword !== confirmNewPassword) {
+                showForgotPasswordError("Şifrələr uyğun deyil!");
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showForgotPasswordError("Şifrə ən azı 6 simvol olmalıdır!");
+                return;
+            }
+
+            try {
+                if (newUsername !== userDataForRecovery.username) {
+                    const existingUser = await db.collection('users').doc(newUsername).get();
+                    if (existingUser.exists) {
+                        showForgotPasswordError("Bu istifadəçi adı artıq mövcuddur. Başqa bir ad seçin.");
+                        return;
+                    }
+                    
+                    await db.collection('users').doc(userDataForRecovery.username).delete();
+                    
+                    const updatedUserData = {
+                        ...userDataForRecovery,
+                        username: newUsername,
+                        password: newPassword
+                    };
+                    
+                    await db.collection('users').doc(newUsername).set(updatedUserData);
+                    
+                } else {
+                    await db.collection('users').doc(userDataForRecovery.username).update({
+                        password: newPassword
+                    });
+                }
+
+                showForgotPasswordSuccess("✅ Şifrəniz və istifadəçi adınız uğurla yeniləndi! İndi yeni məlumatlarınızla daxil ola bilərsiniz.");
+                
+                setTimeout(() => {
+                    closeModal('forgotPasswordModal');
+                    resetForgotPasswordForm();
+                    
+                    document.getElementById('loginUsername').value = newUsername;
+                    document.getElementById('loginPassword').value = newPassword;
+                    
+                    showSuccess("Şifrəniz uğurla yeniləndi! İndi daxil ola bilərsiniz.");
+                }, 2000);
+
+            } catch (error) {
+                console.error('Şifrə yeniləmə xətası:', error);
+                showForgotPasswordError("Yeniləmə zamanı xəta baş verdi. Yenidən cəhd edin.");
+            }
+        });
+
+        function showForgotPasswordError(message) {
+            const errorElement = document.getElementById('forgotPasswordError');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            
+            const successElement = document.getElementById('forgotPasswordSuccess');
+            successElement.style.display = 'none';
+        }
+
+        function showForgotPasswordSuccess(message) {
+            const successElement = document.getElementById('forgotPasswordSuccess');
+            successElement.textContent = message;
+            successElement.style.display = 'block';
+            
+            const errorElement = document.getElementById('forgotPasswordError');
+            errorElement.style.display = 'none';
+        }
+
+        function resetForgotPasswordForm() {
+            document.getElementById('forgotPasswordForm1').reset();
+            document.getElementById('forgotPasswordForm2').reset();
+            document.getElementById('forgotPasswordForm3').reset();
+            
+            currentForgotPasswordStep = 1;
+            userDataForRecovery = null;
+            
+            showForgotPasswordStep(1);
+            updateStepIndicator(1);
+            
+            document.getElementById('forgotPasswordError').style.display = 'none';
+            document.getElementById('forgotPasswordSuccess').style.display = 'none';
+        }
+
+        document.getElementById('forgotPasswordModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                resetForgotPasswordForm();
+            }
+        });
+
+        document.querySelector('#forgotPasswordModal .close-btn').addEventListener('click', function() {
+            resetForgotPasswordForm();
+        });
+
+        showForgotPasswordStep(1);
+
+        // =================================================================
+        // INITIALIZATION
+        // =================================================================
+
         window.addEventListener('load', async function() {
             // Şəkilləri yüklə
-            const IMAGE_CONFIG = {
-                splashImage: "https://i.ibb.co/JFndRdvY/casper.jpg",
-                gameIcon: "https://i.ibb.co/hp0mdt1/2025-10-31-T103543-300-removebg-preview.png",
-                fallbackText: "👻"
-            };
-
-            function loadImages() {
-                const splashImg = document.querySelector('.splash-image img');
-                const gameIcon = document.getElementById('clickImage');
-                
-                splashImg.src = IMAGE_CONFIG.splashImage;
-                splashImg.alt = "Casper Game Logo";
-                gameIcon.src = IMAGE_CONFIG.gameIcon;
-                gameIcon.alt = "Casper";
-                
-                const handleImageError = (img, fallback) => {
-                    img.onerror = null;
-                    img.style.display = 'none';
-                    img.parentElement.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:60px;color:white;">${fallback}</div>`;
-                };
-                
-                splashImg.onerror = () => handleImageError(splashImg, IMAGE_CONFIG.fallbackText);
-                gameIcon.onerror = () => handleImageError(gameIcon, IMAGE_CONFIG.fallbackText);
-            }
-
-            loadImages();
+            const splashImg = document.querySelector('.splash-image img');
+            const gameIcon = document.getElementById('clickImage');
+            
+            splashImg.src = "https://i.ibb.co/JFndRdvY/casper.jpg";
+            gameIcon.src = "https://i.ibb.co/hp0mdt1/2025-10-31-T103543-300-removebg-preview.png";
             
             console.log('🚀 Oyun başladılır...');
-            
-            // CG ID sistemini initialize et
-            async function initializeCounter() {
-                try {
-                    const counterRef = db.collection('counters').doc('userCounter');
-                    const counterDoc = await counterRef.get();
-                    
-                    if (!counterDoc.exists) {
-                        await counterRef.set({ count: 0 });
-                        console.log('✅ Counter initialized with 0');
-                    } else {
-                        console.log('✅ Counter already exists:', counterDoc.data().count);
-                    }
-                } catch (error) {
-                    console.error('❌ Counter initialization xətası:', error);
-                }
-            }
-
             await initializeCounter();
-
-            // RICHADS REKLAM SİSTEMİNİ İŞƏ SAL
-            setTimeout(() => {
-                console.log('🔄 RichAds interstitial reklam sistemi başladılır...');
-                const richAdsInitialized = initializeRichAds();
-                if (richAdsInitialized) {
-                    console.log('✅ RichAds interstitial reklam sistemi başladıldı');
-                } else {
-                    console.log('❌ RichAds interstitial reklam sistemi başladıla bilmədi');
-                }
-            }, 1500);
-
-            // ADEXIUM PUSH-LIKE REKLAM SİSTEMİNİ İŞƏ SAL
-            setTimeout(() => {
-                console.log('🔄 Adexium push-like reklam sistemi başladılır...');
-                const adexiumInitialized = initializeAdexiumAds();
-                if (adexiumInitialized) {
-                    console.log('✅ Adexium push-like reklam sistemi başladıldı');
-                } else {
-                    console.log('❌ Adexium push-like reklam sistemi başladıla bilmədi');
-                }
-            }, 2000);
-
-            // ADSGRAM 10 REKLAM + 2 DƏQ + 4 SAAT SİSTEMİNİ İŞƏ SAL
-            setTimeout(() => {
-                console.log('🔄 AdsGram 10 Reklam sistemi başladılır...');
-                const adsgramVideoInitialized = initializeAdsGramVideo();
-                if (adsgramVideoInitialized) {
-                    console.log('✅ AdsGram 10 Reklam + 4 Saat sistemi başladıldı');
-                } else {
-                    console.log('❌ AdsGram 10 Reklam + 4 Saat sistemi başladıla bilmədi');
-                }
-            }, 2500);
             
-            // Bütün reklam sistemlərinin statusunu göstər
+            // Reklam sistemlərini başlat
             setTimeout(() => {
-                console.log('📊 Reklam Sistemləri Statusu:', {
-                    richads: typeof TelegramAdsController !== 'undefined' ? 'ready' : 'not_ready',
-                    adexium_push: typeof AdexiumWidget !== 'undefined' ? 'ready' : 'not_ready',
-                    adsgram: typeof isAdsgramReady !== 'undefined' ? (isAdsgramReady ? 'ready' : 'not_ready') : 'unknown'
-                });
-            }, 4000);
-
-            // ƏSAS OYUN ELEMENTLƏRİNİ İŞƏ SAL
+                initializeAdSystems();
+            }, 1000);
+            
+            // Əsas oyun elementlərini işə sal
             const img = document.getElementById('clickImage');
             img.classList.add('wind-animation', 'floating-ghost');
-
-            // SPLASH EKRANINI QEYD ET VƏ GİRİŞ EKRANINA KEÇ
+            
+            // Splash ekranını qeyd et
             setTimeout(() => {
                 splashScreen.classList.add('splash-fade-out'); 
                 mainContent.style.display = 'flex';
                 loginScreen.style.display = 'flex';
                 switchToLogin();
-                console.log('🎮 Oyun hazırdır! Giriş ekranı aktiv edildi.');
+                console.log('🎮 Oyun hazırdır!');
             }, 5000); 
-
-            // KLİK HADİSƏLƏRİNİ QOŞ
+            
+            // Klik hadisələrini qoş
             mainIcon.addEventListener('click', clickIcon);
             mainIcon.addEventListener('touchstart', function(e) {
                 e.preventDefault();
                 clickIcon(e);
             });
             
-            // ENERJİ VƏ DİGƏR SİSTEMLƏRİ İŞƏ SAL
+            // Sistemləri işə sal
             setInterval(simulateEnergyRegen, ENERGY_REGEN_INTERVAL);
             setInterval(updateWithdrawalDisplay, 60000);
-            
-            // ADSGRAM VIDEO TİMER İŞƏ SAL
             startAdsGramVideoTimer();
             
-            // AVTOMATİK YENİLƏMƏ
             setInterval(async () => {
                 if (currentUserState.username) {
                     await saveUserState();
                 }
             }, 30000);
-
-            // TELEGRAM WEBAPP ƏLAQƏSİ
+            
+            // Telegram WebApp əlaqəsi
             if (window.Telegram && Telegram.WebApp) {
                 Telegram.WebApp.expand();
                 Telegram.WebApp.ready();
                 console.log('✅ Telegram WebApp aktiv edildi');
             }
             
-            // İLK ADSGRAM DISPLAY YENİLƏMƏSİ
             setTimeout(() => {
                 updateAdsGramVideoDisplay();
             }, 1000);
         });
 
         window.addEventListener('beforeunload', function() {
-            saveUserState(); // Kənar funksiya
+            saveUserState();
         });
     </script>
 </body>
