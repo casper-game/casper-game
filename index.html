@@ -19,28 +19,12 @@
 
     <!-- RichAds SDK -->
     <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-    <script>
-        // RichAds reklam sistemini başlat
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof TelegramAdsController !== 'undefined') {
-                window.TelegramAdsController = new TelegramAdsController();
-                window.TelegramAdsController.initialize({
-                    pubId: "993631",
-                    appId: "4699",
-                });
-                console.log('✅ RichAds reklam sistemi başladıldı');
-            }
-        });
-    </script>
+    
+    <!-- TMA.js Reklam Sistemi -->
+    <script src="https://js.onclckvd.com/in-stream-ad-admanager/tma.js"></script>
     
     <!-- ADEXIUM - YALNIZ PUSH-LIKE QALSIN -->
     <script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', () => {
-            const adexiumWidget = new AdexiumWidget({wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae', adFormat: 'push-like'});
-            adexiumWidget.autoMode();
-        });
-    </script>
     
     <style>
         * {
@@ -68,7 +52,7 @@
             position: relative;
         }
 
-        /* YENİ: Dinamik arxa plan effektləri */
+        /* Dinamik arxa plan effektləri */
         body::before {
             content: '';
             position: fixed;
@@ -109,6 +93,104 @@
             overflow: hidden;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* TMA REKLAM MODALI */
+        .tma-ad-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+
+        .tma-ad-content {
+            background: linear-gradient(135deg, #1a0033, #330033);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            border: 3px solid #ff00cc;
+            box-shadow: 0 0 40px rgba(255, 0, 150, 0.6);
+            animation: tmaPulse 2s infinite;
+        }
+
+        @keyframes tmaPulse {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(255, 0, 150, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(255, 0, 150, 0.8);
+                transform: scale(1.02);
+            }
+        }
+
+        .tma-ad-title {
+            color: #ff00cc;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 0, 150, 0.7);
+        }
+
+        .tma-ad-text {
+            color: #ffffff;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .tma-ad-timer {
+            color: #00ff99;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            border: 2px solid #00ff99;
+        }
+
+        .tma-ad-reward {
+            color: #ffff00;
+            font-size: 16px;
+            margin: 15px 0;
+            padding: 8px;
+            background: rgba(255, 255, 0, 0.1);
+            border-radius: 8px;
+            border: 1px solid #ffff00;
+        }
+
+        .tma-ad-continue-btn {
+            background: linear-gradient(135deg, #00ff99, #00ccff);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+            box-shadow: 0 5px 20px rgba(0, 255, 150, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tma-ad-continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 150, 0.4);
+        }
+
+        .tma-ad-continue-btn:active {
+            transform: translateY(0);
         }
 
         .splash-screen {
@@ -313,7 +395,7 @@
             display: block !important;
         }
 
-        /* YENİ: Kiçik ruh animasiyaları */
+        /* Kiçik ruh animasiyaları */
         .ghost-particle {
             position: absolute;
             font-size: 20px;
@@ -510,7 +592,7 @@
             margin-top: 2px; 
         }
 
-        /* YENİ: Pul popup əvəzinə ruh partikülləri */
+        /* Pul popup əvəzinə ruh partikülləri */
         .ghost-popup { 
             position: absolute; 
             font-size: 24px;
@@ -1177,7 +1259,7 @@
             font-weight: bold;
         }
 
-        /* YENİ: Ruh partikülləri üçün rəng variantları */
+        /* Ruh partikülləri üçün rəng variantları */
         .ghost-red { color: #ff0066; }
         .ghost-blue { color: #0099ff; }
         .ghost-green { color: #00ff99; }
@@ -1189,6 +1271,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
+    <!-- TMA REKLAM MODALI -->
+    <div id="tmaAdModal" class="tma-ad-modal">
+        <div class="tma-ad-content">
+            <div class="tma-ad-title">🎬 REKLAM VAXTIDIR!</div>
+            <div class="tma-ad-text">
+                Oyunu dayandırın və 10 saniyəlik reklamı izləyin.<br>
+                Hər reklamdan sonra <strong>0.0005 AZN</strong> bonus qazanın!
+            </div>
+            <div class="tma-ad-timer" id="tmaTimer">Reklam başlayır: 10</div>
+            <div class="tma-ad-reward">
+                🎁 Bonus: <strong>+0.0005 AZN</strong>
+            </div>
+            <button class="tma-ad-continue-btn" onclick="continueAfterAd()">
+                REKLAMDAN SONRA OYUNA DAVAM ET
+            </button>
+        </div>
+    </div>
+
     <!-- Firebase Status Indicator - GİZLƏ -->
     <div class="firebase-status" id="firebaseStatus" style="display: none;">Firebase: Yüklənir...</div>
 
@@ -1324,7 +1424,22 @@
                             </div>
                         </div>
 
-                        <!-- YENİ ADSGRAM 10 REKLAM + 2 DƏQ + 4 SAAT SİSTEMİ -->
+                        <!-- YENİ TMA 2 DƏQİQƏ ARALIQ REKLAM SİSTEMİ -->
+                        <div class="bonus-info" style="margin: 12px 0; text-align: center;">
+                            <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                                <span>🎬</span>
+                                <span><strong>TMA Reklam Sistemi:</strong> Hər 2 dəqiqədə bir reklam gələcək</span>
+                                <span>🎬</span>
+                            </div>
+                            <div class="bonus-timer" id="tmaNextTimer">
+                                Növbəti reklam: <span id="tmaCountdown">120</span> saniyə
+                            </div>
+                            <p style="font-size: 10px; color: #6c757d; margin-top: 3px;">
+                                ⏰ Hər reklamdan sonra <strong>0.0005 AZN</strong> bonus qazanın!
+                            </p>
+                        </div>
+
+                        <!-- ADSGRAM 10 REKLAM + 2 DƏQ + 4 SAAT SİSTEMİ -->
                         <div class="bonus-info" style="margin: 12px 0; text-align: center;">
                             <button onclick="showAdsGramVideoReward()" class="adsgram-video-btn" id="adsgramVideoButton">
                                 🎬 Video İzlə & 0.001 AZN Qazan! (0/10)
@@ -1693,6 +1808,178 @@
 
     <script>
         // =================================================================
+        // TMA.js REKLAM SİSTEMİ - 2 DƏQİQƏ ARALIQ OTOMATİK
+        // =================================================================
+        
+        // TMA reklam sistemini başlatmaq
+        let tmaShowFunction = null;
+        let tmaAdInterval = null;
+        let tmaTimerInterval = null;
+        let tmaCountdownInterval = null;
+        let tmaNextAdTime = Date.now() + (2 * 60 * 1000); // İlk reklam 2 dəqiqə sonra
+        const TMA_AD_INTERVAL = 2 * 60 * 1000; // 2 dəqiqə
+        const TMA_AD_REWARD = 0.0005; // Hər reklam üçün bonus
+        
+        // TMA.js reklam sistemini başlat
+        async function initializeTmaAds() {
+            try {
+                console.log('🔄 TMA.js reklam sistemi başladılır...');
+                
+                // TMA.js-i başlat
+                if (window.initCdTma) {
+                    await window.initCdTma({ id: '393471' })
+                        .then(show => {
+                            tmaShowFunction = show;
+                            console.log('✅ TMA.js reklam sistemi hazırdır');
+                            startTmaAdTimer();
+                        })
+                        .catch(e => {
+                            console.error('❌ TMA.js xətası:', e);
+                            // Xəta halında mock sistem yarat
+                            createMockTmaSystem();
+                        });
+                } else {
+                    console.log('❌ TMA.js tapılmadı');
+                    createMockTmaSystem();
+                }
+            } catch (error) {
+                console.error('TMA başlatma xətası:', error);
+                createMockTmaSystem();
+            }
+        }
+        
+        // Mock TMA sistemi (test üçün)
+        function createMockTmaSystem() {
+            console.log('🔄 Mock TMA sistemi yaradılır...');
+            tmaShowFunction = function() {
+                return new Promise((resolve, reject) => {
+                    console.log('🎬 Mock TMA reklamı göstərilir...');
+                    setTimeout(() => {
+                        console.log('✅ Mock TMA reklamı tamamlandı');
+                        resolve({ status: 'completed' });
+                    }, 5000); // 5 saniyəlik mock reklam
+                });
+            };
+            startTmaAdTimer();
+        }
+        
+        // TMA reklam sayğacını başlat
+        function startTmaAdTimer() {
+            // Köhnə intervalı təmizlə
+            if (tmaAdInterval) {
+                clearInterval(tmaAdInterval);
+            }
+            if (tmaTimerInterval) {
+                clearInterval(tmaTimerInterval);
+            }
+            if (tmaCountdownInterval) {
+                clearInterval(tmaCountdownInterval);
+            }
+            
+            // Hər 2 dəqiqədə bir reklam göstər
+            tmaAdInterval = setInterval(() => {
+                showTmaAd();
+            }, TMA_AD_INTERVAL);
+            
+            // Taimeri yenilə
+            tmaTimerInterval = setInterval(updateTmaTimerDisplay, 1000);
+            
+            // İlk növbəti reklam vaxtını təyin et
+            tmaNextAdTime = Date.now() + TMA_AD_INTERVAL;
+            
+            console.log('✅ TMA reklam sayğacı başladıldı: 2 dəqiqə interval');
+        }
+        
+        // TMA reklamını göstər
+        async function showTmaAd() {
+            console.log('🎬 TMA reklamı göstərilir...');
+            
+            if (!tmaShowFunction) {
+                console.log('❌ TMA funksiyası mövcud deyil');
+                return false;
+            }
+            
+            // Modalı göster
+            const modal = document.getElementById('tmaAdModal');
+            const timerElement = document.getElementById('tmaTimer');
+            
+            modal.style.display = 'flex';
+            
+            // Geri sayım başlat
+            let countdown = 10;
+            timerElement.textContent = `Reklam başlayır: ${countdown}`;
+            
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    timerElement.textContent = 'Reklam başladı!';
+                    
+                    // Reklamı göstər
+                    setTimeout(() => {
+                        tmaShowFunction()
+                            .then((result) => {
+                                console.log('✅ TMA reklamı tamamlandı:', result);
+                                giveTmaReward();
+                            })
+                            .catch((error) => {
+                                console.error('❌ TMA reklam xətası:', error);
+                                // Xəta halında da mükafat verək
+                                giveTmaReward();
+                            });
+                    }, 1000);
+                } else {
+                    timerElement.textContent = `Reklam başlayır: ${countdown}`;
+                }
+            }, 1000);
+            
+            return true;
+        }
+        
+        // TMA mükafatını ver
+        function giveTmaReward() {
+            if (currentUserState.username) {
+                currentUserState.totalMoney += TMA_AD_REWARD;
+                saveUserState();
+                updateEnergyDisplay();
+                
+                // Bildiriş göster
+                showSuccess(`🎉 TMA reklamı tamamlandı! +${TMA_AD_REWARD} AZN qazandınız!`);
+                
+                // Növbəti reklam vaxtını yenilə
+                tmaNextAdTime = Date.now() + TMA_AD_INTERVAL;
+                
+                // Modalı bağla
+                setTimeout(() => {
+                    document.getElementById('tmaAdModal').style.display = 'none';
+                }, 2000);
+            }
+        }
+        
+        // Reklamdan sonra davam et
+        function continueAfterAd() {
+            document.getElementById('tmaAdModal').style.display = 'none';
+            showSuccess('✅ Oyun davam edir! Növbəti reklam 2 dəqiqə sonra.');
+        }
+        
+        // TMA sayğacını yenilə
+        function updateTmaTimerDisplay() {
+            const now = Date.now();
+            const timeLeft = tmaNextAdTime - now;
+            
+            const countdownElement = document.getElementById('tmaCountdown');
+            if (countdownElement && timeLeft > 0) {
+                const secondsLeft = Math.floor(timeLeft / 1000);
+                countdownElement.textContent = secondsLeft;
+                
+                // Hər dəqiqədə bir log
+                if (secondsLeft % 60 === 0) {
+                    console.log(`⏰ TMA növbəti reklam: ${Math.floor(secondsLeft / 60)} dəqiqə`);
+                }
+            }
+        }
+        
+        // =================================================================
         // FIREBASE KONFİQURASİYASI
         // =================================================================
         const firebaseConfig = {
@@ -1749,7 +2036,7 @@
         const AD_COOLDOWN_MS = 4 * 60 * 60 * 1000; // 4 saat
         const AD_INTERVAL_BETWEEN = 2 * 60 * 1000; // 2 dəqiqə
 
-        // İstifadəçi state-i - BÜTÜN MƏLUMATLAR FIREBASE-DƏ SAXLANILACAQ
+        // İstifadəçi state-i
         let currentUserState = {
             cgId: null, username: null, name: null, surname: null, phone: null, email: null, referralCode: null, 
             maxEnergy: MAX_ENERGY_CAP, currentEnergy: MAX_ENERGY_CAP,
@@ -1757,7 +2044,7 @@
             energyRegenRate: BASE_REGEN_RATE, scorePerClick: 1, lastEnergyUpdate: Date.now(), 
             lastClickTime: Date.now(), successfulReferrals: 0, referralBonusEarned: 0.00, 
             lastWithdrawalDate: null, registrationDate: null,
-            // ADSGRAM MƏLUMATLARI DA FIREBASE-DƏ SAXLANACAQ
+            // ADSGRAM MƏLUMATLARI
             adsgramData: {
                 lastSessionEndTime: 0,
                 adsWatchedInSession: 0,
@@ -1770,8 +2057,6 @@
         const mainContent = document.getElementById('mainContent');
         const loginScreen = document.getElementById('loginScreen');
         const gameScreen = document.getElementById('gameScreen');
-        const adScreen = document.getElementById('adScreen');
-        const adContent = document.getElementById('adContent');
         const mainIcon = document.getElementById('mainIcon');
         const welcomeText = document.getElementById('welcomeText');
         const welcomeMessage = document.getElementById('welcomeMessage');
@@ -1799,7 +2084,7 @@
         const subScreens = document.querySelectorAll('.game-sub-screen');
 
         // =================================================================
-        // YENİ: KLİK ANİMASİYALARI VƏ BALANS YENİLƏMƏ
+        // KLİK ANİMASİYALARI VƏ BALANS YENİLƏMƏ
         // =================================================================
 
         function clickIcon(event) {
@@ -2965,6 +3250,9 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         
                         // 3. ADSGRAM DISPLAY YENİLƏ
                         updateAdsGramVideoDisplay();
+                        
+                        // 4. TMA TİMER YENİLƏ
+                        updateTmaTimerDisplay();
                     }
                 }
             }, (error) => {
@@ -3008,6 +3296,9 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         
                         // ADSGRAM DISPLAY YENİLƏ
                         updateAdsGramVideoDisplay();
+                        
+                        // TMA TİMER YENİLƏ
+                        updateTmaTimerDisplay();
                     }, 1200);
 
                 } else {
@@ -3733,6 +4024,20 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 referralUnsubscribe = null;
             }
             
+            // TMA İNTERVALINI DAYANDIR
+            if (tmaAdInterval) {
+                clearInterval(tmaAdInterval);
+                tmaAdInterval = null;
+            }
+            if (tmaTimerInterval) {
+                clearInterval(tmaTimerInterval);
+                tmaTimerInterval = null;
+            }
+            if (tmaCountdownInterval) {
+                clearInterval(tmaCountdownInterval);
+                tmaCountdownInterval = null;
+            }
+            
             currentUserState = {
                 cgId: null, 
                 username: null, 
@@ -3963,6 +4268,17 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
 
             await initializeCounter();
 
+            // TMA REKLAM SİSTEMİNİ İŞƏ SAL
+            setTimeout(() => {
+                console.log('🔄 TMA.js 2 dəqiqə aralıq reklam sistemi başladılır...');
+                const tmaInitialized = initializeTmaAds();
+                if (tmaInitialized) {
+                    console.log('✅ TMA.js 2 dəqiqə aralıq reklam sistemi başladıldı');
+                } else {
+                    console.log('❌ TMA.js reklam sistemi başladıla bilmədi');
+                }
+            }, 1500);
+
             // RICHADS REKLAM SİSTEMİNİ İŞƏ SAL
             setTimeout(() => {
                 console.log('🔄 RichAds interstitial reklam sistemi başladılır...');
@@ -3972,7 +4288,7 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 } else {
                     console.log('❌ RichAds interstitial reklam sistemi başladıla bilmədi');
                 }
-            }, 1500);
+            }, 2000);
 
             // ADEXIUM PUSH-LIKE REKLAM SİSTEMİNİ İŞƏ SAL
             setTimeout(() => {
@@ -3983,7 +4299,7 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 } else {
                     console.log('❌ Adexium push-like reklam sistemi başladıla bilmədi');
                 }
-            }, 2000);
+            }, 2500);
 
             // ADSGRAM 10 REKLAM + 2 DƏQ + 4 SAAT SİSTEMİNİ İŞƏ SAL
             setTimeout(() => {
@@ -3994,11 +4310,12 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 } else {
                     console.log('❌ AdsGram 10 Reklam + 4 Saat sistemi başladıla bilmədi');
                 }
-            }, 2500);
+            }, 3000);
             
             // Bütün reklam sistemlərinin statusunu göstər
             setTimeout(() => {
                 console.log('📊 Reklam Sistemləri Statusu:', {
+                    tma_2min: tmaShowFunction ? 'ready' : 'not_ready',
                     richads: typeof TelegramAdsController !== 'undefined' ? 'ready' : 'not_ready',
                     adexium_push: typeof AdexiumWidget !== 'undefined' ? 'ready' : 'not_ready',
                     adsgram: typeof isAdsgramReady !== 'undefined' ? (isAdsgramReady ? 'ready' : 'not_ready') : 'unknown'
