@@ -10,21 +10,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     
-    <!-- Telegram Web App & AdsGram SDK -->
+    <!-- Telegram Web App -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-    
-    <!-- Telegram JS -->
-    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
-
-    <!-- RichAds SDK -->
-    <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-    
-    <!-- TMA.js Reklam Sistemi -->
-    <script src="https://js.onclckvd.com/in-stream-ad-admanager/tma.js"></script>
-    
-    <!-- ADEXIUM - YALNIZ PUSH-LIKE QALSIN -->
-    <script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
     
     <style>
         * {
@@ -95,8 +82,8 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* TMA REKLAM MODALI */
-        .tma-ad-modal {
+        /* REKLAM MODALI - SADƏ VERSİYA */
+        .ad-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -110,7 +97,7 @@
             backdrop-filter: blur(10px);
         }
 
-        .tma-ad-content {
+        .ad-content {
             background: linear-gradient(135deg, #1a0033, #330033);
             padding: 30px;
             border-radius: 20px;
@@ -119,10 +106,10 @@
             width: 350px;
             border: 3px solid #ff00cc;
             box-shadow: 0 0 40px rgba(255, 0, 150, 0.6);
-            animation: tmaPulse 2s infinite;
+            animation: adPulse 2s infinite;
         }
 
-        @keyframes tmaPulse {
+        @keyframes adPulse {
             0%, 100% {
                 box-shadow: 0 0 30px rgba(255, 0, 150, 0.5);
                 transform: scale(1);
@@ -133,7 +120,7 @@
             }
         }
 
-        .tma-ad-title {
+        .ad-title {
             color: #ff00cc;
             font-size: 24px;
             font-weight: bold;
@@ -141,14 +128,14 @@
             text-shadow: 0 0 15px rgba(255, 0, 150, 0.7);
         }
 
-        .tma-ad-text {
+        .ad-text {
             color: #ffffff;
             font-size: 16px;
             margin-bottom: 20px;
             line-height: 1.4;
         }
 
-        .tma-ad-timer {
+        .ad-timer {
             color: #00ff99;
             font-size: 18px;
             font-weight: bold;
@@ -159,17 +146,7 @@
             border: 2px solid #00ff99;
         }
 
-        .tma-ad-reward {
-            color: #ffff00;
-            font-size: 16px;
-            margin: 15px 0;
-            padding: 8px;
-            background: rgba(255, 255, 0, 0.1);
-            border-radius: 8px;
-            border: 1px solid #ffff00;
-        }
-
-        .tma-ad-continue-btn {
+        .ad-continue-btn {
             background: linear-gradient(135deg, #00ff99, #00ccff);
             color: white;
             border: none;
@@ -184,12 +161,12 @@
             transition: all 0.3s ease;
         }
 
-        .tma-ad-continue-btn:hover {
+        .ad-continue-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 255, 150, 0.4);
         }
 
-        .tma-ad-continue-btn:active {
+        .ad-continue-btn:active {
             transform: translateY(0);
         }
 
@@ -348,17 +325,7 @@
             color: white; 
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
         }
-        .bonus-info {
-            background: rgba(255, 0, 150, 0.2);
-            padding: 8px;
-            border-radius: 6px;
-            margin: 8px 0;
-            text-align: center;
-            border-left: 3px solid #ff00cc;
-            font-size: 12px;
-            color: white;
-            border: 1px solid rgba(255, 0, 150, 0.3);
-        }
+        
         .click-area { 
             text-align: center; 
             margin: 15px 0 5px 0; 
@@ -590,16 +557,6 @@
             font-size: 10px; 
             text-transform: uppercase; 
             margin-top: 2px; 
-        }
-
-        /* Pul popup əvəzinə ruh partikülləri */
-        .ghost-popup { 
-            position: absolute; 
-            font-size: 24px;
-            pointer-events: none; 
-            animation: ghostFloat 1.5s ease-out forwards; 
-            z-index: 50; 
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
         @keyframes shimmer {
@@ -1159,29 +1116,6 @@
             margin-top: 3px;
         }
 
-        .adsgram-video-btn {
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 15px;
-            font-size: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 3px;
-            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .adsgram-video-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-        }
-
-        .adsgram-video-btn:active {
-            transform: translateY(0);
-        }
-
         /* Şəkil yüklənmə xətaları üçün */
         .splash-image img,
         #clickImage {
@@ -1244,14 +1178,6 @@
             background: #ff00cc;
         }
 
-        .adsgram-video-btn:disabled {
-            background: #666666;
-            cursor: not-allowed;
-            opacity: 0.6;
-            transform: none;
-            box-shadow: none;
-        }
-
         .bonus-timer {
             font-size: 10px;
             color: #cccccc;
@@ -1271,19 +1197,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-    <!-- TMA REKLAM MODALI -->
-    <div id="tmaAdModal" class="tma-ad-modal">
-        <div class="tma-ad-content">
-            <div class="tma-ad-title">🎬 REKLAM VAXTIDIR!</div>
-            <div class="tma-ad-text">
-                Oyunu dayandırın və 10 saniyəlik reklamı izləyin.<br>
-                Hər reklamdan sonra <strong>0.0005 AZN</strong> bonus qazanın!
+    <!-- REKLAM MODALI -->
+    <div id="adModal" class="ad-modal">
+        <div class="ad-content">
+            <div class="ad-title">🎬 REKLAM VAXTIDIR!</div>
+            <div class="ad-text">
+                Zəhmət olmasa reklamı izləyin.<br>
+                Reklam avtomatik olaraq bağlanacaq.
             </div>
-            <div class="tma-ad-timer" id="tmaTimer">Reklam başlayır: 10</div>
-            <div class="tma-ad-reward">
-                🎁 Bonus: <strong>+0.0005 AZN</strong>
-            </div>
-            <button class="tma-ad-continue-btn" onclick="continueAfterAd()">
+            <div class="ad-timer" id="adTimer">Reklam bağlanır: 5</div>
+            <button class="ad-continue-btn" onclick="continueAfterAd()">
                 REKLAMDAN SONRA OYUNA DAVAM ET
             </button>
         </div>
@@ -1292,13 +1215,6 @@
     <!-- Firebase Status Indicator - GİZLƏ -->
     <div class="firebase-status" id="firebaseStatus" style="display: none;">Firebase: Yüklənir...</div>
 
-    <!-- Debug Panel - GİZLƏ -->
-    <div class="debug-panel" style="display: none;">
-        <button class="debug-btn" onclick="debugFirebase()">Firebase Status</button>
-        <button class="debug-btn" onclick="debugGetAllUsers()">All Users</button>
-        <button class="debug-btn" onclick="debugCheckUser(currentUserState.username || 'test')">Check User</button>
-    </div>
-
     <div class="container">
         <div class="splash-screen" id="splashScreen">
             <div class="splash-image pulse-animation">
@@ -1306,14 +1222,9 @@
                     onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22 viewBox=%220 0 150 150%22><rect width=%22150%22 height=%22150%22 fill=%22%230f3460%22/><text x=%2275%22 y=%2275%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22central%22>👻</text></svg>'">
             </div>
             <div class="splash-text">CASPER GAME</div>
-            <div class="splash-subtext">Pul qazanmaq üçün kliklə və qazan! 🚀</div>
+            <div class="splash-subtext">2 dəqiqə aralıqla avtomatik reklamlar! 🚀</div>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
-            </div>
-        </div>
-        
-        <div class="ad-screen" id="adScreen">
-            <div class="ad-content" id="adContent">
             </div>
         </div>
         
@@ -1410,7 +1321,7 @@
                 <div class="content">
                     <div class="welcome-message" id="welcomeMessage" style="display: none;">
                         <h3>🎉 Xoş gəldiniz!</h3>
-                        <p id="personalWelcomeText">Sizi yenidən görmək əladır! Oynamağa davam edin və daha çox qazanın! 🚀</p>
+                        <p id="personalWelcomeText">Sizi yenidən görmək əladır! 2 dəqiqə aralıqla avtomatik reklamlar gələcək! 🚀</p>
                     </div>
                     
                     <div class="game-sub-screen active" id="tapScreen">
@@ -1424,35 +1335,21 @@
                             </div>
                         </div>
 
-                        <!-- YENİ TMA 2 DƏQİQƏ ARALIQ REKLAM SİSTEMİ -->
-                        <div class="bonus-info" style="margin: 12px 0; text-align: center;">
+                        <!-- 2 DƏQİQƏ ARALIQ AVTOMATİK REKLAM SİSTEMİ -->
+                        <div class="bonus-info" style="margin: 12px 0; text-align: center; background: rgba(255, 0, 150, 0.2); padding: 10px; border-radius: 8px;">
                             <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
                                 <span>🎬</span>
-                                <span><strong>TMA Reklam Sistemi:</strong> Hər 2 dəqiqədə bir reklam gələcək</span>
+                                <span><strong>Avtomatik Reklam Sistemi:</strong> Hər 2 dəqiqədə bir reklam gələcək</span>
                                 <span>🎬</span>
                             </div>
-                            <div class="bonus-timer" id="tmaNextTimer">
-                                Növbəti reklam: <span id="tmaCountdown">120</span> saniyə
+                            <div class="bonus-timer" id="nextAdTimer" style="color: #00ff99; font-weight: bold; margin-top: 5px;">
+                                Növbəti reklam: <span id="adCountdown">120</span> saniyə
                             </div>
-                            <p style="font-size: 10px; color: #6c757d; margin-top: 3px;">
-                                ⏰ Hər reklamdan sonra <strong>0.0005 AZN</strong> bonus qazanın!
-                            </p>
                         </div>
 
-                        <!-- ADSGRAM 10 REKLAM + 2 DƏQ + 4 SAAT SİSTEMİ -->
-                        <div class="bonus-info" style="margin: 12px 0; text-align: center;">
-                            <button onclick="showAdsGramVideoReward()" class="adsgram-video-btn" id="adsgramVideoButton">
-                                🎬 Video İzlə & 0.001 AZN Qazan! (0/10)
-                            </button>
-                            <div class="bonus-timer" id="adsgramTimer">Hazır!</div>
-                            <p style="font-size: 10px; color: #6c757d; margin-top: 3px;">
-                                ⏰ 2 dəq ara ilə 10 reklam, sonra 4 saat gözləyin!
-                            </p>
-                        </div>
-
-                        <!-- PUL QAZANMA MƏLUMATI -->
-                        <div class="bonus-info">
-                            <strong>Hər klik üçün 0.000001 AZN qazanın!</strong>
+                        <!-- PUL QAZANMA MƏLUMATI SADƏCƏ GÖSTƏR -->
+                        <div class="bonus-info" style="background: rgba(0, 150, 255, 0.2);">
+                            <strong>Klikləməklə pul qazanmaq mümkündür!</strong>
                         </div>
 
                         <div class="click-area">
@@ -1808,177 +1705,93 @@
 
     <script>
         // =================================================================
-        // TMA.js REKLAM SİSTEMİ - 2 DƏQİQƏ ARALIQ OTOMATİK
+        // AVTOMATİK REKLAM SİSTEMİ - 2 DƏQİQƏ ARALIQ
         // =================================================================
         
-        // TMA reklam sistemini başlatmaq
-        let tmaShowFunction = null;
-        let tmaAdInterval = null;
-        let tmaTimerInterval = null;
-        let tmaCountdownInterval = null;
-        let tmaNextAdTime = Date.now() + (2 * 60 * 1000); // İlk reklam 2 dəqiqə sonra
-        const TMA_AD_INTERVAL = 2 * 60 * 1000; // 2 dəqiqə
-        const TMA_AD_REWARD = 0.0005; // Hər reklam üçün bonus
+        let adInterval = null;
+        let adTimerInterval = null;
+        let adCountdownInterval = null;
+        let nextAdTime = Date.now() + (2 * 60 * 1000); // İlk reklam 2 dəqiqə sonra
+        const AD_INTERVAL = 2 * 60 * 1000; // 2 dəqiqə
         
-        // TMA.js reklam sistemini başlat
-        async function initializeTmaAds() {
-            try {
-                console.log('🔄 TMA.js reklam sistemi başladılır...');
-                
-                // TMA.js-i başlat
-                if (window.initCdTma) {
-                    await window.initCdTma({ id: '393471' })
-                        .then(show => {
-                            tmaShowFunction = show;
-                            console.log('✅ TMA.js reklam sistemi hazırdır');
-                            startTmaAdTimer();
-                        })
-                        .catch(e => {
-                            console.error('❌ TMA.js xətası:', e);
-                            // Xəta halında mock sistem yarat
-                            createMockTmaSystem();
-                        });
-                } else {
-                    console.log('❌ TMA.js tapılmadı');
-                    createMockTmaSystem();
-                }
-            } catch (error) {
-                console.error('TMA başlatma xətası:', error);
-                createMockTmaSystem();
-            }
-        }
-        
-        // Mock TMA sistemi (test üçün)
-        function createMockTmaSystem() {
-            console.log('🔄 Mock TMA sistemi yaradılır...');
-            tmaShowFunction = function() {
-                return new Promise((resolve, reject) => {
-                    console.log('🎬 Mock TMA reklamı göstərilir...');
-                    setTimeout(() => {
-                        console.log('✅ Mock TMA reklamı tamamlandı');
-                        resolve({ status: 'completed' });
-                    }, 5000); // 5 saniyəlik mock reklam
-                });
-            };
-            startTmaAdTimer();
-        }
-        
-        // TMA reklam sayğacını başlat
-        function startTmaAdTimer() {
+        // Reklam sistemini başlat
+        function initializeAutoAds() {
+            console.log('🔄 Avtomatik reklam sistemi başladılır...');
+            
             // Köhnə intervalı təmizlə
-            if (tmaAdInterval) {
-                clearInterval(tmaAdInterval);
+            if (adInterval) {
+                clearInterval(adInterval);
             }
-            if (tmaTimerInterval) {
-                clearInterval(tmaTimerInterval);
+            if (adTimerInterval) {
+                clearInterval(adTimerInterval);
             }
-            if (tmaCountdownInterval) {
-                clearInterval(tmaCountdownInterval);
+            if (adCountdownInterval) {
+                clearInterval(adCountdownInterval);
             }
             
             // Hər 2 dəqiqədə bir reklam göstər
-            tmaAdInterval = setInterval(() => {
-                showTmaAd();
-            }, TMA_AD_INTERVAL);
+            adInterval = setInterval(() => {
+                showAd();
+            }, AD_INTERVAL);
             
             // Taimeri yenilə
-            tmaTimerInterval = setInterval(updateTmaTimerDisplay, 1000);
+            adTimerInterval = setInterval(updateAdTimerDisplay, 1000);
             
             // İlk növbəti reklam vaxtını təyin et
-            tmaNextAdTime = Date.now() + TMA_AD_INTERVAL;
+            nextAdTime = Date.now() + AD_INTERVAL;
             
-            console.log('✅ TMA reklam sayğacı başladıldı: 2 dəqiqə interval');
+            console.log('✅ Avtomatik reklam sayğacı başladıldı: 2 dəqiqə interval');
         }
         
-        // TMA reklamını göstər
-        async function showTmaAd() {
-            console.log('🎬 TMA reklamı göstərilir...');
-            
-            if (!tmaShowFunction) {
-                console.log('❌ TMA funksiyası mövcud deyil');
-                return false;
-            }
+        // Reklam göstər
+        function showAd() {
+            console.log('🎬 Reklam göstərilir...');
             
             // Modalı göster
-            const modal = document.getElementById('tmaAdModal');
-            const timerElement = document.getElementById('tmaTimer');
+            const modal = document.getElementById('adModal');
+            const timerElement = document.getElementById('adTimer');
             
             modal.style.display = 'flex';
             
-            // Geri sayım başlat
-            let countdown = 10;
-            timerElement.textContent = `Reklam başlayır: ${countdown}`;
+            // Geri sayım başlat (5 saniyə)
+            let countdown = 5;
+            timerElement.textContent = `Reklam bağlanır: ${countdown}`;
             
             const countdownInterval = setInterval(() => {
                 countdown--;
                 if (countdown <= 0) {
                     clearInterval(countdownInterval);
-                    timerElement.textContent = 'Reklam başladı!';
+                    timerElement.textContent = 'Reklam bağlanır...';
                     
-                    // Reklamı göstər
+                    // Reklamı bağla
                     setTimeout(() => {
-                        tmaShowFunction()
-                            .then((result) => {
-                                console.log('✅ TMA reklamı tamamlandı:', result);
-                                giveTmaReward();
-                            })
-                            .catch((error) => {
-                                console.error('❌ TMA reklam xətası:', error);
-                                // Xəta halında da mükafat verək
-                                giveTmaReward();
-                            });
+                        modal.style.display = 'none';
+                        console.log('✅ Reklam bağlandı');
                     }, 1000);
                 } else {
-                    timerElement.textContent = `Reklam başlayır: ${countdown}`;
+                    timerElement.textContent = `Reklam bağlanır: ${countdown}`;
                 }
             }, 1000);
-            
-            return true;
-        }
-        
-        // TMA mükafatını ver
-        function giveTmaReward() {
-            if (currentUserState.username) {
-                currentUserState.totalMoney += TMA_AD_REWARD;
-                saveUserState();
-                updateEnergyDisplay();
-                
-                // Bildiriş göster
-                showSuccess(`🎉 TMA reklamı tamamlandı! +${TMA_AD_REWARD} AZN qazandınız!`);
-                
-                // Növbəti reklam vaxtını yenilə
-                tmaNextAdTime = Date.now() + TMA_AD_INTERVAL;
-                
-                // Modalı bağla
-                setTimeout(() => {
-                    document.getElementById('tmaAdModal').style.display = 'none';
-                }, 2000);
-            }
         }
         
         // Reklamdan sonra davam et
         function continueAfterAd() {
-            document.getElementById('tmaAdModal').style.display = 'none';
-            showSuccess('✅ Oyun davam edir! Növbəti reklam 2 dəqiqə sonra.');
+            document.getElementById('adModal').style.display = 'none';
+            console.log('✅ Oyun davam edir! Növbəti reklam 2 dəqiqə sonra.');
         }
         
-        // TMA sayğacını yenilə
-        function updateTmaTimerDisplay() {
+        // Reklam sayğacını yenilə
+        function updateAdTimerDisplay() {
             const now = Date.now();
-            const timeLeft = tmaNextAdTime - now;
+            const timeLeft = nextAdTime - now;
             
-            const countdownElement = document.getElementById('tmaCountdown');
+            const countdownElement = document.getElementById('adCountdown');
             if (countdownElement && timeLeft > 0) {
                 const secondsLeft = Math.floor(timeLeft / 1000);
                 countdownElement.textContent = secondsLeft;
-                
-                // Hər dəqiqədə bir log
-                if (secondsLeft % 60 === 0) {
-                    console.log(`⏰ TMA növbəti reklam: ${Math.floor(secondsLeft / 60)} dəqiqə`);
-                }
             }
         }
-        
+
         // =================================================================
         // FIREBASE KONFİQURASİYASI
         // =================================================================
@@ -2030,12 +1843,6 @@
         const BASE_INVITE_URL = window.location.href.split('?')[0];
         const ENERGY_REGEN_INTERVAL = 1000;
         
-        // ADSGRAM SABİTLƏRİ
-        const ADSGRAM_REWARD_AMOUNT = 0.001;
-        const ADS_PER_SESSION = 10;
-        const AD_COOLDOWN_MS = 4 * 60 * 60 * 1000; // 4 saat
-        const AD_INTERVAL_BETWEEN = 2 * 60 * 1000; // 2 dəqiqə
-
         // İstifadəçi state-i
         let currentUserState = {
             cgId: null, username: null, name: null, surname: null, phone: null, email: null, referralCode: null, 
@@ -2043,13 +1850,7 @@
             totalClicks: 0, totalMoney: 0.00, energyUsed: 0, 
             energyRegenRate: BASE_REGEN_RATE, scorePerClick: 1, lastEnergyUpdate: Date.now(), 
             lastClickTime: Date.now(), successfulReferrals: 0, referralBonusEarned: 0.00, 
-            lastWithdrawalDate: null, registrationDate: null,
-            // ADSGRAM MƏLUMATLARI
-            adsgramData: {
-                lastSessionEndTime: 0,
-                adsWatchedInSession: 0,
-                nextAdAvailableTime: 0
-            }
+            lastWithdrawalDate: null, registrationDate: null
         };
 
         // DOM Elementləri
@@ -2287,73 +2088,6 @@
         }
 
         // =================================================================
-        // REKLAM SİSTEMLƏRİNİN KONFİQURASİYASI
-        // =================================================================
-
-        // RichAds konfiqurasiyası
-        document.addEventListener('DOMContentLoaded', () => {
-            // RichAds
-            if (typeof TelegramAdsController !== 'undefined') {
-                window.TelegramAdsController = new TelegramAdsController();
-                window.TelegramAdsController.initialize({
-                    pubId: "993631",
-                    appId: "4699",
-                });
-                console.log('✅ RichAds reklam sistemi başladıldı');
-            }
-
-            // Adexium (Yalnız Push-like)
-            if (typeof AdexiumWidget !== 'undefined') {
-                window.adexiumPush = new AdexiumWidget({
-                    wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae',
-                    adFormat: 'push-like'
-                });
-                window.adexiumPush.autoMode();
-                console.log('✅ Adexium push-like reklam sistemi başladıldı');
-            }
-        });
-
-        // =================================================================
-        // RICHADS REKLAM SİSTEMİ
-        // =================================================================
-
-        // RichAds reklam sistemini başlatmaq
-        function initializeRichAds() {
-            try {
-                if (typeof TelegramAdsController !== 'undefined' && window.TelegramAdsController) {
-                    console.log('✅ RichAds reklam sistemi hazırdır');
-                    return true;
-                } else {
-                    console.log('❌ RichAds reklam sistemi tapılmadı');
-                    return false;
-                }
-            } catch (error) {
-                console.error('RichAds xətası:', error);
-                return false;
-            }
-        }
-
-        // =================================================================
-        // ADEXIUM PUSH-LIKE REKLAM SİSTEMİ
-        // =================================================================
-
-        // Adexium reklam sistemini başlatmaq
-        function initializeAdexiumAds() {
-            try {
-                if (typeof AdexiumWidget !== 'undefined') {
-                    console.log('✅ Adexium push-like reklam sistemi hazırdır');
-                    return true;
-                } else {
-                    console.log('❌ Adexium reklam sistemi tapılmadı');
-                    return false;
-                }
-            } catch (error) {
-                console.error('Adexium xətası:', error);
-                return false;
-            }
-        }
-
-        // =================================================================
         // ŞİFRƏ BƏRPA SİSTEMİ
         // =================================================================
 
@@ -2582,269 +2316,6 @@
 
         // İlkin addımı göstər
         showForgotPasswordStep(1);
-
-        // =================================================================
-        // ADSGRAM SİSTEMİ - FIREBASE İLƏ EŞİTLƏNƏN
-        // =================================================================
-
-        let AdsgramVideoController = null;
-        let isAdsgramReady = false;
-
-        // AdsGram məlumatlarını Firebase-dən oxumaq
-        async function getAdsgramData() {
-            if (currentUserState.username && currentUserState.adsgramData) {
-                return currentUserState.adsgramData;
-            }
-            
-            // Default data
-            return {
-                lastSessionEndTime: 0,
-                adsWatchedInSession: 0,
-                nextAdAvailableTime: 0
-            };
-        }
-
-        // AdsGram məlumatlarını Firebase-ə yazmaq
-        async function setAdsgramData(data) {
-            if (currentUserState.username) {
-                currentUserState.adsgramData = data;
-                await saveUserState();
-            }
-        }
-
-        // AdsGram SDK-ni initialize etmək
-        function initializeAdsGramVideo() {
-            try {
-                if (window.Adsgram) {
-                    console.log('🔄 AdsGram SDK tapıldı, başladılır...');
-                    AdsgramVideoController = window.Adsgram.init({ blockId: "17997" });
-                    
-                    // Manual olaraq hazır olduğunu qəbul edək
-                    isAdsgramReady = true;
-                    console.log('✅ AdsGram hazır qəbul edildi');
-                    updateAdsGramVideoDisplay();
-                    return true;
-                } else {
-                    console.log('❌ AdsGram SDK tapılmadı');
-                    // Test üçün mock sistem yaradaq
-                    createMockAdsSystem();
-                    return true;
-                }
-            } catch (error) {
-                console.error('❌ AdsGram xətası:', error);
-                // Xəta halında da mock sistem yaradaq
-                createMockAdsSystem();
-                return true;
-            }
-        }
-
-        // Test üçün mock reklam sistemi
-        function createMockAdsSystem() {
-            console.log('🔄 Mock reklam sistemi yaradılır...');
-            isAdsgramReady = true;
-            
-            // Mock AdsGram controller yaradırıq
-            AdsgramVideoController = {
-                show: function() {
-                    return new Promise((resolve, reject) => {
-                        console.log('🎬 Mock reklam göstərilir...');
-                        
-                        // 3 saniyəlik mock reklam
-                        setTimeout(() => {
-                            console.log('✅ Mock reklam tamamlandı');
-                            resolve({ status: 'completed' });
-                        }, 3000);
-                    });
-                }
-            };
-            
-            console.log('✅ Mock reklam sistemi hazırdır');
-            updateAdsGramVideoDisplay();
-        }
-
-        // Reklam göstərib-göstərilməyəcəyini yoxlamaq
-        async function canShowAdsGramReward() {
-            const adsgramData = await getAdsgramData();
-            const now = Date.now();
-            
-            if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
-                if (now - adsgramData.lastSessionEndTime < AD_COOLDOWN_MS) {
-                    return false;
-                } else {
-                    // 4 saat bitibsə, sessionu sıfırla
-                    await resetAdsGramSession();
-                    return true;
-                }
-            }
-            
-            if (adsgramData.nextAdAvailableTime > now) {
-                return false;
-            }
-            
-            return true;
-        }
-
-        // Reward video göstərmək
-        async function showAdsGramVideoReward() {
-            console.log('🔘 AdsGram düyməsinə klik edildi');
-            
-            const canShow = await canShowAdsGramReward();
-            if (!canShow) {
-                const remaining = await getRemainingTime();
-                const minutes = Math.floor(remaining / 60000);
-                const seconds = Math.floor((remaining % 60000) / 1000);
-                
-                alert(`⏰ Növbəti reklam üçün ${minutes}:${seconds.toString().padStart(2,'0')} dəqiqə gözləyin.`);
-                return false;
-            }
-
-            if (!AdsgramVideoController) {
-                console.log('🔄 AdsGram controller yoxdur, yenidən başladılır...');
-                initializeAdsGramVideo();
-                
-                setTimeout(() => {
-                    if (isAdsgramReady) {
-                        showAdsGramVideoReward();
-                    } else {
-                        alert('❌ Reklam sistemi hazır deyil. Yenidən cəhd edin.');
-                    }
-                }, 1000);
-                return false;
-            }
-
-            console.log('🎬 Reklam göstərilməyə başlayır...');
-            
-            // Loading mesajı göstər
-            const button = document.getElementById('adsgramVideoButton');
-            const timer = document.getElementById('adsgramTimer');
-            if (button) button.innerHTML = '⏳ Reklam Yüklənir...';
-            if (timer) timer.textContent = 'Yüklənir...';
-
-            AdsgramVideoController.show()
-                .then((result) => {
-                    console.log('✅ Reklam tamamlandı:', result);
-                    handleAdsGramVideoReward();
-                })
-                .catch((error) => {
-                    console.error('❌ Reklam xətası:', error);
-                    alert('❌ Reklam göstərilərkən xəta baş verdi. Yenidən cəhd edin.');
-                    
-                    // Error halında da mükafat verək (test üçün)
-                    handleAdsGramVideoReward();
-                });
-
-            return true;
-        }
-
-        // Video mükafatını emal et
-        async function handleAdsGramVideoReward() {
-            const adsgramData = await getAdsgramData();
-            const now = Date.now();
-            
-            adsgramData.adsWatchedInSession++;
-            adsgramData.nextAdAvailableTime = now + AD_INTERVAL_BETWEEN;
-            
-            if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
-                adsgramData.lastSessionEndTime = now;
-            }
-            
-            await setAdsgramData(adsgramData);
-            
-            // Pul mükafatı ver
-            if (currentUserState.username) {
-                currentUserState.totalMoney += ADSGRAM_REWARD_AMOUNT;
-                await saveUserState();
-                updateEnergyDisplay();
-            }
-            
-            showSuccess(`🎉 Reklam ${adsgramData.adsWatchedInSession}/${ADS_PER_SESSION} tamamlandı! +${ADSGRAM_REWARD_AMOUNT} AZN qazandınız!`);
-            
-            updateAdsGramVideoDisplay();
-            console.log('💰 Mükafat verildi, display yeniləndi');
-        }
-
-        // Qalan vaxtı hesablamaq
-        async function getRemainingTime() {
-            const adsgramData = await getAdsgramData();
-            const now = Date.now();
-            
-            if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
-                const remaining = AD_COOLDOWN_MS - (now - adsgramData.lastSessionEndTime);
-                return remaining > 0 ? remaining : 0;
-            }
-            
-            if (adsgramData.nextAdAvailableTime > now) {
-                return adsgramData.nextAdAvailableTime - now;
-            }
-            
-            return 0;
-        }
-
-        // UI display-i yeniləmək
-        async function updateAdsGramVideoDisplay() {
-            try {
-                const adsgramData = await getAdsgramData();
-                const remaining = await getRemainingTime();
-                
-                const timerElement = document.getElementById('adsgramTimer');
-                const buttonElement = document.getElementById('adsgramVideoButton');
-                
-                if (!timerElement || !buttonElement) {
-                    console.log('⚠️ AdsGram elementləri tapılmadı');
-                    return;
-                }
-                
-                if (remaining <= 0) {
-                    timerElement.textContent = "Hazır!";
-                    timerElement.style.color = "#00b894";
-                    buttonElement.disabled = false;
-                    buttonElement.style.opacity = "1";
-                    buttonElement.innerHTML = `🎬 Video İzlə & 0.001 AZN Qazan! (${adsgramData.adsWatchedInSession}/${ADS_PER_SESSION})`;
-                } else {
-                    const adsgramData = await getAdsgramData();
-                    
-                    if (adsgramData.adsWatchedInSession >= ADS_PER_SESSION) {
-                        const hours = Math.floor(remaining / 3600000);
-                        const minutes = Math.floor((remaining % 3600000) / 60000);
-                        timerElement.textContent = `${hours}sa ${minutes}dəq`;
-                        buttonElement.innerHTML = `⏳ ${hours}sa ${minutes}dəq Sonra`;
-                    } else {
-                        const minutes = Math.floor(remaining / 60000);
-                        const seconds = Math.floor((remaining % 60000) / 1000);
-                        timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-                        buttonElement.innerHTML = `⏳ ${minutes}:${seconds.toString().padStart(2, '0')} Sonra`;
-                    }
-                    
-                    timerElement.style.color = "#ff6b6b";
-                    buttonElement.disabled = true;
-                    buttonElement.style.opacity = "0.6";
-                }
-                
-                console.log('🔄 AdsGram display yeniləndi');
-            } catch (error) {
-                console.error('AdsGram display xətası:', error);
-            }
-        }
-
-        // Session-u sıfırlamaq
-        async function resetAdsGramSession() {
-            const adsgramData = {
-                lastSessionEndTime: 0,
-                adsWatchedInSession: 0,
-                nextAdAvailableTime: 0
-            };
-            await setAdsgramData(adsgramData);
-            updateAdsGramVideoDisplay();
-            console.log('🔄 AdsGram session sıfırlandı');
-        }
-
-        // Timer-i başlatmaq
-        function startAdsGramVideoTimer() {
-            setInterval(() => {
-                updateAdsGramVideoDisplay();
-            }, 1000);
-            console.log('✅ AdsGram timer başladıldı');
-        }
 
         // =================================================================
         // TELEGRAM BOT AYARLARI
@@ -3212,11 +2683,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                     const referralBonus = data.referralBonusEarned || 0;
                     const currentMoney = data.totalMoney || 0;
                     const currentEnergy = data.currentEnergy || 0;
-                    const adsgramData = data.adsgramData || {
-                        lastSessionEndTime: 0,
-                        adsWatchedInSession: 0,
-                        nextAdAvailableTime: 0
-                    };
 
                     console.log(`📊 Real-time update: ${username} - Referrals: ${referralCount}, Bonus: ${formatMoney(referralBonus)}, Total: ${formatMoney(currentMoney)}`);
 
@@ -3240,19 +2706,12 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         currentUserState.referralBonusEarned = referralBonus;
                         currentUserState.totalMoney = currentMoney;
                         currentUserState.currentEnergy = currentEnergy;
-                        currentUserState.adsgramData = adsgramData;
 
                         // 1. YADDAŞDA SAXLA (Vacib)
                         localStorage.setItem('userState', JSON.stringify(currentUserState));
                         
                         // 2. DEBUG ÜÇÜN (İstəyə bağlı)
                         console.log(`Referal bonusu əlavə edildi: +${referralBonus}. Ümumi: ${currentMoney}`);
-                        
-                        // 3. ADSGRAM DISPLAY YENİLƏ
-                        updateAdsGramVideoDisplay();
-                        
-                        // 4. TMA TİMER YENİLƏ
-                        updateTmaTimerDisplay();
                     }
                 }
             }, (error) => {
@@ -3294,11 +2753,9 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         updateEnergyDisplay();
                         saveUserState();
                         
-                        // ADSGRAM DISPLAY YENİLƏ
-                        updateAdsGramVideoDisplay();
+                        // AVTOMATİK REKLAM SİSTEMİNİ BAŞLAT
+                        initializeAutoAds();
                         
-                        // TMA TİMER YENİLƏ
-                        updateTmaTimerDisplay();
                     }, 1200);
 
                 } else {
@@ -3343,7 +2800,7 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 // CG ID
                 const cgId = await getNextCGId();
 
-                // Yeni istifadəçi məlumatları - ADSGRAM DATA DA DAXİL
+                // Yeni istifadəçi məlumatları
                 const newUserData = {
                     cgId,
                     name,
@@ -3366,13 +2823,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                     scorePerClick: 1,
                     currentEnergy: 100000,
                     maxEnergy: 100000,
-
-                    // ADSGRAM DATA
-                    adsgramData: {
-                        lastSessionEndTime: 0,
-                        adsWatchedInSession: 0,
-                        nextAdAvailableTime: 0
-                    },
 
                     // ZAMAN
                     registrationDate: new Date().toISOString(),
@@ -3768,8 +3218,8 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
         function showWelcomeMessage() {
             const userName = currentUserState.name || currentUserState.username;
             const welcomeMessages = [
-                `Sizi yenidən görmək əladır, ${userName}! Oynamağa davam edin və daha çox qazanın! 🚀`,
-                `Xoş gəldiniz, ${userName}! Gününüz xoş keçsin və bol qazanclı olsun! 💫`,
+                `Sizi yenidən görmək əladır, ${userName}! 2 dəqiqə aralıqla avtomatik reklamlar gələcək! 🚀`,
+                `Xoş gəldiniz, ${userName}! Gününüz xoş keçsin! 💫`,
                 `Təşəkkürlər, ${userName}! Yenidən oynamağa başladığınız üçün çox sevindik! 🎮`
             ];
             
@@ -3798,13 +3248,7 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 const stateToSave = { 
                     ...currentUserState, 
                     energyRegenRate: BASE_REGEN_RATE, 
-                    maxEnergy: MAX_ENERGY_CAP,
-                    // ADSGRAM DATA DA DAXİL
-                    adsgramData: currentUserState.adsgramData || {
-                        lastSessionEndTime: 0,
-                        adsWatchedInSession: 0,
-                        nextAdAvailableTime: 0
-                    }
+                    maxEnergy: MAX_ENERGY_CAP
                 };
                 
                 // Firebase-ə göndər
@@ -3949,29 +3393,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             }
         }
 
-        function createMoneyPopup(event, money) {
-            const popup = document.createElement('div');
-            popup.className = 'money-popup';
-            popup.textContent = `+${formatMoney(money)}`;
-            
-            let x, y;
-            if (event.touches && event.touches.length > 0) {
-                x = event.touches[0].clientX;
-                y = event.touches[0].clientY;
-            } else {
-                x = event.clientX;
-                y = event.clientY;
-            }
-
-            const rect = document.querySelector('.click-area').getBoundingClientRect();
-            popup.style.left = (x - rect.left + 20) + 'px'; 
-            popup.style.top = (y - rect.top - 20) + 'px'; 
-            
-            document.querySelector('.click-area').appendChild(popup);
-            
-            setTimeout(() => popup.remove(), 1200);
-        }
-
         function switchScreen(screenName) {
             if (screenName === 'loginScreen') {
                 if (confirm("Oyundan çıxış etmək istədiyinizə əminsiniz?")) {
@@ -4024,18 +3445,18 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 referralUnsubscribe = null;
             }
             
-            // TMA İNTERVALINI DAYANDIR
-            if (tmaAdInterval) {
-                clearInterval(tmaAdInterval);
-                tmaAdInterval = null;
+            // AVTOMATİK REKLAM İNTERVALINI DAYANDIR
+            if (adInterval) {
+                clearInterval(adInterval);
+                adInterval = null;
             }
-            if (tmaTimerInterval) {
-                clearInterval(tmaTimerInterval);
-                tmaTimerInterval = null;
+            if (adTimerInterval) {
+                clearInterval(adTimerInterval);
+                adTimerInterval = null;
             }
-            if (tmaCountdownInterval) {
-                clearInterval(tmaCountdownInterval);
-                tmaCountdownInterval = null;
+            if (adCountdownInterval) {
+                clearInterval(adCountdownInterval);
+                adCountdownInterval = null;
             }
             
             currentUserState = {
@@ -4058,12 +3479,7 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 lastEnergyUpdate: Date.now(), 
                 lastClickTime: Date.now(), 
                 lastWithdrawalDate: null, 
-                registrationDate: null,
-                adsgramData: {
-                    lastSessionEndTime: 0,
-                    adsWatchedInSession: 0,
-                    nextAdAvailableTime: 0
-                }
+                registrationDate: null
             };
 
             gameScreen.style.display = 'none';
@@ -4195,132 +3611,16 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
         });
 
         // =================================================================
-        // ADEXIUM REKLAM SİSTEMİ
-        // =================================================================
-
-        // Adexium reklam sistemini başlatmaq
-        function initializeAdexiumAds() {
-            try {
-                // Adexium reklam sisteminin yükləndiyini yoxla
-                if (typeof AdexiumWidget !== 'undefined') {
-                    console.log('✅ Adexium reklam sistemi hazırdır');
-                    return true;
-                } else {
-                    console.log('❌ Adexium reklam sistemi tapılmadı');
-                    return false;
-                }
-            } catch (error) {
-                console.error('Adexium xətası:', error);
-                return false;
-            }
-        }
-
-        // =================================================================
         // BAŞLANĞIÇ FUNKSİYASI
         // =================================================================
         window.addEventListener('load', async function() {
             // Şəkilləri yüklə
-            const IMAGE_CONFIG = {
-                splashImage: "https://i.ibb.co/JFndRdvY/casper.jpg",
-                gameIcon: "https://i.ibb.co/hp0mdt1/2025-10-31-T103543-300-removebg-preview.png",
-                fallbackText: "👻"
-            };
-
-            function loadImages() {
-                const splashImg = document.querySelector('.splash-image img');
-                const gameIcon = document.getElementById('clickImage');
-                
-                splashImg.src = IMAGE_CONFIG.splashImage;
-                splashImg.alt = "Casper Game Logo";
-                gameIcon.src = IMAGE_CONFIG.gameIcon;
-                gameIcon.alt = "Casper";
-                
-                const handleImageError = (img, fallback) => {
-                    img.onerror = null;
-                    img.style.display = 'none';
-                    img.parentElement.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:60px;color:white;">${fallback}</div>`;
-                };
-                
-                splashImg.onerror = () => handleImageError(splashImg, IMAGE_CONFIG.fallbackText);
-                gameIcon.onerror = () => handleImageError(gameIcon, IMAGE_CONFIG.fallbackText);
-            }
-
             loadImages();
             
             console.log('🚀 Oyun başladılır...');
             
             // CG ID sistemini initialize et
-            async function initializeCounter() {
-                try {
-                    const counterRef = db.collection('counters').doc('userCounter');
-                    const counterDoc = await counterRef.get();
-                    
-                    if (!counterDoc.exists) {
-                        await counterRef.set({ count: 0 });
-                        console.log('✅ Counter initialized with 0');
-                    } else {
-                        console.log('✅ Counter already exists:', counterDoc.data().count);
-                    }
-                } catch (error) {
-                    console.error('❌ Counter initialization xətası:', error);
-                }
-            }
-
             await initializeCounter();
-
-            // TMA REKLAM SİSTEMİNİ İŞƏ SAL
-            setTimeout(() => {
-                console.log('🔄 TMA.js 2 dəqiqə aralıq reklam sistemi başladılır...');
-                const tmaInitialized = initializeTmaAds();
-                if (tmaInitialized) {
-                    console.log('✅ TMA.js 2 dəqiqə aralıq reklam sistemi başladıldı');
-                } else {
-                    console.log('❌ TMA.js reklam sistemi başladıla bilmədi');
-                }
-            }, 1500);
-
-            // RICHADS REKLAM SİSTEMİNİ İŞƏ SAL
-            setTimeout(() => {
-                console.log('🔄 RichAds interstitial reklam sistemi başladılır...');
-                const richAdsInitialized = initializeRichAds();
-                if (richAdsInitialized) {
-                    console.log('✅ RichAds interstitial reklam sistemi başladıldı');
-                } else {
-                    console.log('❌ RichAds interstitial reklam sistemi başladıla bilmədi');
-                }
-            }, 2000);
-
-            // ADEXIUM PUSH-LIKE REKLAM SİSTEMİNİ İŞƏ SAL
-            setTimeout(() => {
-                console.log('🔄 Adexium push-like reklam sistemi başladılır...');
-                const adexiumInitialized = initializeAdexiumAds();
-                if (adexiumInitialized) {
-                    console.log('✅ Adexium push-like reklam sistemi başladıldı');
-                } else {
-                    console.log('❌ Adexium push-like reklam sistemi başladıla bilmədi');
-                }
-            }, 2500);
-
-            // ADSGRAM 10 REKLAM + 2 DƏQ + 4 SAAT SİSTEMİNİ İŞƏ SAL
-            setTimeout(() => {
-                console.log('🔄 AdsGram 10 Reklam sistemi başladılır...');
-                const adsgramVideoInitialized = initializeAdsGramVideo();
-                if (adsgramVideoInitialized) {
-                    console.log('✅ AdsGram 10 Reklam + 4 Saat sistemi başladıldı');
-                } else {
-                    console.log('❌ AdsGram 10 Reklam + 4 Saat sistemi başladıla bilmədi');
-                }
-            }, 3000);
-            
-            // Bütün reklam sistemlərinin statusunu göstər
-            setTimeout(() => {
-                console.log('📊 Reklam Sistemləri Statusu:', {
-                    tma_2min: tmaShowFunction ? 'ready' : 'not_ready',
-                    richads: typeof TelegramAdsController !== 'undefined' ? 'ready' : 'not_ready',
-                    adexium_push: typeof AdexiumWidget !== 'undefined' ? 'ready' : 'not_ready',
-                    adsgram: typeof isAdsgramReady !== 'undefined' ? (isAdsgramReady ? 'ready' : 'not_ready') : 'unknown'
-                });
-            }, 4000);
 
             // ƏSAS OYUN ELEMENTLƏRİNİ İŞƏ SAL
             const img = document.getElementById('clickImage');
@@ -4346,9 +3646,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             setInterval(simulateEnergyRegen, ENERGY_REGEN_INTERVAL);
             setInterval(updateWithdrawalDisplay, 60000);
             
-            // ADSGRAM VIDEO TİMER İŞƏ SAL
-            startAdsGramVideoTimer();
-            
             // AVTOMATİK YENİLƏMƏ
             setInterval(async () => {
                 if (currentUserState.username) {
@@ -4362,15 +3659,10 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 Telegram.WebApp.ready();
                 console.log('✅ Telegram WebApp aktiv edildi');
             }
-            
-            // İLK ADSGRAM DISPLAY YENİLƏMƏSİ
-            setTimeout(() => {
-                updateAdsGramVideoDisplay();
-            }, 1000);
         });
 
         window.addEventListener('beforeunload', function() {
-            saveUserState(); // Kənar funksiya
+            saveUserState();
         });
     </script>
 </body>
