@@ -42,9 +42,6 @@
         });
     </script>
     
-    <!-- ONCLIKA REKLAM SİSTEMİ -->
-    <script src="https://js.onclckvd.com/in-stream-ad-admanager/tma.js"></script>
-    
     <style>
         * {
             margin: 0;
@@ -1188,23 +1185,6 @@
         .ghost-yellow { color: #ffff00; }
         .ghost-cyan { color: #00ffff; }
         
-        /* YENİ: Onclika reklam qutusu */
-        .onclika-ad-container {
-            background: rgba(255, 0, 150, 0.1);
-            padding: 10px;
-            border-radius: 8px;
-            margin: 10px 0;
-            text-align: center;
-            border: 1px solid rgba(255, 0, 150, 0.3);
-        }
-        
-        .onclika-timer {
-            font-size: 11px;
-            color: #ffcc00;
-            margin-top: 5px;
-            font-weight: bold;
-        }
-        
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
@@ -1342,11 +1322,6 @@
                                     <div class="energy-text" id="energyText">100.000</div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- YENİ ONCLIKA REKLAM SİSTEMİ - 2 DƏQİQƏ ARALIQLA AVTOMATİK -->
-                        <div class="onclika-ad-container" id="onclikaAdContainer">
-                            <div class="onclika-timer" id="onclikaTimer">Reklam gösterilecek: 00:00</div>
                         </div>
 
                         <!-- YENİ ADSGRAM 10 REKLAM + 2 DƏQ + 4 SAAT SİSTEMİ -->
@@ -1774,9 +1749,6 @@
         const AD_COOLDOWN_MS = 4 * 60 * 60 * 1000; // 4 saat
         const AD_INTERVAL_BETWEEN = 2 * 60 * 1000; // 2 dəqiqə
 
-        // ONCLIKA REKLAM SABİTLƏRİ
-        const ONCLIKA_AD_INTERVAL = 2 * 60 * 1000; // 2 dəqiqə
-
         // İstifadəçi state-i - BÜTÜN MƏLUMATLAR FIREBASE-DƏ SAXLANILACAQ
         let currentUserState = {
             cgId: null, username: null, name: null, surname: null, phone: null, email: null, referralCode: null, 
@@ -1790,11 +1762,6 @@
                 lastSessionEndTime: 0,
                 adsWatchedInSession: 0,
                 nextAdAvailableTime: 0
-            },
-            // ONCLIKA MƏLUMATLARI
-            onclikaData: {
-                lastAdTime: 0,
-                adCount: 0
             }
         };
 
@@ -1830,170 +1797,9 @@
         const withdrawSubmitBtn = document.getElementById('withdrawSubmitBtn');
         const navItems = document.querySelectorAll('.navbar .nav-item');
         const subScreens = document.querySelectorAll('.game-sub-screen');
-        const onclikaTimerEl = document.getElementById('onclikaTimer');
-        const onclikaAdContainer = document.getElementById('onclikaAdContainer');
 
         // =================================================================
-        // YENİ: ONCLIKA REKLAM SİSTEMİ - 2 DƏQİQƏ ARALIQLA AVTOMATİK
-        // =================================================================
-
-        // Onclika reklam sistemini başlatmaq
-        function initializeOnclikaAds() {
-            try {
-                console.log('🔄 Onclika reklam sistemi başladılır...');
-                
-                // Onclika SDK-nın yükləndiyini yoxla
-                if (window.initCdTma) {
-                    // Spot ID-ni daxil et
-                    window.initCdTma({ id: '393471' })
-                        .then(show => {
-                            window.showOnclikaAd = show;
-                            console.log('✅ Onclika reklam sistemi hazırdır');
-                            startOnclikaAdTimer();
-                        })
-                        .catch(e => {
-                            console.error('❌ Onclika xətası:', e);
-                            createMockOnclikaSystem();
-                        });
-                } else {
-                    console.log('❌ Onclika SDK tapılmadı');
-                    createMockOnclikaSystem();
-                }
-            } catch (error) {
-                console.error('❌ Onclika başlatma xətası:', error);
-                createMockOnclikaSystem();
-            }
-        }
-
-        // Test üçün mock Onclika sistemi
-        function createMockOnclikaSystem() {
-            console.log('🔄 Mock Onclika sistemi yaradılır...');
-            
-            window.showOnclikaAd = function() {
-                return new Promise((resolve, reject) => {
-                    console.log('🎬 Mock Onclika reklamı göstərilir...');
-                    
-                    // 5 saniyəlik mock reklam
-                    setTimeout(() => {
-                        console.log('✅ Mock Onclika reklamı tamamlandı');
-                        resolve({ status: 'completed' });
-                    }, 5000);
-                });
-            };
-            
-            console.log('✅ Mock Onclika sistemi hazırdır');
-            startOnclikaAdTimer();
-        }
-
-        // Onclika reklam timer-i başlatmaq
-        function startOnclikaAdTimer() {
-            console.log('⏰ Onclika reklam timer-i başladıldı');
-            
-            // Hər 1 saniyədə bir timer-i yenilə
-            setInterval(() => {
-                updateOnclikaTimerDisplay();
-            }, 1000);
-            
-            // İlk reklamı göstər
-            setTimeout(() => {
-                showOnclikaAdAuto();
-            }, 30000); // 30 saniyə sonra ilk reklam
-        }
-
-        // Onclika timer display-i yeniləmək
-        function updateOnclikaTimerDisplay() {
-            if (!currentUserState.username) return;
-            
-            const now = Date.now();
-            const lastAdTime = currentUserState.onclikaData?.lastAdTime || 0;
-            const timeSinceLastAd = now - lastAdTime;
-            const timeUntilNextAd = Math.max(0, ONCLIKA_AD_INTERVAL - timeSinceLastAd);
-            
-            if (timeUntilNextAd <= 0) {
-                onclikaTimerEl.textContent = "Reklam hazırdır!";
-                onclikaTimerEl.style.color = "#00b894";
-            } else {
-                const minutes = Math.floor(timeUntilNextAd / 60000);
-                const seconds = Math.floor((timeUntilNextAd % 60000) / 1000);
-                onclikaTimerEl.textContent = `Reklam gösterilecek: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                onclikaTimerEl.style.color = "#ff6b6b";
-            }
-        }
-
-        // Onclika reklamını avtomatik göstərmək
-        async function showOnclikaAdAuto() {
-            if (!currentUserState.username) return;
-            
-            const now = Date.now();
-            const lastAdTime = currentUserState.onclikaData?.lastAdTime || 0;
-            const timeSinceLastAd = now - lastAdTime;
-            
-            // Əgər 2 dəqiqə keçməyibsə, gözlə
-            if (timeSinceLastAd < ONCLIKA_AD_INTERVAL) {
-                console.log('⏳ Onclika reklamı üçün gözləmə vaxtı:', ONCLIKA_AD_INTERVAL - timeSinceLastAd, 'ms');
-                return;
-            }
-            
-            try {
-                console.log('🎬 Onclika reklamı göstərilir...');
-                onclikaTimerEl.textContent = "Reklam yüklənir...";
-                onclikaTimerEl.style.color = "#ffcc00";
-                
-                // Reklamı göstər
-                const result = await window.showOnclikaAd();
-                
-                if (result.status === 'completed') {
-                    console.log('✅ Onclika reklamı tamamlandı');
-                    
-                    // Reklam məlumatlarını yenilə
-                    if (!currentUserState.onclikaData) {
-                        currentUserState.onclikaData = {
-                            lastAdTime: now,
-                            adCount: 1
-                        };
-                    } else {
-                        currentUserState.onclikaData.lastAdTime = now;
-                        currentUserState.onclikaData.adCount = (currentUserState.onclikaData.adCount || 0) + 1;
-                    }
-                    
-                    // Firebase-ə yadda saxla
-                    await saveUserState();
-                    
-                    // İstifadəçiyə mesaj göndər
-                    showSuccess("✅ Onclika reklamı izləndi!");
-                    
-                } else {
-                    console.log('❌ Onclika reklamı tamamlanmadı:', result);
-                }
-                
-            } catch (error) {
-                console.error('❌ Onclika reklam xətası:', error);
-                
-                // Xəta halında da məlumatları yenilə
-                if (!currentUserState.onclikaData) {
-                    currentUserState.onclikaData = {
-                        lastAdTime: now,
-                        adCount: 1
-                    };
-                } else {
-                    currentUserState.onclikaData.lastAdTime = now;
-                    currentUserState.onclikaData.adCount = (currentUserState.onclikaData.adCount || 0) + 1;
-                }
-                
-                await saveUserState();
-            }
-            
-            // Timer-i yenilə
-            updateOnclikaTimerDisplay();
-            
-            // Növbəti reklam üçün timer qur
-            setTimeout(() => {
-                showOnclikaAdAuto();
-            }, ONCLIKA_AD_INTERVAL);
-        }
-
-        // =================================================================
-        // KLİK ANİMASİYALARI VƏ BALANS YENİLƏMƏ
+        // YENİ: KLİK ANİMASİYALARI VƏ BALANS YENİLƏMƏ
         // =================================================================
 
         function clickIcon(event) {
@@ -2223,6 +2029,46 @@
         });
 
         // =================================================================
+        // RICHADS REKLAM SİSTEMİ
+        // =================================================================
+
+        // RichAds reklam sistemini başlatmaq
+        function initializeRichAds() {
+            try {
+                if (typeof TelegramAdsController !== 'undefined' && window.TelegramAdsController) {
+                    console.log('✅ RichAds reklam sistemi hazırdır');
+                    return true;
+                } else {
+                    console.log('❌ RichAds reklam sistemi tapılmadı');
+                    return false;
+                }
+            } catch (error) {
+                console.error('RichAds xətası:', error);
+                return false;
+            }
+        }
+
+        // =================================================================
+        // ADEXIUM PUSH-LIKE REKLAM SİSTEMİ
+        // =================================================================
+
+        // Adexium reklam sistemini başlatmaq
+        function initializeAdexiumAds() {
+            try {
+                if (typeof AdexiumWidget !== 'undefined') {
+                    console.log('✅ Adexium push-like reklam sistemi hazırdır');
+                    return true;
+                } else {
+                    console.log('❌ Adexium reklam sistemi tapılmadı');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Adexium xətası:', error);
+                return false;
+            }
+        }
+
+        // =================================================================
         // ŞİFRƏ BƏRPA SİSTEMİ
         // =================================================================
 
@@ -2265,6 +2111,192 @@
                 }
             });
         }
+
+        // Addım 1: İstifadəçi axtarışı
+        document.getElementById('forgotPasswordForm1').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const phone = document.getElementById('forgotPhone').value.trim();
+            const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+            
+            if (!phone || !email) {
+                showForgotPasswordError("Zəhmət olmasa bütün sahələri doldurun.");
+                return;
+            }
+
+            try {
+                // İstifadəçini telefon və email-ə görə axtar
+                const userQuery = await db.collection('users')
+                    .where('phone', '==', phone)
+                    .where('email', '==', email)
+                    .limit(1)
+                    .get();
+
+                if (userQuery.empty) {
+                    showForgotPasswordError("Bu telefon nömrəsi və e-poçt ünvanı ilə heç bir hesab tapılmadı.");
+                    return;
+                }
+
+                // İstifadəçi məlumatlarını saxla
+                userDataForRecovery = userQuery.docs[0].data();
+                userDataForRecovery.username = userQuery.docs[0].id;
+                
+                showForgotPasswordStep(2);
+                showForgotPasswordSuccess("İstifadəçi tapıldı! İndi təhlükəsizlik suallarına cavab verin.");
+
+            } catch (error) {
+                console.error('İstifadəçi axtarış xətası:', error);
+                showForgotPasswordError("Axtarış zamanı xəta baş verdi. Yenidən cəhd edin.");
+            }
+        });
+
+        // Addım 2: Təhlükəsizlik sorğuları
+        document.getElementById('forgotPasswordForm2').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('securityName').value.trim();
+            const surname = document.getElementById('securitySurname').value.trim();
+            
+            if (!name || !surname) {
+                showForgotPasswordError("Zəhmət olmasa ad və soyadınızı daxil edin.");
+                return;
+            }
+
+            // Təhlükəsizlik cavablarını yoxla
+            if (name !== userDataForRecovery.name || surname !== userDataForRecovery.surname) {
+                showForgotPasswordError("Ad və ya soyadınız düzgün deyil. Zəhmət olmasa düzgün məlumatları daxil edin.");
+                return;
+            }
+
+            // Növbəti addıma keç
+            document.getElementById('newUsername').value = userDataForRecovery.username;
+            showForgotPasswordStep(3);
+            showForgotPasswordSuccess("Təhlükəsizlik sualları uğurla təsdiqləndi! İndi yeni məlumatlarınızı daxil edin.");
+        });
+
+        // Addım 3: Yeni məlumatlar
+        document.getElementById('forgotPasswordForm3').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const newUsername = document.getElementById('newUsername').value.trim().toLowerCase();
+            const newPassword = document.getElementById('newPassword').value.trim();
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value.trim();
+            
+            if (!newUsername || !newPassword || !confirmNewPassword) {
+                showForgotPasswordError("Zəhmət olmasa bütün sahələri doldurun.");
+                return;
+            }
+
+            if (newPassword !== confirmNewPassword) {
+                showForgotPasswordError("Şifrələr uyğun deyil!");
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showForgotPasswordError("Şifrə ən azı 6 simvol olmalıdır!");
+                return;
+            }
+
+            try {
+                // İstifadəçi adı dəyişirsə, yeni adın mövcud olub-olmadığını yoxla
+                if (newUsername !== userDataForRecovery.username) {
+                    const existingUser = await db.collection('users').doc(newUsername).get();
+                    if (existingUser.exists) {
+                        showForgotPasswordError("Bu istifadəçi adı artıq mövcuddur. Başqa bir ad seçin.");
+                        return;
+                    }
+                    
+                    // Köhnə istifadəçi sənədini sil və yenisini yarat
+                    await db.collection('users').doc(userDataForRecovery.username).delete();
+                    
+                    // Yeni məlumatlarla istifadəçi yarat
+                    const updatedUserData = {
+                        ...userDataForRecovery,
+                        username: newUsername,
+                        password: newPassword
+                    };
+                    
+                    await db.collection('users').doc(newUsername).set(updatedUserData);
+                    
+                } else {
+                    // Yalnız şifrəni yenilə
+                    await db.collection('users').doc(userDataForRecovery.username).update({
+                        password: newPassword
+                    });
+                }
+
+                showForgotPasswordSuccess("✅ Şifrəniz və istifadəçi adınız uğurla yeniləndi! İndi yeni məlumatlarınızla daxil ola bilərsiniz.");
+                
+                // Formu təmizlə və bağla
+                setTimeout(() => {
+                    closeModal('forgotPasswordModal');
+                    resetForgotPasswordForm();
+                    
+                    // Yenilənmiş məlumatları giriş formuna doldur
+                    document.getElementById('loginUsername').value = newUsername;
+                    document.getElementById('loginPassword').value = newPassword;
+                    
+                    showSuccess("Şifrəniz uğurla yeniləndi! İndi daxil ola bilərsiniz.");
+                }, 2000);
+
+            } catch (error) {
+                console.error('Şifrə yeniləmə xətası:', error);
+                showForgotPasswordError("Yeniləmə zamanı xəta baş verdi. Yenidən cəhd edin.");
+            }
+        });
+
+        // Köməkçi funksiyalar
+        function showForgotPasswordError(message) {
+            const errorElement = document.getElementById('forgotPasswordError');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            
+            const successElement = document.getElementById('forgotPasswordSuccess');
+            successElement.style.display = 'none';
+        }
+
+        function showForgotPasswordSuccess(message) {
+            const successElement = document.getElementById('forgotPasswordSuccess');
+            successElement.textContent = message;
+            successElement.style.display = 'block';
+            
+            const errorElement = document.getElementById('forgotPasswordError');
+            errorElement.style.display = 'none';
+        }
+
+        function resetForgotPasswordForm() {
+            // Formları təmizlə
+            document.getElementById('forgotPasswordForm1').reset();
+            document.getElementById('forgotPasswordForm2').reset();
+            document.getElementById('forgotPasswordForm3').reset();
+            
+            // Dəyişənləri sıfırla
+            currentForgotPasswordStep = 1;
+            userDataForRecovery = null;
+            
+            // İlk addıma qaytar
+            showForgotPasswordStep(1);
+            updateStepIndicator(1);
+            
+            // Mesajları gizlə
+            document.getElementById('forgotPasswordError').style.display = 'none';
+            document.getElementById('forgotPasswordSuccess').style.display = 'none';
+        }
+
+        // Modal açılanda formu sıfırla
+        document.getElementById('forgotPasswordModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                resetForgotPasswordForm();
+            }
+        });
+
+        // QAPAT düyməsinə klikləndikdə formu sıfırla
+        document.querySelector('#forgotPasswordModal .close-btn').addEventListener('click', function() {
+            resetForgotPasswordForm();
+        });
+
+        // İlkin addımı göstər
+        showForgotPasswordStep(1);
 
         // =================================================================
         // ADSGRAM SİSTEMİ - FIREBASE İLƏ EŞİTLƏNƏN
@@ -2900,10 +2932,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         adsWatchedInSession: 0,
                         nextAdAvailableTime: 0
                     };
-                    const onclikaData = data.onclikaData || {
-                        lastAdTime: 0,
-                        adCount: 0
-                    };
 
                     console.log(`📊 Real-time update: ${username} - Referrals: ${referralCount}, Bonus: ${formatMoney(referralBonus)}, Total: ${formatMoney(currentMoney)}`);
 
@@ -2928,7 +2956,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         currentUserState.totalMoney = currentMoney;
                         currentUserState.currentEnergy = currentEnergy;
                         currentUserState.adsgramData = adsgramData;
-                        currentUserState.onclikaData = onclikaData;
 
                         // 1. YADDAŞDA SAXLA (Vacib)
                         localStorage.setItem('userState', JSON.stringify(currentUserState));
@@ -2938,9 +2965,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         
                         // 3. ADSGRAM DISPLAY YENİLƏ
                         updateAdsGramVideoDisplay();
-                        
-                        // 4. ONCLIKA DISPLAY YENİLƏ
-                        updateOnclikaTimerDisplay();
                     }
                 }
             }, (error) => {
@@ -2984,9 +3008,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         
                         // ADSGRAM DISPLAY YENİLƏ
                         updateAdsGramVideoDisplay();
-                        
-                        // ONCLIKA DISPLAY YENİLƏ
-                        updateOnclikaTimerDisplay();
                     }, 1200);
 
                 } else {
@@ -3060,12 +3081,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         lastSessionEndTime: 0,
                         adsWatchedInSession: 0,
                         nextAdAvailableTime: 0
-                    },
-
-                    // ONCLIKA DATA
-                    onclikaData: {
-                        lastAdTime: 0,
-                        adCount: 0
                     },
 
                     // ZAMAN
@@ -3498,11 +3513,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                         lastSessionEndTime: 0,
                         adsWatchedInSession: 0,
                         nextAdAvailableTime: 0
-                    },
-                    // ONCLIKA DATA DA DAXİL
-                    onclikaData: currentUserState.onclikaData || {
-                        lastAdTime: 0,
-                        adCount: 0
                     }
                 };
                 
@@ -3748,10 +3758,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                     lastSessionEndTime: 0,
                     adsWatchedInSession: 0,
                     nextAdAvailableTime: 0
-                },
-                onclikaData: {
-                    lastAdTime: 0,
-                    adCount: 0
                 }
             };
 
@@ -3990,19 +3996,12 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 }
             }, 2500);
             
-            // ONCLIKA REKLAM SİSTEMİNİ İŞƏ SAL - 2 DƏQİQƏ ARALIQLA
-            setTimeout(() => {
-                console.log('🔄 Onclika reklam sistemi başladılır...');
-                initializeOnclikaAds();
-            }, 3000);
-            
             // Bütün reklam sistemlərinin statusunu göstər
             setTimeout(() => {
                 console.log('📊 Reklam Sistemləri Statusu:', {
                     richads: typeof TelegramAdsController !== 'undefined' ? 'ready' : 'not_ready',
                     adexium_push: typeof AdexiumWidget !== 'undefined' ? 'ready' : 'not_ready',
-                    adsgram: typeof isAdsgramReady !== 'undefined' ? (isAdsgramReady ? 'ready' : 'not_ready') : 'unknown',
-                    onclika: typeof window.showOnclikaAd !== 'undefined' ? 'ready' : 'not_ready'
+                    adsgram: typeof isAdsgramReady !== 'undefined' ? (isAdsgramReady ? 'ready' : 'not_ready') : 'unknown'
                 });
             }, 4000);
 
@@ -4051,11 +4050,6 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             setTimeout(() => {
                 updateAdsGramVideoDisplay();
             }, 1000);
-            
-            // İLK ONCLIKA DISPLAY YENİLƏMƏSİ
-            setTimeout(() => {
-                updateOnclikaTimerDisplay();
-            }, 1500);
         });
 
         window.addEventListener('beforeunload', function() {
