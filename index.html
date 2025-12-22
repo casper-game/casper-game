@@ -626,6 +626,7 @@
         }
         .input-group { 
             margin-bottom: 12px; 
+            position: relative;
         }
         .input-group label { 
             display: block; 
@@ -651,6 +652,12 @@
         }
         .input-group input::placeholder {
             color: rgba(255, 255, 255, 0.5);
+        }
+        .input-hint {
+            font-size: 10px;
+            color: #ffcc00;
+            margin-top: 3px;
+            font-style: italic;
         }
         .btn {
             width: 100%; 
@@ -1237,7 +1244,8 @@
                     <form class="form active" id="loginForm">
                         <div class="input-group">
                             <label for="loginUsername">İstifadəçi adı (Login)</label>
-                            <input type="text" id="loginUsername" placeholder="İstifadəçi adınızı daxil edin" required>
+                            <input type="text" id="loginUsername" placeholder="Kiçik hərflərlə daxil edin (məs: casper123)" required>
+                            <div class="input-hint">⚠️ Qeyd: Login kiçik hərflərlə olmalıdır!</div>
                         </div>
                         
                         <div class="input-group">
@@ -1256,7 +1264,8 @@
                     <form class="form" id="registerForm">
                         <div class="input-group">
                             <label for="registerUsername">İstifadəçi adı (Login) *</label>
-                            <input type="text" id="registerUsername" placeholder="Yeni istifadəçi adı" required>
+                            <input type="text" id="registerUsername" placeholder="Yalnız kiçik hərflər (məs: john123)" required>
+                            <div class="input-hint">⚠️ Zəhmət olmasa yalnız kiçik hərflər istifadə edin!</div>
                         </div>
                         
                         <div class="input-group">
@@ -1410,7 +1419,7 @@
                         
                         <div class="settings-btn-group">
                             <button class="settings-btn" onclick="openModal('editProfileModal')">
-                                <i class="fa-solid fa-pen-to-square"></i> <span>Adı / Məlumatları Dəyişdir</span>
+                                <i class="fa-solid fa-pen-to-square"></i> <span>Adı / Soyadı / Login-i Dəyişdir</span>
                             </button>
                             <button class="settings-btn delete-btn" onclick="openModal('deleteProfileModal')">
                                 <i class="fa-solid fa-trash-can"></i> <span>Hesabı Sil</span>
@@ -1634,7 +1643,8 @@
                     <form id="forgotPasswordForm3">
                         <div class="input-group">
                             <label for="newUsername">Yeni İstifadəçi Adı *</label>
-                            <input type="text" id="newUsername" placeholder="Yeni istifadəçi adınız" required>
+                            <input type="text" id="newUsername" placeholder="Yalnız kiçik hərflər" required>
+                            <div class="input-hint">⚠️ Login yalnız kiçik hərflərlə olmalıdır!</div>
                         </div>
                         
                         <div class="input-group">
@@ -1653,11 +1663,20 @@
             </div>
         </div>
 
+        <!-- Profil Dəyişiklik Modalı - YENİLƏNMİŞ -->
         <div id="editProfileModal" class="modal">
             <div class="modal-content">
                 <span class="close-btn" onclick="closeModal('editProfileModal')">&times;</span>
                 <h2>Məlumatları Dəyişdir</h2>
+                <div class="message info" id="editProfileMessage" style="display: none; background: rgba(0,150,255,0.2); color: #0099ff; padding: 8px; border-radius: 6px; margin-bottom: 12px; font-size: 12px;"></div>
+                
                 <form id="editProfileForm">
+                    <div class="input-group">
+                        <label for="editUsername">Yeni İstifadəçi Adı (Login)</label>
+                        <input type="text" id="editUsername" placeholder="Yalnız kiçik hərflər" required>
+                        <div class="input-hint">⚠️ Yeni login yalnız kiçik hərflərlə olmalıdır!</div>
+                    </div>
+                    
                     <div class="input-group">
                         <label for="editName">Ad</label>
                         <input type="text" id="editName" required>
@@ -2194,6 +2213,12 @@
 
             if (newPassword.length < 6) {
                 showForgotPasswordError("Şifrə ən azı 6 simvol olmalıdır!");
+                return;
+            }
+
+            // Username kiçik hərflərlə olmalıdır
+            if (newUsername !== newUsername.toLowerCase()) {
+                showForgotPasswordError("İstifadəçi adı yalnız kiçik hərflərlə olmalıdır!");
                 return;
             }
 
@@ -2978,11 +3003,17 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            const username = document.getElementById('loginUsername').value.trim();
+            const username = document.getElementById('loginUsername').value.trim().toLowerCase();
             const password = document.getElementById('loginPassword').value;
 
             if (!username || !password) {
                 showError("Zəhmət olmasa bütün sahələri doldurun.");
+                return;
+            }
+
+            // Username kiçik hərflərlə olmalıdır
+            if (username !== username.toLowerCase()) {
+                showError("İstifadəçi adı yalnız kiçik hərflərlə olmalıdır!");
                 return;
             }
 
@@ -3038,6 +3069,12 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             if (password !== confirmPassword) return showError("Şifrələr uyğun deyil!");
             if (!username || !name || !surname || !phone || !email || !password)
                 return showError("Zəhmət olmasa bütün xanaları doldurun!");
+
+            // Username kiçik hərflərlə olmalıdır
+            if (username !== username.toLowerCase()) {
+                showError("İstifadəçi adı yalnız kiçik hərflərlə olmalıdır!");
+                return;
+            }
 
             try {
                 // Username unikallığı
@@ -3811,9 +3848,14 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                 modal.style.display = 'flex';
                 
                 if (modalId === 'editProfileModal') {
+                    // Modal açılanda cari məlumatları doldur
+                    document.getElementById('editUsername').value = currentUserState.username || '';
                     document.getElementById('editName').value = currentUserState.name || '';
                     document.getElementById('editSurname').value = currentUserState.surname || '';
                     document.getElementById('editEmail').value = currentUserState.email || '';
+                    
+                    // Mesajı gizlə
+                    document.getElementById('editProfileMessage').style.display = 'none';
                 }
             }
         }
@@ -3831,26 +3873,127 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             }
         }
 
+        // =================================================================
+        // YENİ: PROFİL DƏYİŞDİRMƏ FUNKSİYASI - LOGIN DƏ DƏYİŞDİRİLƏ BİLƏR
+        // =================================================================
         document.getElementById('editProfileForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            const newUsername = document.getElementById('editUsername').value.trim().toLowerCase();
             const newName = document.getElementById('editName').value.trim();
             const newSurname = document.getElementById('editSurname').value.trim();
             const newEmail = document.getElementById('editEmail').value.trim();
+            
+            if (!newUsername || !newName || !newSurname || !newEmail) {
+                showEditProfileMessage("Zəhmət olmasa bütün sahələri doldurun.", "error");
+                return;
+            }
 
-            if (newName && newSurname && newEmail) {
-                currentUserState.name = newName;
-                currentUserState.surname = newSurname;
-                currentUserState.email = newEmail;
+            // Username kiçik hərflərlə olmalıdır
+            if (newUsername !== newUsername.toLowerCase()) {
+                showEditProfileMessage("İstifadəçi adı yalnız kiçik hərflərlə olmalıdır!", "error");
+                return;
+            }
+
+            try {
+                // Eyni email yoxlaması (başqa istifadəçidə olmasın)
+                if (newEmail !== currentUserState.email) {
+                    const emailQuery = await db.collection('users')
+                        .where('email', '==', newEmail.toLowerCase())
+                        .limit(1)
+                        .get();
+                    
+                    if (!emailQuery.empty) {
+                        showEditProfileMessage("Bu e-poçt ünvanı artıq başqa hesab tərəfindən istifadə olunur!", "error");
+                        return;
+                    }
+                }
+
+                // Əgər username dəyişirsə
+                if (newUsername !== currentUserState.username) {
+                    // Yeni username-in mövcud olub-olmadığını yoxla
+                    const existingUser = await db.collection('users').doc(newUsername).get();
+                    if (existingUser.exists) {
+                        showEditProfileMessage("Bu istifadəçi adı artıq mövcuddur. Başqa bir ad seçin.", "error");
+                        return;
+                    }
+
+                    // Köhnə user sənədini sil
+                    await db.collection('users').doc(currentUserState.username).delete();
+                    
+                    // Yeni məlumatlarla yeni user yarat
+                    const updatedUserData = {
+                        ...currentUserState,
+                        username: newUsername,
+                        name: newName,
+                        surname: newSurname,
+                        email: newEmail
+                    };
+                    
+                    await db.collection('users').doc(newUsername).set(updatedUserData);
+                    
+                    // Köhnə referralUnsubscribe-i dayandır
+                    if (referralUnsubscribe) {
+                        referralUnsubscribe();
+                        referralUnsubscribe = null;
+                    }
+                    
+                    // Yeni dinləyicini başlat
+                    currentUserState = updatedUserData;
+                    listenToReferralCount(newUsername);
+                    
+                    showEditProfileMessage("✅ İstifadəçi adınız və digər məlumatlarınız uğurla dəyişdirildi! Yeni məlumatlarınızla yenidən daxil olun.", "success");
+                    
+                    // Modalı bağla və logout et
+                    setTimeout(() => {
+                        closeModal('editProfileModal');
+                        logout();
+                    }, 2000);
+                    
+                } else {
+                    // Sadəcə ad, soyad və email-i yenilə
+                    await db.collection('users').doc(currentUserState.username).update({
+                        name: newName,
+                        surname: newSurname,
+                        email: newEmail
+                    });
+                    
+                    // Local state-i yenilə
+                    currentUserState.name = newName;
+                    currentUserState.surname = newSurname;
+                    currentUserState.email = newEmail;
+                    
+                    showEditProfileMessage("✅ Profil məlumatlarınız uğurla yeniləndi!", "success");
+                    
+                    // Modalı bağla və display-i yenilə
+                    setTimeout(() => {
+                        closeModal('editProfileModal');
+                        updateProfileDisplay();
+                    }, 1500);
+                }
                 
+                // Firebase-ə yadda saxla
                 await saveUserState();
-                updateProfileDisplay();
-                closeModal('editProfileModal');
-                alert("Profil məlumatlarınız uğurla yeniləndi!");
-            } else {
-                alert("Zəhmət olmasa bütün sahələri doldurun.");
+                
+            } catch (error) {
+                console.error('Profil yeniləmə xətası:', error);
+                showEditProfileMessage("❌ Xəta baş verdi. Yenidən cəhd edin.", "error");
             }
         });
+
+        function showEditProfileMessage(message, type) {
+            const messageElement = document.getElementById('editProfileMessage');
+            messageElement.textContent = message;
+            messageElement.style.display = 'block';
+            
+            if (type === 'error') {
+                messageElement.style.background = 'rgba(255, 0, 0, 0.2)';
+                messageElement.style.color = '#ff6b6b';
+            } else {
+                messageElement.style.background = 'rgba(0, 255, 150, 0.2)';
+                messageElement.style.color = '#00ff99';
+            }
+        }
 
         async function deleteProfile() {
             const confirmText = document.getElementById('deleteConfirm').value.trim();
