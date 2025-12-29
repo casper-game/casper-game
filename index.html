@@ -1346,7 +1346,7 @@
 
                         <!-- PUL QAZANMA MƏLUMATI -->
                         <div class="bonus-info">
-                            <strong>Hər klik üçün 0.001 AZN qazanın!</strong>
+                            <strong>Hər klik üçün 0.0001 AZN qazanın!</strong>
                         </div>
 
                         <div class="click-area">
@@ -1747,7 +1747,7 @@
 
         const ENERGY_CONSUMPTION_PER_CLICK = 1;      
         const MAX_ENERGY_CAP = 1000;               // DEYİŞİKLİK: 100-dən 1000-ə çıxarıldı
-        const MONEY_PER_CLICK = 0.001;            
+        const MONEY_PER_CLICK = 0.0001;            // DEYİŞİKLİK: 0.001-dən 0.0001-ə dəyişdirildi
         const MONEY_DECIMAL_PLACES = 6;            
         const REFERRAL_BONUS_AMOUNT = 0.10;
         const HOURS_FOR_FULL_CHARGE = 24;         // 24 saatda tam dolur
@@ -1837,7 +1837,7 @@
             currentUserState.totalClicks++;
             currentUserState.lastClickTime = Date.now();
 
-            // Pul əlavə et
+            // Pul əlavə et - 0.0001 AZN
             currentUserState.totalMoney += MONEY_PER_CLICK;
 
             // Animasiyaları başlat
