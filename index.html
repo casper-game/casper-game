@@ -861,7 +861,7 @@
             float: right; 
             font-size: 24px; 
             font-weight: bold; 
-        }
+}
         .close-btn:hover, .close-btn:focus { 
             color: #ff00cc; 
             text-decoration: none; 
@@ -1328,7 +1328,7 @@
                         <div class="energy-container">
                             <div class="energy-bar">
                                 <div class="energy-fill" id="energyFill" style="width: 100%">
-                                    <div class="energy-text" id="energyText">100</div>
+                                    <div class="energy-text" id="energyText">1000</div>
                                 </div>
                             </div>
                         </div>
@@ -1742,15 +1742,15 @@
         let referralUnsubscribe = null;
         
         // =================================================================
-        // OYUN DƏYİŞƏNLƏRİ VƏ SABİTLƏR
+        // OYUN DƏYİŞƏNLƏRİ VƏ SABİTLƏR - YENİLƏNMİŞ (1000 ENERJİ)
         // =================================================================
 
         const ENERGY_CONSUMPTION_PER_CLICK = 1;      
-        const MAX_ENERGY_CAP = 100;               // DEYİŞİKLİK: 100000-dən 100-ə endirildi
-        const MONEY_PER_CLICK = 0.001;            // DEYİŞİKLİK: 0.000001-dən 0.001-ə çıxarıldı
+        const MAX_ENERGY_CAP = 1000;               // DEYİŞİKLİK: 100-dən 1000-ə çıxarıldı
+        const MONEY_PER_CLICK = 0.001;            
         const MONEY_DECIMAL_PLACES = 6;            
         const REFERRAL_BONUS_AMOUNT = 0.10;
-        const HOURS_FOR_FULL_CHARGE = 24;         // DEYİŞİKLİK: 24 saatda tam dolur
+        const HOURS_FOR_FULL_CHARGE = 24;         // 24 saatda tam dolur
         const SECONDS_FOR_FULL_CHARGE = HOURS_FOR_FULL_CHARGE * 60 * 60;
         const ENERGY_REGEN_PER_SECOND = MAX_ENERGY_CAP / SECONDS_FOR_FULL_CHARGE;
         const BASE_REGEN_RATE = 1000 / 60;  
@@ -1763,7 +1763,7 @@
         const ENERGY_REGEN_INTERVAL = 1000;
         
         // ADSGRAM SABİTLƏRİ
-        const ADSGRAM_REWARD_AMOUNT = 0.005;      // DEYİŞİKLİK: 0.001-dən 0.005-ə çıxarıldı
+        const ADSGRAM_REWARD_AMOUNT = 0.005;      
         const ADS_PER_SESSION = 10;
         const AD_COOLDOWN_MS = 4 * 60 * 60 * 1000; // 4 saat
         const AD_INTERVAL_BETWEEN = 2 * 60 * 1000; // 2 dəqiqə
@@ -1959,7 +1959,7 @@
         }
 
         // =================================================================
-        // ENERJİ VƏ BALANS YENİLƏMƏ
+        // ENERJİ VƏ BALANS YENİLƏMƏ - YENİLƏNMİŞ (1000 ENERJİ)
         // =================================================================
 
         function updateEnergyDisplay() {
@@ -3107,11 +3107,11 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
                     referralCode: generateReferralCode(username),
                     referredBy: referralCodeInput || null,
 
-                    // OYUN
+                    // OYUN - YENİLƏNMİŞ (1000 ENERJİ)
                     totalMoney: 0,
                     scorePerClick: 1,
-                    currentEnergy: 100,            // DEYİŞİKLİK: 100000-dən 100-ə endirildi
-                    maxEnergy: 100,                // DEYİŞİKLİK: 100000-dən 100-ə endirildi
+                    currentEnergy: 1000,            // DEYİŞİKLİK: 100-dən 1000-ə çıxarıldı
+                    maxEnergy: 1000,                // DEYİŞİKLİK: 100-dən 1000-ə çıxarıldı
 
                     // ADSGRAM DATA
                     adsgramData: {
