@@ -33,19 +33,19 @@
         });
     </script>
     
-   <!-- ADEXIUM - PUSH-LIKE VƏ INTERSTITIAL -->
+  <!-- ADEXIUM - PUSH-LIKE VƏ INTERSTITIAL -->
 <script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', () => {
         // Push-like reklamlar (kiçik bildiriş şəklində)
-        const adexiumPushWidget = new AdexiumWidget({
+        window.adexiumPushWidget = new AdexiumWidget({
             wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae', 
             adFormat: 'push-like'
         });
-        adexiumPushWidget.autoMode();
+        window.adexiumPushWidget.autoMode();
         
         // Interstitial reklamlar (tam ekran, 2 dəqiqə ara ilə)
-        const adexiumInterstitialWidget = new AdexiumWidget({
+        window.adexiumInterstitialWidget = new AdexiumWidget({
             wid: '1f16b658-52d6-4522-aebf-5e0c437c7a9b', 
             adFormat: 'interstitial',
             settings: {
@@ -53,11 +53,17 @@
                 delayFirstShow: 30 // İlk reklam 30 saniyə sonra
             }
         });
-        adexiumInterstitialWidget.autoMode();
+        window.adexiumInterstitialWidget.autoMode();
         
         console.log('✅ Adexium reklam sistemləri başladıldı:');
         console.log('- Push-like: a46e28f0-9161-4929-a9d5-e5131e577cae');
         console.log('- Interstitial: 1f16b658-52d6-4522-aebf-5e0c437c7a9b');
+        
+        // Debug üçün widget-ləri göstər
+        console.log('🔄 Adexium Widget Objektləri:', {
+            pushWidget: window.adexiumPushWidget,
+            interstitialWidget: window.adexiumInterstitialWidget
+        });
     });
 </script>
     
