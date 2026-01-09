@@ -39,8 +39,13 @@
         document.addEventListener('DOMContentLoaded', () => {
             const adexiumWidget = new AdexiumWidget({wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae', adFormat: 'push-like'});
             adexiumWidget.autoMode();
-        });
-    </script>
+       <script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+        const adexiumWidget = new AdexiumWidget({wid: '1f16b658-52d6-4522-aebf-5e0c437c7a9b', adFormat: 'interstitial'});
+        adexiumWidget.autoMode();
+    });
+</script>
     
     <style>
         * {
