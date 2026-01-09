@@ -33,17 +33,31 @@
         });
     </script>
     
-    <!-- ADEXIUM - YALNIZ PUSH-LIKE QALSIN -->
-    <script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', () => {
-            const adexiumWidget = new AdexiumWidget({wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae', adFormat: 'push-like'});
-            adexiumWidget.autoMode();
-       <script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
+   <!-- ADEXIUM - PUSH-LIKE VƏ INTERSTITIAL -->
+<script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', () => {
-        const adexiumWidget = new AdexiumWidget({wid: '1f16b658-52d6-4522-aebf-5e0c437c7a9b', adFormat: 'interstitial'});
-        adexiumWidget.autoMode();
+        // Push-like reklamlar (kiçik bildiriş şəklində)
+        const adexiumPushWidget = new AdexiumWidget({
+            wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae', 
+            adFormat: 'push-like'
+        });
+        adexiumPushWidget.autoMode();
+        
+        // Interstitial reklamlar (tam ekran, 2 dəqiqə ara ilə)
+        const adexiumInterstitialWidget = new AdexiumWidget({
+            wid: '1f16b658-52d6-4522-aebf-5e0c437c7a9b', 
+            adFormat: 'interstitial',
+            settings: {
+                showEvery: 120, // 120 saniyə = 2 dəqiqə
+                delayFirstShow: 30 // İlk reklam 30 saniyə sonra
+            }
+        });
+        adexiumInterstitialWidget.autoMode();
+        
+        console.log('✅ Adexium reklam sistemləri başladıldı:');
+        console.log('- Push-like: a46e28f0-9161-4929-a9d5-e5131e577cae');
+        console.log('- Interstitial: 1f16b658-52d6-4522-aebf-5e0c437c7a9b');
     });
 </script>
     
@@ -4037,27 +4051,68 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             }
         });
 
-        // =================================================================
-        // ADEXIUM REKLAM SİSTEMİ
-        // =================================================================
+     // =================================================================
+// ADEXIUM REKLAM SİSTEMİ
+// =================================================================
 
-        // Adexium reklam sistemini başlatmaq
-        function initializeAdexiumAds() {
-            try {
-                // Adexium reklam sisteminin yükləndiyini yoxla
-                if (typeof AdexiumWidget !== 'undefined') {
-                    console.log('✅ Adexium reklam sistemi hazırdır');
-                    return true;
-                } else {
-                    console.log('❌ Adexium reklam sistemi tapılmadı');
-                    return false;
-                }
-            } catch (error) {
-                console.error('Adexium xətası:', error);
-                return false;
-            }
+// Adexium reklam sistemini başlatmaq
+function initializeAdexiumAds() {
+    try {
+        // Adexium reklam sisteminin yükləndiyini yoxla
+        if (typeof AdexiumWidget !== 'undefined') {
+            console.log('✅ Adexium reklam sistemi hazırdır');
+            return true;
+        } else {
+            console.log('❌ Adexium reklam sistemi tapılmadı');
+            return false;
         }
+    } catch (error) {
+        console.error('Adexium xətası:', error);
+        return false;
+    }
+}
 
+// =================================================================
+// ADEXIUM INTERSTITIAL REKLAM FUNKSİYALARI (BURAYA ƏLAVƏ EDİN)
+// =================================================================
+
+// Adexium interstitial reklam statusunu yoxlamaq
+function checkAdexiumInterstitialStatus() {
+    if (typeof AdexiumWidget !== 'undefined') {
+        console.log('✅ Adexium interstitial reklam sistemi aktiv');
+        
+        // Interstitial reklamın aktiv olub-olmadığını yoxlamaq
+        const interstitialWidget = window.adexiumInterstitialWidget;
+        if (interstitialWidget) {
+            console.log('📊 Interstitial reklam tezliyi: 2 dəqiqə');
+            console.log('🔄 İlk reklam: 30 saniyə sonra');
+            
+            // Oyun hərəkətlərindən sonra interstital göstərmək
+            setInterval(() => {
+                if (currentUserState && currentUserState.totalClicks > 10) {
+                    console.log('🎮 Oyun aktiv, interstitial reklam hazırlanır...');
+                }
+            }, 120000); // Hər 2 dəqiqədən bir yoxla
+        }
+    } else {
+        console.log('❌ Adexium interstitial reklam sistemi tapılmadı');
+    }
+}
+
+// Oyun daxilində interstitial reklam göstərmək üçün funksiya
+function showAdexiumInterstitial() {
+    if (typeof AdexiumWidget !== 'undefined' && window.adexiumInterstitialWidget) {
+        try {
+            // Manual olaraq interstitial göstərmək (test üçün)
+            console.log('🔄 Manual interstitial reklam göndərilir...');
+            
+            // Adexium API-dən istifadə edərək reklam göstərmək
+            // Qeyd: autoMode aktivdirsə, manual göndərməyə ehtiyac yoxdur
+        } catch (error) {
+            console.error('❌ Interstitial reklam xətası:', error);
+        }
+    }
+}
         // =================================================================
         // BAŞLANĞIÇ FUNKSİYASI
         // =================================================================
