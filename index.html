@@ -33,25 +33,14 @@
         });
     </script>
     
- <!-- ADEXIUM - PUSH-LIKE VƏ INTERSTITIAL -->
-<script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', () => {
-        // Push-like reklam
-        const pushWidget = new AdexiumWidget({
-            wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae', 
-            adFormat: 'push-like'
+    <!-- ADEXIUM - YALNIZ PUSH-LIKE QALSIN -->
+    <script type="text/javascript" src="https://cdn.tgads.space/assets/js/adexium-widget.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            const adexiumWidget = new AdexiumWidget({wid: 'a46e28f0-9161-4929-a9d5-e5131e577cae', adFormat: 'push-like'});
+            adexiumWidget.autoMode();
         });
-        pushWidget.autoMode();
-        
-        // Interstitial reklam (tam ekran, 2 dəqiqə ara ilə)
-        const interstitialWidget = new AdexiumWidget({
-            wid: '1f16b658-52d6-4522-aebf-5e0c437c7a9b', 
-            adFormat: 'interstitial'
-        });
-        interstitialWidget.autoMode();
-    });
-</script>
+    </script>
     
     <style>
         * {
@@ -2368,7 +2357,7 @@
             try {
                 if (window.Adsgram) {
                     console.log('🔄 AdsGram SDK tapıldı, başladılır...');
-                    AdsgramVideoController = window.Adsgram.init({ blockId: "20203" });
+                    AdsgramVideoController = window.Adsgram.init({ blockId: "17997" });
                     
                     // Manual olaraq hazır olduğunu qəbul edək
                     isAdsgramReady = true;
@@ -3249,7 +3238,7 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
 ────────────────────`;
 
             // WhatsApp nömrəsi
-            const whatsappNumber = "994551058044";
+            const whatsappNumber = "994513248685";
             const encodedMessage = encodeURIComponent(message);
             
             // WhatsApp linkini yarat
@@ -4043,68 +4032,26 @@ Qeydiyyat zamanı dəvət kodumu daxil et! 🚀`;
             }
         });
 
-// =================================================================
-// ADEXIUM REKLAM SİSTEMİ
-// =================================================================
+        // =================================================================
+        // ADEXIUM REKLAM SİSTEMİ
+        // =================================================================
 
-// Adexium reklam sistemini başlatmaq
-function initializeAdexiumAds() {
-    try {
-        // Adexium reklam sisteminin yükləndiyini yoxla
-        if (typeof AdexiumWidget !== 'undefined') {
-            console.log('✅ Adexium reklam sistemi hazırdır');
-            return true;
-        } else {
-            console.log('❌ Adexium reklam sistemi tapılmadı');
-            return false;
-        }
-    } catch (error) {
-        console.error('Adexium xətası:', error);
-        return false;
-    }
-}
-
-// =================================================================
-// ADEXIUM INTERSTITIAL REKLAM FUNKSİYALARI (BURAYA ƏLAVƏ EDİN)
-// =================================================================
-
-// Adexium interstitial reklam statusunu yoxlamaq
-function checkAdexiumInterstitialStatus() {
-    if (typeof AdexiumWidget !== 'undefined') {
-        console.log('✅ Adexium interstitial reklam sistemi aktiv');
-        
-        // Interstitial reklamın aktiv olub-olmadığını yoxlamaq
-        const interstitialWidget = window.adexiumInterstitialWidget;
-        if (interstitialWidget) {
-            console.log('📊 Interstitial reklam tezliyi: 2 dəqiqə');
-            console.log('🔄 İlk reklam: 30 saniyə sonra');
-            
-            // Oyun hərəkətlərindən sonra interstital göstərmək
-            setInterval(() => {
-                if (currentUserState && currentUserState.totalClicks > 10) {
-                    console.log('🎮 Oyun aktiv, interstitial reklam hazırlanır...');
+        // Adexium reklam sistemini başlatmaq
+        function initializeAdexiumAds() {
+            try {
+                // Adexium reklam sisteminin yükləndiyini yoxla
+                if (typeof AdexiumWidget !== 'undefined') {
+                    console.log('✅ Adexium reklam sistemi hazırdır');
+                    return true;
+                } else {
+                    console.log('❌ Adexium reklam sistemi tapılmadı');
+                    return false;
                 }
-            }, 120000); // Hər 2 dəqiqədən bir yoxla
+            } catch (error) {
+                console.error('Adexium xətası:', error);
+                return false;
+            }
         }
-    } else {
-        console.log('❌ Adexium interstitial reklam sistemi tapılmadı');
-    }
-}
-
-// Oyun daxilində interstitial reklam göstərmək üçün funksiya
-function showAdexiumInterstitial() {
-    if (typeof AdexiumWidget !== 'undefined' && window.adexiumInterstitialWidget) {
-        try {
-            // Manual olaraq interstitial göstərmək (test üçün)
-            console.log('🔄 Manual interstitial reklam göndərilir...');
-            
-            // Adexium API-dən istifadə edərək reklam göstərmək
-            // Qeyd: autoMode aktivdirsə, manual göndərməyə ehtiyac yoxdur
-        } catch (error) {
-            console.error('❌ Interstitial reklam xətası:', error);
-        }
-    }
-}
 
         // =================================================================
         // BAŞLANĞIÇ FUNKSİYASI
